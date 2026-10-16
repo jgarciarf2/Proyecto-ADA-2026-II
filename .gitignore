@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Notas y contexto de trabajo (no se entregan)
+contexto/
+.claude/
+CLAUDE.md
+
+# Editor / SO
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
