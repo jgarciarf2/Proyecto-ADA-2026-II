@@ -40,48 +40,58 @@ En la sustentación grupal cada uno debe poder explicar **sin notas** la reducci
 
 ---
 
-## 3. Arquitectura propuesta
+## 3. Arquitectura
 
-Hoy todo el código está en la raíz. Proponemos ordenarlo así antes de empezar las variantes, para que cada quien trabaje en su carpeta sin pisarse:
+El código está separado en tres capas: **lógica** (`ada/`), **medición** (`experimentos/`) y **correctitud** (`tests/`). Cada archivo tiene una sola responsabilidad y menos de ~150 líneas, para que se pueda explicar en la sustentación.
 
 ```
 Proyecto-ADA-2026-II/
-├── README.md                  ← este archivo: mapa del proyecto
-├── requirements.txt           ← numpy, matplotlib
+├── README.md                     ← este archivo: mapa del proyecto
+├── requirements.txt              ← numpy, matplotlib, pytest
+├── pytest.ini                    ← configuración de las pruebas
 │
-├── src/                       ← algoritmos (solo lógica, sin gráficas)
-│   ├── instancias.py          ← generadores sintéticos con semilla fija
-│   ├── parte1_reparto.py      ← voraz con heap + verificador DP
-│   ├── parte2_seleccion.py    ← cobertura, voraz submodular, fuerza bruta, reducción
-│   └── variantes/
-│       ├── v1_costos.py       ← selección con costos (budgeted max coverage)
-│       ├── v2_rondas.py       ← T rondas con nodos que fallan
-│       └── v3_vecinos.py      ← nodos en grafo, el gasto afecta a los vecinos
+├── ada/                          ← TODA la lógica (no dibuja ni escribe archivos)
+│   ├── modelo.py                 ← dataclasses: InstanciaReparto, InstanciaCobertura
+│   ├── utilidades.py             ← utilidades cóncavas: UtilidadLog, UtilidadRaiz, UtilidadSaturacion
+│   ├── generadores.py            ← todas las instancias sintéticas (semilla fija)
+│   ├── parte1/
+│   │   ├── voraz.py              ← voraz con heap O(N + B log N) + ContadorComparaciones
+│   │   └── dp.py                 ← verificador exacto O(N·B²)
+│   ├── parte2/
+│   │   ├── cobertura.py          ← f(S) y ganancia marginal
+│   │   ├── voraz.py              ← voraz submodular O(N·k·d), cota (1 − 1/e)
+│   │   ├── fuerza_bruta.py       ← óptimo exacto O(C(N,k)·k·d)
+│   │   └── reduccion.py          ← reducción desde Cobertura Máxima
+│   └── variantes/                ← V1 costos.py · V2 rondas.py · V3 vecinos.py (por crear)
 │
-├── experimentos/              ← un script por parte; cada uno genera CSV y PNG
-│   ├── exp_parte1.py
-│   ├── exp_parte2.py
-│   └── exp_variantes.py
+├── experimentos/                 ← miden, guardan CSV y grafican contra la teoría
+│   ├── comun.py                  ← medir (mediana), guardar CSV, gráfica medido/teoría/cociente
+│   ├── parte1.py
+│   └── parte2.py
 │
-├── tests/                     ← pruebas rápidas de correctitud (voraz vs. exacto)
+├── tests/                        ← correctitud en menos de 1 s
+│   ├── test_parte1.py            ← voraz == DP (300 casos), presupuesto, conteo, contraejemplo sin concavidad
+│   └── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
 │
-├── resultados/                ← salida de los experimentos (CSV + gráficas)
-│   ├── parte1/  parte2/  variantes/
-│
-└── docs/                      ← lo que se entrega
-    ├── 00_formalizacion.md    ← primera entrega (n, entrada, salida, objetivo)
-    ├── 01_formalizacion_y_parte1.md   (ya existe)
-    ├── 02_parte2.md                   (ya existe)
-    ├── 03_variantes.md        ← nuevo
-    └── informe/               ← informe técnico final
+├── resultados/{parte1,parte2,variantes}/   ← CSV y gráficas generadas
+└── docs/                         ← documentos que se entregan
 ```
 
 **Reglas para mantenerlo ordenado:**
-- `src/` no dibuja ni escribe archivos; solo calcula. `experimentos/` mide y grafica.
-- Cada algoritmo trae su función contadora de operaciones (como `voraz_heap_contando`), porque la teoría se valida con conteos y no solo con tiempos.
-- Instancias siempre con semilla fija, para que los resultados se puedan reproducir.
-- Cada resultado en `docs/` cita el CSV o la gráfica de `resultados/` que lo respalda.
+- `ada/` solo calcula: no imprime, no grafica, no escribe archivos. `experimentos/` mide y grafica.
+- Los algoritmos reciben los datos sueltos, como en el pseudocódigo del documento (`voraz_heap(utilidades, B)`). Las dataclasses de `modelo.py` sirven para generar y pasar instancias completas.
+- Hay **una sola versión** de cada algoritmo. Para contar operaciones se le pasa un contador opcional, como `voraz_heap(..., contador=ContadorComparaciones())`, en vez de copiar el algoritmo.
+- Las instancias salen siempre de `generadores.py` con semilla fija, para poder reproducir los resultados.
+- Una utilidad nueva es una clase que hereda de `Utilidad` e implementa `__call__`.
+- Toda función nueva de `ada/` lleva su prueba en `tests/` y su costo en el docstring.
 - Commits pequeños y en español, uno por cosa.
+
+### Cómo agregar una variante (ejemplo V1)
+1. `ada/variantes/costos.py`: el algoritmo, con su T(n) en el docstring.
+2. Si necesita datos nuevos, una dataclass en `modelo.py` y su generador en `generadores.py`.
+3. `tests/test_variantes.py`: comparar contra fuerza bruta en instancias pequeñas.
+4. `experimentos/variantes.py`: tiempos con al menos 5 tamaños de n, usando `experimentos/comun.py`.
+5. `docs/03_variantes.md`: formalización, cota y resultados.
 
 ---
 
@@ -93,7 +103,7 @@ Proyecto-ADA-2026-II/
 | 2 | Variante 1 (costos): formalizar, implementar y citar la cota de Khuller, Moss y Naor (1999) | | |
 | 3 | Variante 2 (T rondas con fallas): formalizar el modelo de fallas y el presupuesto acumulado | | |
 | 4 | Variante 3 (vecinos): formalizar el efecto de los vecinos y ver si se conserva la concavidad | | |
-| 5 | Reorganizar carpetas según la §3 | Antes de las variantes | |
+| 5 | ~~Reorganizar carpetas según la §3~~ ✅ hecho | — | |
 | 6 | Experimentos de las variantes (mínimo 5 tamaños de n) | Semanas 9-10 | |
 | 7 | Informe técnico final | Semana 11 | Todos |
 | 8 | Ensayar la sustentación: reducción y T(n) sin notas | Semana 11 | Todos |
@@ -117,22 +127,20 @@ Proyecto-ADA-2026-II/
 
 ---
 
-## 6. Cómo ejecutar (estructura actual)
+## 6. Cómo ejecutar
 
-Requisitos: Python 3.10+ con `pip install numpy matplotlib`.
+Requisitos: Python 3.10+. Todo se corre **desde la raíz del proyecto**.
 
 ```bash
-python experimentos_parte1.py   # ~2 min: correctitud, tiempos, conteo de operaciones
-python experimentos_parte2.py   # ~20 s: submodularidad, cota (1−1/e), voraz vs. fuerza bruta
+python -m venv .venv
+.venv\Scripts\activate            # Windows  (Linux/Mac: source .venv/bin/activate)
+pip install -r requirements.txt
+
+python -m pytest                  # correctitud, menos de 1 s
+python -m experimentos.parte1     # ~2 min: tiempos, ajuste c1·N + c2·B·log N, conteo de comparaciones
+python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, voraz vs. fuerza bruta
 ```
 
-Los CSV y las gráficas quedan en `resultados/`.
+Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.
 
-| Archivo actual | Qué es |
-|---|---|
-| `instancias.py` | Generador de instancias sintéticas |
-| `parte1_reparto.py` | Voraz con heap `O(N + B log N)` y verificador exacto DP |
-| `parte2_seleccion.py` | Utilidad de cobertura, voraz `O(N·k·d)`, fuerza bruta, reducción desde Cobertura Máxima |
-| `experimentos_parte1.py` / `experimentos_parte2.py` | Experimentos y gráficas |
-| `docs/01_formalizacion_y_parte1.md` | Formalización y demostración de la Parte 1 |
-| `docs/02_parte2.md` | Reducción NP, T(N,k), cota `(1 − 1/e)` y resultados de la Parte 2 |
+> Nota: `docs/01` y `docs/02` todavía mencionan los nombres antiguos (`experimentos_parte1.py`, `experimentos_parte2.py`). Ahora son `experimentos/parte1.py` y `experimentos/parte2.py`. La correctitud voraz == DP y la prueba de submodularidad se movieron a `tests/`.
