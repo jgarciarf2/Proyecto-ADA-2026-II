@@ -4,10 +4,12 @@ Parte 2 — Voraz submodular: aproximación (1 - 1/e) (Nemhauser, Wolsey y Fishe
 from ada.parte2.cobertura import ganancia_marginal
 
 
-def voraz_submodular(conjuntos, pesos, k, contar=False):
+def voraz_submodular(conjuntos, pesos, k, contar=False, traza=None):
     """
     En cada uno de los k pasos agrega el nodo con mayor ganancia marginal.
     Devuelve (elegidos, valor) o, con contar=True, (elegidos, valor, evaluaciones).
+    Si se pasa una lista en traza, se le agrega un registro por paso:
+    {"paso", "nodo", "ganancia_marginal", "utilidad_acumulada", "candidatos_evaluados"}.
 
     Conteo:
       paso t (t = 0..k-1): evalúa la ganancia de los N - t nodos restantes,
@@ -21,7 +23,7 @@ def voraz_submodular(conjuntos, pesos, k, contar=False):
     cubiertos = set()
     valor = 0.0
     evaluaciones = 0
-    for _ in range(min(k, N)):
+    for paso in range(min(k, N)):
         mejor, mejor_g = None, -1.0
         for i in restantes:
             g = ganancia_marginal(i, cubiertos, conjuntos, pesos)
@@ -32,6 +34,9 @@ def voraz_submodular(conjuntos, pesos, k, contar=False):
         restantes.remove(mejor)
         cubiertos |= conjuntos[mejor]
         valor += mejor_g
+        if traza is not None:
+            traza.append({"paso": paso + 1, "nodo": mejor, "ganancia_marginal": mejor_g,
+                          "utilidad_acumulada": valor, "candidatos_evaluados": N - paso})
     if contar:
         return elegidos, valor, evaluaciones
     return elegidos, valor

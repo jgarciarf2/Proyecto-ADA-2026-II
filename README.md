@@ -62,6 +62,8 @@ Proyecto-ADA-2026-II/
 │   │   ├── voraz.py              ← voraz submodular O(N·k·d), cota (1 − 1/e)
 │   │   ├── fuerza_bruta.py       ← óptimo exacto O(C(N,k)·k·d)
 │   │   └── reduccion.py          ← reducción desde Cobertura Máxima
+│   ├── ronda.py                  ← solución base: selecciona k nodos y reparte B entre ellos, con trazas
+│   ├── verificacion.py           ← revisa |S| ≤ k, Σxᵢ ≤ B, xᵢ entero ≥ 0 y los valores recalculados
 │   └── variantes/                ← V1 costos.py · V2 rondas.py · V3 vecinos.py (por crear)
 │
 ├── experimentos/                 ← miden, guardan CSV y grafican contra la teoría
@@ -71,16 +73,20 @@ Proyecto-ADA-2026-II/
 │
 ├── tests/                        ← correctitud en menos de 1 s
 │   ├── test_parte1.py            ← voraz == DP (300 casos), presupuesto, conteo, contraejemplo sin concavidad
-│   └── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
+│   ├── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
+│   └── test_ronda.py             ← trazas, verificación de restricciones y solución base
 │
 ├── resultados/{parte1,parte2,variantes}/   ← CSV y gráficas generadas
-└── docs/                         ← documentos que se entregan
+├── docs/                         ← documentación técnica en Markdown
+└── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
+
+**Solución base de una ronda** (`ada/ronda.py`): `resolver_ronda(conjuntos, pesos, k, utilidades, B)` elige S con el voraz submodular, reparte B entre los nodos de S con el voraz de heap y verifica las restricciones. Devuelve la selección, el reparto, las trazas de los dos voraces (nodo elegido y ganancia marginal en cada paso), un resumen del reparto por nodo y el tiempo de cada parte. Costo: `T = O(N·k·d + B log k)`.
 
 **Reglas para mantenerlo ordenado:**
 - `ada/` solo calcula: no imprime, no grafica, no escribe archivos. `experimentos/` mide y grafica.
 - Los algoritmos reciben los datos sueltos, como en el pseudocódigo del documento (`voraz_heap(utilidades, B)`). Las dataclasses de `modelo.py` sirven para generar y pasar instancias completas.
-- Hay **una sola versión** de cada algoritmo. Para contar operaciones se le pasa un contador opcional, como `voraz_heap(..., contador=ContadorComparaciones())`, en vez de copiar el algoritmo.
+- Hay **una sola versión** de cada algoritmo. Para contar operaciones o registrar la traza se le pasa un parámetro opcional (`contador=`, `traza=[]`) en vez de copiar el algoritmo. Sin esos parámetros, el algoritmo hace exactamente lo mismo.
 - Las instancias salen siempre de `generadores.py` con semilla fija, para poder reproducir los resultados.
 - Una utilidad nueva es una clase que hereda de `Utilidad` e implementa `__call__`.
 - Toda función nueva de `ada/` lleva su prueba en `tests/` y su costo en el docstring.

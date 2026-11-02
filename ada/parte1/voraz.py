@@ -6,7 +6,7 @@ intercambio en docs/01_formalizacion_y_parte1.md §2.3).
 import heapq
 
 
-def voraz_heap(utilidades, B, contador=None):
+def voraz_heap(utilidades, B, contador=None, traza=None):
     """
     Devuelve (x, utilidad_total).
 
@@ -21,6 +21,8 @@ def voraz_heap(utilidades, B, contador=None):
 
     Si se pasa un ContadorComparaciones, el mismo algoritmo cuenta cuántas
     comparaciones hace el montículo (para validar T contando operaciones).
+    Si se pasa una lista en traza, se le agrega un registro por unidad entregada:
+    {"unidad", "nodo", "ganancia_marginal"}. Con B grande la traza crece igual que B.
     """
     par = tuple if contador is None else contador.par
     N = len(utilidades)
@@ -31,12 +33,14 @@ def voraz_heap(utilidades, B, contador=None):
     if contador is not None:
         contador.fin_heapify()
     total = 0.0
-    for _ in range(B):
+    for unidad in range(1, B + 1):
         neg_g, i = heap[0]
         if -neg_g <= 0:          # ninguna unidad extra aporta: parar (sum x_i <= B)
             break
         x[i] += 1
         total += -neg_g
+        if traza is not None:
+            traza.append({"unidad": unidad, "nodo": i, "ganancia_marginal": -neg_g})
         heapq.heapreplace(heap, par((-utilidades[i].marginal(x[i]), i)))
     return x, total
 

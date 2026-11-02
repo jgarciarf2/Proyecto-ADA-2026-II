@@ -6,8 +6,9 @@ venv/
 env/
 .ipynb_checkpoints/
 
-# Notas y contexto de trabajo (no se entregan)
+# Notas de trabajo y documentos de entrega (PDF/Word, fuera del repo)
 contexto/
+entregables/
 .claude/
 CLAUDE.md
 
