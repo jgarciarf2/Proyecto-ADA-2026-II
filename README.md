@@ -62,21 +62,33 @@ Proyecto-ADA-2026-II/
 │   │   ├── voraz.py              ← voraz submodular O(N·k·d), cota (1 − 1/e)
 │   │   ├── fuerza_bruta.py       ← óptimo exacto O(C(N,k)·k·d)
 │   │   └── reduccion.py          ← reducción desde Cobertura Máxima
+│   ├── casos.py                  ← formato JSON de un caso: leer y validar, óptimo de referencia, resultado serializable
 │   ├── ronda.py                  ← solución base: selecciona k nodos y reparte B entre ellos, con trazas
 │   ├── verificacion.py           ← revisa |S| ≤ k, Σxᵢ ≤ B, xᵢ entero ≥ 0 y los valores recalculados
 │   └── variantes/                ← V1 costos.py · V2 rondas.py · V3 vecinos.py (por crear)
 │
 ├── experimentos/                 ← miden, guardan CSV y grafican contra la teoría
 │   ├── comun.py                  ← medir (mediana), guardar CSV, gráfica medido/teoría/cociente
+│   ├── casos.py                  ← ejecuta casos .json y guarda la evidencia (resultado, tiempo, trazas)
 │   ├── parte1.py
 │   └── parte2.py
+│
+├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
+│   ├── principal.py              ← punto de entrada y navegación
+│   ├── paginas.py                ← Cargar caso · Evidencias · Modo demo · Experimentos
+│   ├── vista_resultado.py        ← métricas, pestañas y verificación de un caso
+│   ├── graficas.py               ← selección paso a paso, mapa de cobertura, nivel de agua del reparto
+│   └── estilos.py                ← colores, íconos SVG y CSS
+│
+├── casos/ejemplos/               ← casos de ejemplo en el formato JSON provisional
 │
 ├── tests/                        ← correctitud en menos de 1 s
 │   ├── test_parte1.py            ← voraz == DP (300 casos), presupuesto, conteo, contraejemplo sin concavidad
 │   ├── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
-│   └── test_ronda.py             ← trazas, verificación de restricciones y solución base
+│   ├── test_ronda.py             ← trazas, verificación de restricciones y solución base
+│   └── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
 │
-├── resultados/{parte1,parte2,variantes}/   ← CSV y gráficas generadas
+├── resultados/{parte1,parte2,casos}/       ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
@@ -148,5 +160,23 @@ python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, vo
 ```
 
 Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.
+
+### Ejecutar casos (evidencia de la entrega)
+
+```bash
+python -m experimentos.casos                    # los casos de casos/ejemplos/
+python -m experimentos.casos casos/profesora/   # una carpeta con casos .json
+```
+
+Por cada caso se crea `resultados/casos/<nombre>/` con `resultado.json` (entrada, selección, reparto, tiempos, trazas y verificación), `traza_seleccion.csv`, `traza_reparto.csv` y `reparto.csv`. Además se genera `resultados/casos/resumen.csv` con una fila por caso. El formato del caso está documentado en [ada/casos.py](ada/casos.py). Es **provisional**: cuando llegue el de la profesora solo cambia `leer_caso`.
+
+### Interfaz visual
+
+```bash
+pip install -r requirements-app.txt
+streamlit run app/principal.py
+```
+
+Tiene cuatro secciones. **Cargar caso** resuelve un JSON subido o de ejemplo. **Evidencias** muestra los casos guardados en `resultados/casos/`. **Modo demo** tiene controles para N, k y B, pensados para la sustentación. **Experimentos** reúne las gráficas de tiempo contra la teoría. La interfaz solo presenta resultados: la evidencia oficial son los archivos que genera `experimentos.casos`.
 
 > Nota: `docs/01` y `docs/02` todavía mencionan los nombres antiguos (`experimentos_parte1.py`, `experimentos_parte2.py`). Ahora son `experimentos/parte1.py` y `experimentos/parte2.py`. La correctitud voraz == DP y la prueba de submodularidad se movieron a `tests/`.

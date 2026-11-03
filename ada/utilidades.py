@@ -55,6 +55,24 @@ class UtilidadRaiz(Utilidad):
         return f"UtilidadRaiz(a={self.a:.2f})"
 
 
+class UtilidadTabla(Utilidad):
+    """
+    Utilidad dada como tabla de valores: u(x) = valores[x]. Después del último
+    valor se queda constante (ganancia marginal 0). Sirve para casos que traen
+    la utilidad punto a punto en vez de una fórmula.
+    """
+    __slots__ = ("valores",)
+
+    def __init__(self, valores):
+        self.valores = list(valores)
+
+    def __call__(self, x):
+        return self.valores[min(x, len(self.valores) - 1)]
+
+    def __repr__(self):
+        return f"UtilidadTabla({len(self.valores)} valores)"
+
+
 class UtilidadSaturacion(Utilidad):
     __slots__ = ("a", "b")
 
