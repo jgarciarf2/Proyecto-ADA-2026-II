@@ -1,0 +1,5 @@
+paso,nodo,ganancia_marginal,utilidad_acumulada,candidatos_evaluados
+1,n10,37.5967,37.5967,12
+2,n1,35.7515,73.34819999999999,11
+3,n7,20.049400000000002,93.3976,10
+4,n0,15.3154,108.713,9
