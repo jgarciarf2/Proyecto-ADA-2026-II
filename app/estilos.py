@@ -134,6 +134,9 @@ _NOMBRES_RESTRICCION = {
     "nodos validos (0..N-1)": "nodos válidos (0..N−1)",
     "sum x_i <= B": "Σ xᵢ ≤ B",
     "x_i entero >= 0": "xᵢ entero ≥ 0",
+    "costo de participacion <= P": "Σ cᵢ ≤ P",
+    "x_i <= presupuesto restante": "xᵢ ≤ presupuesto restante",
+    "presupuesto total por nodo": "uso total ≤ tope de cada nodo",
 }
 
 

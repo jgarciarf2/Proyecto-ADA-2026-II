@@ -73,6 +73,23 @@ class UtilidadTabla(Utilidad):
         return f"UtilidadTabla({len(self.valores)} valores)"
 
 
+class UtilidadConTope(Utilidad):
+    """
+    u(min(x, tope)): la misma utilidad, pero después de 'tope' unidades ya no gana nada.
+    Sirve para el presupuesto que le queda a un nodo. Sigue siendo cóncava y creciente.
+    """
+    __slots__ = ("base", "tope")
+
+    def __init__(self, base, tope):
+        self.base, self.tope = base, tope
+
+    def __call__(self, x):
+        return self.base(min(x, self.tope))
+
+    def __repr__(self):
+        return f"UtilidadConTope({self.base!r}, tope={self.tope})"
+
+
 class UtilidadSaturacion(Utilidad):
     __slots__ = ("a", "b")
 

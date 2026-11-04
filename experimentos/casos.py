@@ -9,8 +9,9 @@ Uso:
     python -m experimentos.casos --generar-ejemplos   # vuelve a crear casos/ejemplos/
 
 Salida en resultados/casos/<nombre>/:
-    resultado.json, traza_seleccion.csv, traza_reparto.csv (o reparto.csv si B es grande)
-y un resumen de todos los casos en resultados/casos/resumen.csv.
+    resultado.json, traza_seleccion.csv, traza_reparto.csv (si B no es muy grande), reparto.csv
+    y, en los casos de la profesora, verificacion.csv. Los CSV llevan una columna "ronda".
+Además, un resumen de todos los casos en resultados/casos/resumen.csv.
 """
 import argparse
 import glob
@@ -18,7 +19,9 @@ import json
 import os
 
 from ada.casos import caso_sintetico, leer_caso, optimo_si_es_factible, resultado_a_dict
+from ada.casos_red import es_formato_red, leer_caso_red
 from ada.ronda import resolver_ronda
+from ada.solucion_red import resolver_caso_red
 from experimentos.comun import RAIZ, carpeta_salida, guardar_csv
 
 CARPETA_EJEMPLOS = os.path.join(RAIZ, "casos", "ejemplos")
@@ -45,7 +48,12 @@ def generar_ejemplos():
 
 
 def ejecutar_caso(datos, con_optimo=True):
-    """Resuelve un caso (diccionario) y devuelve el resultado serializable."""
+    """
+    Resuelve un caso (diccionario) y devuelve el resultado serializable.
+    Reconoce los dos formatos: el de la profesora (con "parametros" y "grafo") y el provisional.
+    """
+    if es_formato_red(datos):
+        return resolver_caso_red(leer_caso_red(datos, datos.get("nombre", "caso")), con_optimo)
     caso = leer_caso(datos)
     r = resolver_ronda(caso.conjuntos, caso.pesos, caso.k, caso.utilidades, caso.B)
     optimo = optimo_si_es_factible(caso) if con_optimo else None
@@ -56,20 +64,28 @@ def guardar_evidencia(datos, res, salida):
     """Escribe resultado.json (con el caso de entrada incluido) y las trazas en CSV."""
     os.makedirs(salida, exist_ok=True)
     _escribir_json(os.path.join(salida, "resultado.json"), {"entrada": datos, "resultado": res})
-    guardar_csv(os.path.join(salida, "traza_seleccion.csv"), res["traza_seleccion"])
-    if res["traza_reparto"]:
-        guardar_csv(os.path.join(salida, "traza_reparto.csv"), res["traza_reparto"])
-    guardar_csv(os.path.join(salida, "reparto.csv"), res["reparto"])
+    rondas = res["rondas"] if res.get("formato") == "red" else [res]
+    con_ronda = lambda clave: [{"ronda": r.get("ronda", 1), **fila} for r in rondas for fila in r[clave]]
+    guardar_csv(os.path.join(salida, "traza_seleccion.csv"), con_ronda("traza_seleccion"))
+    if any(r["traza_reparto"] for r in rondas):
+        guardar_csv(os.path.join(salida, "traza_reparto.csv"), con_ronda("traza_reparto"))
+    guardar_csv(os.path.join(salida, "reparto.csv"), con_ronda("reparto"))
+    if res.get("formato") == "red":
+        guardar_csv(os.path.join(salida, "verificacion.csv"),
+                    [*[v for r in rondas for v in r["verificaciones"]], *res["verificacion_global"]])
 
 
 def fila_resumen(res):
-    t = res["tiempo_s"]
-    opt = res["optimo"]["valor"] if res["optimo"] else ""
-    return {"caso": res["caso"], "N": res["N"], "k": res["k"], "B": res["B"],
-            "f(S)": round(res["utilidad_conjunta"], 4), "optimo_f": round(opt, 4) if opt != "" else "",
-            "U(x)": round(res["utilidad_reparto"], 4),
-            "t_seleccion_ms": round(t["seleccion"] * 1e3, 4), "t_reparto_ms": round(t["reparto"] * 1e3, 4),
-            "t_total_ms": round(t["total"] * 1e3, 4), "cumple_restricciones": res["cumple_todo"]}
+    """Una fila por caso, con las mismas columnas para los dos formatos (en red se suman las rondas)."""
+    rondas = res["rondas"] if res.get("formato") == "red" else [res]
+    optimos = [r["optimo"]["valor"] for r in rondas if r["optimo"]]
+    suma = lambda clave: sum(r["tiempo_s"][clave] for r in rondas) * 1e3
+    return {"caso": res["caso"], "rondas": len(rondas), "N": res["N"], "k": res["k"], "B": res["B"],
+            "f(S)": round(sum(r["utilidad_conjunta"] for r in rondas), 4),
+            "optimo_f": round(sum(optimos), 4) if len(optimos) == len(rondas) else "",
+            "U(x)": round(sum(r["utilidad_reparto"] for r in rondas), 4),
+            "t_seleccion_ms": round(suma("seleccion"), 4), "t_reparto_ms": round(suma("reparto"), 4),
+            "t_total_ms": round(suma("total"), 4), "cumple_restricciones": res["cumple_todo"]}
 
 
 def _escribir_json(ruta, obj):
@@ -79,6 +95,17 @@ def _escribir_json(ruta, obj):
         texto = json.dumps(obj, ensure_ascii=False, indent=1)
     with open(ruta, "w", encoding="utf-8") as fh:
         fh.write(texto)
+
+
+def actualizar_resumen(base):
+    """Rehace resumen.csv con todos los casos guardados en base/, no solo los de esta ejecución."""
+    filas = []
+    for ruta in sorted(glob.glob(os.path.join(base, "*", "resultado.json"))):
+        with open(ruta, encoding="utf-8") as fh:
+            filas.append(fila_resumen(json.load(fh)["resultado"]))
+    if filas:
+        guardar_csv(os.path.join(base, "resumen.csv"), filas)
+    return len(filas)
 
 
 def _archivos(rutas):
@@ -111,5 +138,5 @@ if __name__ == "__main__":
                   f"U(x)={f['U(x)']:>9.3f}  t={f['t_total_ms']:>9.3f} ms  "
                   f"{'cumple' if f['cumple_restricciones'] else 'NO CUMPLE'}")
         if filas:
-            guardar_csv(os.path.join(base, "resumen.csv"), filas)
-            print(f"\nEvidencia de {len(filas)} casos en {base}")
+            todas = actualizar_resumen(base)
+            print(f"\nEvidencia de {len(filas)} casos en {base} (resumen.csv con {todas} casos guardados)")
