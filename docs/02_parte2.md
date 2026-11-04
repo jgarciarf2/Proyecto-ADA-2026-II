@@ -28,7 +28,7 @@ En nuestras instancias cada nodo cubre exactamente `d` tipos, así que `|D_i| = 
 
 > **En palabras:** un nodo nuevo aporta menos cuanto más cubierto está ya el universo, porque muchos de sus datos ya los tiene alguien más. Son los rendimientos decrecientes de la Parte 1, pero ahora sobre conjuntos.
 
-Además, el programa verifica estas propiedades con 2 000 pruebas aleatorias en `experimentos_parte2.py` y obtiene 0 violaciones.
+Además, el programa verifica estas propiedades con 2 000 pruebas aleatorias en `tests/test_parte2.py` y obtiene 0 violaciones.
 
 ---
 
@@ -135,7 +135,7 @@ Con la instancia del ejemplo de §3 (`k = 2`), el voraz toma primero `S_3 = {1,2
 
 ---
 
-## 6. Validación experimental (`experimentos_parte2.py`)
+## 6. Validación experimental (`experimentos/parte2.py`)
 
 | Experimento | Resultado |
 |---|---|
