@@ -61,8 +61,11 @@ Proyecto-ADA-2026-II/
 │   │   ├── cobertura.py          ← f(S) y ganancia marginal
 │   │   ├── voraz.py              ← voraz submodular O(N·k·d), cota (1 − 1/e)
 │   │   ├── fuerza_bruta.py       ← óptimo exacto O(C(N,k)·k·d)
-│   │   └── reduccion.py          ← reducción desde Cobertura Máxima
-│   ├── casos.py                  ← formato JSON de un caso: leer y validar, óptimo de referencia, resultado serializable
+│   │   ├── reduccion.py          ← reducción desde Cobertura Máxima
+│   │   └── influencia.py         ← utilidad de influencia sobre el grafo (formato de la profesora)
+│   ├── casos.py                  ← formato JSON provisional: leer y validar, óptimo de referencia, resultado serializable
+│   ├── casos_red.py              ← lector del formato de la profesora (parametros, grafo, nodos)
+│   ├── solucion_red.py           ← solución base para ese formato: T rondas, k y costo ≤ P, tope por nodo
 │   ├── ronda.py                  ← solución base: selecciona k nodos y reparte B entre ellos, con trazas
 │   ├── verificacion.py           ← revisa |S| ≤ k, Σxᵢ ≤ B, xᵢ entero ≥ 0 y los valores recalculados
 │   └── variantes/                ← V1 costos.py · V2 rondas.py · V3 vecinos.py (por crear)
@@ -77,16 +80,19 @@ Proyecto-ADA-2026-II/
 │   ├── principal.py              ← punto de entrada y navegación
 │   ├── paginas.py                ← Cargar caso · Evidencias · Modo demo · Experimentos
 │   ├── vista_resultado.py        ← métricas, pestañas y verificación de un caso
+│   ├── vista_red.py              ← vista de los casos de la profesora (rondas, influencia, presupuesto por nodo)
 │   ├── graficas.py               ← selección paso a paso, mapa de cobertura, nivel de agua del reparto
 │   └── estilos.py                ← colores, íconos SVG y CSS
 │
+├── casos/profesora/              ← casos entregados por la profesora
 ├── casos/ejemplos/               ← casos de ejemplo en el formato JSON provisional
 │
 ├── tests/                        ← correctitud en menos de 1 s
 │   ├── test_parte1.py            ← voraz == DP (300 casos), presupuesto, conteo, contraejemplo sin concavidad
 │   ├── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
 │   ├── test_ronda.py             ← trazas, verificación de restricciones y solución base
-│   └── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
+│   ├── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
+│   └── test_red.py               ← influencia submodular, voraz con costos, caso de la profesora
 │
 ├── resultados/{parte1,parte2,casos}/       ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
@@ -165,8 +171,10 @@ Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.
 
 ```bash
 python -m experimentos.casos                    # los casos de casos/ejemplos/
-python -m experimentos.casos casos/profesora/   # una carpeta con casos .json
+python -m experimentos.casos casos/profesora/   # los casos de la profesora
 ```
+
+**Casos de la profesora.** Traen N, T rondas, k, B y un presupuesto de participación P por ronda; un grafo con pesos de influencia; y por nodo un coeficiente de utilidad, un costo y un presupuesto total. Mientras la profesora no confirme las fórmulas, usamos estos **supuestos**: uᵢ(x) = aᵢ·ln(1 + x); f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)) con wᵥᵥ = 1 (influencia probabilística, monótona y submodular); grafo no dirigido; en cada ronda se exige |S| ≤ k y Σ cᵢ ≤ P a la vez, y ningún nodo pasa su presupuesto total. Están en [ada/casos_red.py](ada/casos_red.py) y [ada/solucion_red.py](ada/solucion_red.py).
 
 Por cada caso se crea `resultados/casos/<nombre>/` con `resultado.json` (entrada, selección, reparto, tiempos, trazas y verificación), `traza_seleccion.csv`, `traza_reparto.csv` y `reparto.csv`. Además se genera `resultados/casos/resumen.csv` con una fila por caso. El formato del caso está documentado en [ada/casos.py](ada/casos.py). Es **provisional**: cuando llegue el de la profesora solo cambia `leer_caso`.
 

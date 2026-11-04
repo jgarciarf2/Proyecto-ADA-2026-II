@@ -11,10 +11,11 @@ import streamlit as st
 from ada.casos import CasoInvalido, caso_sintetico
 from app.estilos import aviso, encabezado, nota
 from app.vista_resultado import mostrar
-from experimentos.casos import CARPETA_EJEMPLOS, ejecutar_caso, guardar_evidencia
+from experimentos.casos import CARPETA_EJEMPLOS, ejecutar_caso, fila_resumen, guardar_evidencia
 from experimentos.comun import RAIZ
 
 CARPETA_EVIDENCIAS = os.path.join(RAIZ, "resultados", "casos")
+CARPETA_PROFESORA = os.path.join(RAIZ, "casos", "profesora")
 
 
 @st.cache_data(show_spinner=False)
@@ -40,22 +41,27 @@ def _resolver_seguro(texto, nombre, con_optimo):
 def cargar_caso():
     encabezado("Cargar caso", "Sube un caso en JSON o elige uno de ejemplo. Se resuelve en el momento con la "
                               "solución base: selección voraz y reparto óptimo.", "archivo")
-    ejemplos = sorted(glob.glob(os.path.join(CARPETA_EJEMPLOS, "*.json")))
+    # primero los casos de la profesora, después los ejemplos sintéticos
+    rutas = (sorted(glob.glob(os.path.join(CARPETA_PROFESORA, "*.json")))
+             + sorted(glob.glob(os.path.join(CARPETA_EJEMPLOS, "*.json"))))
+    etiquetas = {f"{os.path.basename(os.path.dirname(r))} / {os.path.splitext(os.path.basename(r))[0]}": r
+                 for r in rutas}
     izq, der = st.columns([1.4, 1], gap="large")
     with izq:
         archivo = st.file_uploader("Archivo del caso (.json)", type=["json"])
     with der:
-        nombres = ["Ninguno"] + [os.path.splitext(os.path.basename(e))[0] for e in ejemplos]
-        elegido = st.selectbox("O usa un caso de ejemplo", nombres, index=1 if len(nombres) > 1 else 0,
+        nombres = ["Ninguno"] + list(etiquetas)
+        elegido = st.selectbox("O usa un caso guardado", nombres, index=1 if len(nombres) > 1 else 0,
                                disabled=archivo is not None)
         con_optimo = st.toggle("Comparar con el óptimo", value=True,
-                               help="Calcula el óptimo por fuerza bruta, solo si C(N, k) ≤ 200 000. Si no, se muestra el techo que da la cota (1−1/e).")
+                               help="Calcula el óptimo por fuerza bruta solo si hay pocos subconjuntos por revisar "
+                                    "(≤ 200 000). Si no, se muestra el techo que da la cota (1−1/e).")
 
     if archivo is not None:
         texto, nombre = archivo.getvalue().decode("utf-8"), os.path.splitext(archivo.name)[0]
     elif elegido != "Ninguno":
-        nombre = elegido
-        with open(os.path.join(CARPETA_EJEMPLOS, f"{elegido}.json"), encoding="utf-8") as fh:
+        nombre = os.path.splitext(os.path.basename(etiquetas[elegido]))[0]
+        with open(etiquetas[elegido], encoding="utf-8") as fh:
             texto = fh.read()
     else:
         aviso("Sube un archivo o elige un ejemplo para ver el resultado.")
@@ -82,13 +88,12 @@ def _leer_evidencias(_marca):
             contenido = json.load(fh)
         r = contenido["resultado"]
         todos[r["caso"]] = contenido
-        opt = r["optimo"]["valor"] if r["optimo"] else None
-        filas.append({"Caso": r["caso"], "N": r["N"], "k": r["k"], "B": r["B"],
-                      "f(S)": round(r["utilidad_conjunta"], 3),
-                      "f(S) / óptimo": f"{r['utilidad_conjunta'] / opt:.4f}" if opt else "—",
-                      "U(x)": round(r["utilidad_reparto"], 3),
-                      "Tiempo (ms)": round(r["tiempo_s"]["total"] * 1e3, 3),
-                      "Restricciones": "cumple" if r["cumple_todo"] else "NO cumple"})
+        f = fila_resumen(r)          # mismas columnas para los dos formatos (en red se suman las rondas)
+        filas.append({"Caso": f["caso"], "Rondas": f["rondas"], "N": f["N"], "k": f["k"], "B": f["B"],
+                      "f(S)": f["f(S)"],
+                      "f(S) / óptimo": f"{f['f(S)'] / f['optimo_f']:.4f}" if f["optimo_f"] != "" else "—",
+                      "U(x)": f["U(x)"], "Tiempo (ms)": f["t_total_ms"],
+                      "Restricciones": "cumple" if f["cumple_restricciones"] else "NO cumple"})
     return filas, todos
 
 
@@ -96,7 +101,7 @@ def evidencias():
     encabezado("Evidencias", "Casos ya ejecutados con su resultado, tiempo y traza. Selecciona una fila "
                              "para ver el detalle.", "carpeta")
     aviso("Para generar o actualizar la evidencia de una carpeta de casos, desde la raíz del proyecto:<br>"
-          "<code>python -m experimentos.casos casos/ejemplos</code>", icono="terminal")
+          "<code>python -m experimentos.casos casos/profesora</code>", icono="terminal")
     marca = max((os.path.getmtime(p) for p in glob.glob(os.path.join(CARPETA_EVIDENCIAS, "*", "resultado.json"))),
                 default=0)
     filas, todos = _leer_evidencias(marca)

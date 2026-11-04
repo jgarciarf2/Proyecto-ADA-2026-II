@@ -11,6 +11,7 @@ import streamlit as st
 from ada.casos import leer_caso, utilidad_a_dict
 from app import graficas
 from app.estilos import AZUL, ROJO, VERDE, chips_verificacion, metricas, nota
+from app.vista_red import mostrar_red
 
 COTA = 1 - 1 / math.e
 
@@ -21,6 +22,8 @@ def _f(v, d=3):
 
 def mostrar(entrada, res, clave):
     """entrada = caso en JSON (dict); res = resultado serializado; clave = prefijo único para widgets."""
+    if res.get("formato") == "red":          # caso con el formato de la profesora
+        return mostrar_red(entrada, res, clave)
     caso = leer_caso(entrada)
     t = res["tiempo_s"]
     n_ok = sum(v["cumple"] for v in res["verificaciones"])

@@ -23,11 +23,12 @@ def _base(fig, alto, margen_der=20):
     return fig
 
 
-def seleccion(res):
+def seleccion(res, con_garantia=True):
     """
     Ganancia de cada paso (barras, eje izquierdo) y utilidad acumulada con el óptimo y la
     garantía (eje derecho). Con dos ejes las barras se ven aunque k sea grande y la
-    acumulada sea mucho mayor que cada ganancia.
+    acumulada sea mucho mayor que cada ganancia. con_garantia=False cuando hay costos de
+    participación: ahí la cota (1 − 1/e) no aplica tal cual y solo se dibuja el óptimo.
     """
     traza = res["traza_seleccion"]
     etiquetas = [f"{p['paso']} · {p['nodo']}" for p in traza]
@@ -46,11 +47,14 @@ def seleccion(res):
     if res["optimo"]:
         opt = res["optimo"]["valor"]
         _linea(fig, opt, VERDE, f"óptimo {opt:.2f}")
-        _linea(fig, COTA * opt, ROJO, f"garantía {COTA * opt:.2f}")
+        if con_garantia:
+            _linea(fig, COTA * opt, ROJO, f"garantía {COTA * opt:.2f}")
         techo = opt
-    else:
+    elif con_garantia:
         techo = res["utilidad_conjunta"] / COTA
         _linea(fig, techo, ROJO, f"techo {techo:.2f}")
+    else:
+        techo = res["utilidad_conjunta"]
     fig.update_xaxes(title_text="paso · nodo elegido", type="category")
     fig.update_yaxes(title_text="ganancia del paso", range=[0, max(ganancias, default=1) * 2.2],
                      secondary_y=False)
@@ -141,3 +145,53 @@ def reparto(caso, res, max_por_nodo=30, extra=3):
     fig.update_xaxes(tickvals=centros, ticktext=nombres, range=[-1.5, max(x0 - 1, 1) + max(6, x0 * 0.12)])
     fig.update_layout(barmode="overlay", bargap=0.15)
     return _base(fig, 400), nivel, (max(siguientes) if siguientes else None)
+
+
+def influencia(ids, W, seleccion):
+    """
+    Filas = nodos elegidos (en orden), columnas = todos los nodos; el color es el peso de
+    influencia w_uv (1 en la diagonal). La última fila es la probabilidad de que cada
+    nodo quede influido por S: 1 − Π_{u∈S}(1 − w_uv).
+    """
+    pos = {str(i): n for n, i in enumerate(ids)}
+    S = [pos[str(i)] for i in seleccion]
+    z = [[W[u][v] for v in range(len(ids))] for u in S]
+    prob = []
+    for v in range(len(ids)):
+        q = 1.0
+        for u in S:
+            q *= 1.0 - W[u][v]
+        prob.append(1.0 - q)
+    filas = [etiqueta_nodo(ids[u]) for u in S] + ["influido por S"]
+    columnas = [etiqueta_nodo(i) for i in ids]
+    texto = [[f"{filas[r]} → {columnas[c]} · peso {z[r][c]:.2f}" for c in range(len(ids))] for r in range(len(S))]
+    texto.append([f"{columnas[c]} · probabilidad de quedar influido {prob[c]:.3f}" for c in range(len(ids))])
+    escala = [[0, "#f1f5f9"], [0.5, "#93b4f5"], [1, AZUL]]
+    fig = go.Figure(go.Heatmap(z=z + [prob], x=columnas, y=filas, zmin=0, zmax=1, colorscale=escala,
+                               xgap=2, ygap=3, text=texto, hovertemplate="%{text}<extra></extra>",
+                               colorbar=dict(title=dict(text="peso", side="right"), thickness=10, len=0.8)))
+    fig.update_yaxes(autorange="reversed", showgrid=False)
+    fig.update_xaxes(type="category", tickangle=-45)
+    return _base(fig, max(280, 90 + 34 * (len(S) + 1)))
+
+
+def presupuesto_por_nodo(uso, rondas):
+    """Barras apiladas: unidades que recibió cada nodo en cada ronda, con la línea del tope por nodo."""
+    nodos = [p["nodo"] for p in uso]
+    tonos = [AZUL, NARANJA, VERDE, "#8b5cf6", "#0891b2", "#be185d"]
+    fig = go.Figure()
+    for j, r in enumerate(rondas):
+        recibido = {fila["nodo"]: fila["unidades"] for fila in r["reparto"]}
+        fig.add_bar(x=[etiqueta_nodo(n) for n in nodos], y=[recibido.get(n, 0) for n in nodos],
+                    name=f"ronda {r['ronda']}", marker_color=tonos[j % len(tonos)],
+                    hovertemplate=f"ronda {r['ronda']}<br>%{{x}}: %{{y}} unidades<extra></extra>")
+    tope = max(p["tope"] for p in uso)
+    fig.add_shape(type="line", xref="paper", x0=0, x1=1, y0=tope, y1=tope,
+                  line=dict(color=ROJO, dash="dash", width=1.5))
+    fig.add_annotation(xref="paper", x=0.01, y=tope, text=f"tope por nodo = {tope}", showarrow=False,
+                       xanchor="left", yanchor="bottom", font=dict(color=ROJO, size=11),
+                       bgcolor="rgba(255,255,255,.85)")
+    fig.update_layout(barmode="stack", legend_traceorder="normal")
+    fig.update_xaxes(type="category")
+    fig.update_yaxes(title_text="unidades de presupuesto", range=[0, tope * 1.18])
+    return _base(fig, 340)
