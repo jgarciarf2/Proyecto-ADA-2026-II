@@ -35,3 +35,18 @@ class InstanciaCobertura:
     @property
     def M(self):
         return len(self.pesos)
+
+
+@dataclass(frozen=True)
+class InstanciaInfluencia:
+    """
+    Parte 2 con la utilidad de influencia: coeficientes a[v], matriz simétrica W de
+    pesos de influencia (diagonal 1) y costos de participación.
+    """
+    a: list
+    W: list
+    costos: list
+
+    @property
+    def N(self):
+        return len(self.a)

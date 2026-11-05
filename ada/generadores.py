@@ -6,7 +6,8 @@ pruebas y variantes usen exactamente los mismos datos.
 """
 import random
 
-from ada.modelo import InstanciaCobertura, InstanciaReparto
+from ada.modelo import InstanciaCobertura, InstanciaInfluencia, InstanciaReparto
+from ada.parte2.influencia import matriz_influencia
 from ada.utilidades import UtilidadLog, UtilidadRaiz, UtilidadSaturacion
 
 
@@ -47,3 +48,17 @@ def instancia_cobertura_dificil(N, M, semilla=0):
     pesos = [rng.uniform(1, 10) for _ in range(M)]
     conjuntos = [frozenset(rng.sample(range(M), rng.randint(1, max(2, M // 3)))) for _ in range(N)]
     return InstanciaCobertura(conjuntos, pesos)
+
+
+def instancia_influencia(N, semilla=0, densidad=1.0):
+    """
+    N nodos con coeficiente a en [1, 10], costo entero en [1, 7] y, para cada par de
+    nodos, una arista con probabilidad 'densidad' y peso de influencia en [0.05, 0.9].
+    Con densidad = 1 el grafo es completo, como en el caso de la profesora.
+    """
+    rng = random.Random(semilla)
+    a = [rng.uniform(1.0, 10.0) for _ in range(N)]
+    costos = [rng.randint(1, 7) for _ in range(N)]
+    aristas = [(u, v, round(rng.uniform(0.05, 0.9), 2)) for u in range(N) for v in range(u + 1, N)
+               if rng.random() < densidad]
+    return InstanciaInfluencia(a, matriz_influencia(N, aristas), costos)

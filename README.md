@@ -74,7 +74,9 @@ Proyecto-ADA-2026-II/
 │   ├── comun.py                  ← medir (mediana), guardar CSV, gráfica medido/teoría/cociente
 │   ├── casos.py                  ← ejecuta casos .json y guarda la evidencia (resultado, tiempo, trazas)
 │   ├── parte1.py
-│   └── parte2.py
+│   ├── parte2.py
+│   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
+│   └── figuras_informe.py        ← figuras del documento de formulación
 │
 ├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
 │   ├── principal.py              ← punto de entrada y navegación
@@ -94,7 +96,7 @@ Proyecto-ADA-2026-II/
 │   ├── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
 │   └── test_red.py               ← influencia submodular, voraz con costos, caso de la profesora
 │
-├── resultados/{parte1,parte2,casos}/       ← CSV, gráficas y evidencia de cada caso
+├── resultados/{parte1,parte2,influencia,casos}/   ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
 │   └── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
@@ -165,6 +167,7 @@ pip install -r requirements.txt
 python -m pytest                  # correctitud, menos de 1 s
 python -m experimentos.parte1     # ~2 min: tiempos, ajuste c1·N + c2·B·log N, conteo de comparaciones
 python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, voraz vs. fuerza bruta
+python -m experimentos.influencia # ~1 min: voraz de influencia contra c·N²·k y cota con y sin costos
 ```
 
 Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.

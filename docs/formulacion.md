@@ -12,7 +12,7 @@ Separamos esas dos decisiones en dos problemas de optimización. La **Parte 1** 
 
 Este documento es la formulación completa del problema para la primera entrega. Para cada parte definimos el tamaño de la entrada, la entrada, la salida, el objetivo y las restricciones; demostramos las propiedades matemáticas de las funciones de utilidad; deducimos paso a paso la función de eficiencia de cada algoritmo; y probamos la NP-dureza de la Parte 2 con dos reducciones polinomiales. Al final aplicamos todo al caso de prueba de 15 nodos y mostramos el resultado, el tiempo y la traza de cada ronda. El código, el manual técnico y la evidencia completa están en el repositorio del proyecto.
 
-La organización es la siguiente. La sección 2 fija la notación. La sección 3 describe el modelo del sistema y los supuestos. Las secciones 4 y 5 formulan la Parte 1 y la Parte 2, y la sección 6 las une en el problema de T rondas. La sección 7 estudia la complejidad computacional y contiene las reducciones. La sección 8 presenta los algoritmos de la Parte 2 con sus garantías, la sección 9 el algoritmo completo y la sección 10 los resultados del caso de prueba.
+La organización es la siguiente. La sección 2 fija la notación. La sección 3 describe el modelo del sistema y los supuestos. Las secciones 4 y 5 formulan la Parte 1 y la Parte 2, y la sección 6 las une en el problema de T rondas. La sección 7 estudia la complejidad computacional y contiene las reducciones. La sección 8 presenta los algoritmos de la Parte 2 con sus garantías y la sección 9 el algoritmo completo. La sección 10 valida experimentalmente las funciones de eficiencia y la cota, la sección 11 presenta los resultados del caso de prueba, la sección 12 explica cómo se verificó la implementación y la sección 13 delimita el alcance frente a las variantes del proyecto.
 
 ## 2. Notación
 
@@ -245,6 +245,8 @@ $$
 
 El espacio adicional es O(n), el montículo y el vector x. Como n ≤ k, en una ronda T = O(k + B log k). En términos de la longitud β de B el tiempo es O(n + 2ᵝ·log n): pseudo-polinomial, como anticipamos.
 
+**Relación con el enunciado.** El enunciado da T(N, B) = O(B log N), que es el costo del ciclo. Nuestra deducción agrega el término O(n) de construir el montículo, que solo importa cuando hay muchos más nodos que unidades de presupuesto (n > B log n). En los casos del proyecto B ≥ n, así que los dos resultados coinciden.
+
 ### 4.10 Ejemplo paso a paso
 
 Tres nodos con a = (6, 3, 2), saldos r = (3, 6, 6) y B = 6. Las ganancias de cada unidad salen de la ecuación del Lema 1; el nodo 1 tiene tope 3, así que su cuarta unidad vale 0.
@@ -355,9 +357,13 @@ Así, evaluar la ganancia de un candidato cuesta τ = O(N) y actualizar el estad
 
 ### 5.7 Versión de decisión
 
-Para hablar de NP-dureza usamos la versión de decisión:
+Para hablar de NP-dureza usamos versiones de decisión. Como el enunciado plantea la Parte 2 para una utilidad submodular cualquiera, y nosotros usamos una en particular, definimos dos:
 
-**SELECCIÓN-DEC.** Dados V, W, a, c, k, P y un umbral t, ¿existe S ⊆ V con │S│ ≤ k, Σᵢ∈S cᵢ ≤ P y f(S) ≥ t?
+**SELECCIÓN-SUB.** Dados un conjunto V, una función f monótona y submodular que se puede evaluar en tiempo polinomial (dada por una descripción explícita, por ejemplo una lista de conjuntos), costos c, un cupo k, un límite P y un umbral t, ¿existe S ⊆ V con │S│ ≤ k, Σᵢ∈S cᵢ ≤ P y f(S) ≥ t?
+
+**SELECCIÓN-INF.** El caso particular de SELECCIÓN-SUB en el que f es la utilidad de influencia: dados V, W, a, c, k, P y t, ¿existe S ⊆ V con │S│ ≤ k, Σᵢ∈S cᵢ ≤ P y f(S) ≥ t?
+
+Si SELECCIÓN-INF es difícil, SELECCIÓN-SUB también lo es, porque la contiene. Aun así damos las dos reducciones: la primera es la que pide el enunciado y la segunda muestra que la dificultad no desaparece al fijar nuestra utilidad.
 
 ### 5.8 Ejemplo con cinco nodos
 
@@ -392,13 +398,13 @@ La herramienta práctica es la siguiente: si A es NP-difícil y A ≤ₚ B, ento
 
 El voraz de la sección 4.7 es pseudo-polinomial. Aun así, el problema de asignación de recursos separable y cóncavo se puede resolver en tiempo polinomial en la longitud de la entrada: se busca el nivel λ de la sección 4.6 por bisección y se ajustan las unidades enteras alrededor de ese nivel (Hochbaum, 1994). Para los tamaños del proyecto (B = 30 por ronda) el voraz es más simple y más rápido en la práctica, y es el que pide el enunciado.
 
-### 7.3 SELECCIÓN-DEC está en NP
+### 7.3 Los dos problemas están en NP
 
-Un certificado es el grupo S. Para verificarlo basta revisar que │S│ ≤ k, que Σᵢ∈S cᵢ ≤ P y que f(S) ≥ t. Las dos primeras cuestan O(k). Calcular f(S) con la Definición 2 cuesta O(N·k) operaciones aritméticas; si los pesos son números racionales de L bits, cada producto tiene a lo sumo k·L bits, así que todo el cálculo es polinomial en la longitud de la entrada.
+Un certificado es el grupo S. Para verificarlo basta revisar que │S│ ≤ k, que Σᵢ∈S cᵢ ≤ P y que f(S) ≥ t. Las dos primeras cuestan O(k), y la tercera es polinomial por definición en SELECCIÓN-SUB. En SELECCIÓN-INF, calcular f(S) con la Definición 2 cuesta O(N·k) operaciones aritméticas; si los pesos son números racionales de L bits, cada producto tiene a lo sumo k·L bits, así que todo el cálculo es polinomial en la longitud de la entrada.
 
 ### 7.4 Primera reducción: desde Cobertura Máxima
 
-Esta reducción muestra que el problema de selección es NP-difícil cuando la utilidad conjunta es una función submodular cualquiera, que es como lo plantea el enunciado.
+Esta es la reducción que pide el enunciado. Muestra que SELECCIÓN-SUB es NP-difícil.
 
 **COBERTURA-MÁXIMA.** Dados un universo U, una colección de subconjuntos S₁, …, Sₘ ⊆ U y dos enteros k y t, ¿existen k subconjuntos cuya unión tenga al menos t elementos? Es NP-completo: Cobertura de Conjuntos, uno de los 21 problemas de Karp (1972), es el caso t = │U│.
 
@@ -408,7 +414,7 @@ $$
 f(A) = \left| \bigcup_{i \in A} S_i \right|
 $$
 
-Esta f es monótona y submodular: un subconjunto nuevo aporta los elementos que todavía no están cubiertos, y esos son menos cuanto más grande es el grupo. La construcción recorre U y cada Sᵢ una vez: O(│U│ + Σᵢ │Sᵢ│).
+Esta f es monótona y submodular: un subconjunto nuevo aporta los elementos que todavía no están cubiertos, y esos son menos cuanto más grande es el grupo. Además se evalúa en tiempo polinomial a partir de la lista de subconjuntos, así que la instancia construida es una instancia válida de SELECCIÓN-SUB. La construcción recorre U y cada Sᵢ una vez: O(│U│ + Σᵢ │Sᵢ│). La Figura 5 muestra la construcción con un ejemplo: U = {1, …, 6}, S₁ = {1, 2, 3}, S₂ = {4, 5, 6} y S₃ = {1, 2, 4, 5}. Con k = 2 y t = 6 la respuesta es sí, porque S₁ ∪ S₂ = U, y en el caso construido los nodos 1 y 2 dan f = 6 ≥ t.
 
 ![Figura 5](figuras/fig05_reduccion_cobertura.png)
 
@@ -416,13 +422,15 @@ Esta f es monótona y submodular: un subconjunto nuevo aporta los elementos que 
 
 **Equivalencia.** (⇒) Si hay k subconjuntos cuya unión tiene al menos t elementos, esos k nodos forman un grupo con │A│ = k, costo 0 ≤ P y f(A) ≥ t. (⇐) Si un grupo A con │A│ ≤ k da f(A) ≥ t, lo completamos con subconjuntos cualesquiera hasta tener k; la unión no se achica y seguimos cubriendo al menos t elementos. ∎
 
+Por lo tanto COBERTURA-MÁXIMA ≤ₚ SELECCIÓN-SUB.
+
 ### 7.5 Segunda reducción: desde Conjunto Dominante
 
-Esta reducción muestra que el problema sigue siendo NP-difícil con la utilidad de influencia que usamos para los casos de prueba.
+Esta reducción muestra que SELECCIÓN-INF, con la utilidad de influencia que usamos para los casos de prueba, también es NP-difícil.
 
 **CONJUNTO-DOMINANTE.** Dados un grafo G = (V, E) y un entero k, ¿existe D ⊆ V con │D│ ≤ k tal que todo vértice está en D o tiene un vecino en D? Es NP-completo (Garey y Johnson, 1979).
 
-**Construcción.** Usamos los mismos nodos y el mismo cupo k; aᵥ = 1 para todo v; wᵤᵥ = 1 si {u, v} ∈ E y wᵤᵥ = 0 si no; cᵢ = 0 con P = 0; y el umbral t = │V│. Si k ≥ │V│ la respuesta es trivialmente sí y devolvemos cualquier instancia positiva. Construir W cuesta O(│V│²).
+**Construcción.** Usamos los mismos nodos y el mismo cupo k; aᵥ = 1 para todo v; wᵤᵥ = 1 si {u, v} ∈ E y wᵤᵥ = 0 si no; cᵢ = 0 con P = 0; y el umbral t = │V│. Si k ≥ │V│ la respuesta es trivialmente sí y devolvemos cualquier instancia positiva. Construir W cuesta O(│V│²). La Figura 6 muestra la construcción sobre un grafo de seis vértices.
 
 **Lema 5.** Con pesos 0 o 1, f(S) es la cantidad de vértices dominados por S.
 
@@ -440,11 +448,13 @@ $$
 
 **Equivalencia.** (⇒) Si G tiene un conjunto dominante D con │D│ ≤ k, por el Lema 5 f(D) = │V│ = t. (⇐) Si un grupo S con │S│ ≤ k da f(S) ≥ │V│, como f(S) = │N[S]│ ≤ │V│, S domina todos los vértices y es un conjunto dominante de tamaño a lo sumo k. ∎
 
+Por lo tanto CONJUNTO-DOMINANTE ≤ₚ SELECCIÓN-INF.
+
 ### 7.6 Conclusión de complejidad
 
-**Teorema 2.** SELECCIÓN-DEC es NP-completo, tanto con una utilidad submodular general como con la utilidad de influencia.
+**Teorema 2.** SELECCIÓN-SUB y SELECCIÓN-INF son NP-completos.
 
-**Demostración.** Está en NP por la sección 7.3, y es NP-difícil por las reducciones de las secciones 7.4 y 7.5. ∎
+**Demostración.** Los dos están en NP por la sección 7.3. SELECCIÓN-SUB es NP-difícil por la reducción de la sección 7.4 y SELECCIÓN-INF por la de la sección 7.5. ∎
 
 Hay tres consecuencias. Primero, salvo que P = NP no existe un algoritmo exacto polinomial para la Parte 2, así que en casos grandes hay que aproximar. Segundo, la versión de optimización es al menos igual de difícil, porque conociendo el óptimo S* basta comparar f(S*) con t. Tercero, Feige (1998) demostró que, salvo que P = NP, ningún algoritmo polinomial aproxima Cobertura Máxima con razón mejor que 1 − 1/e; como Cobertura Máxima es un caso particular, la garantía del voraz de la sección 8.3 es la mejor posible para la clase general.
 
@@ -498,7 +508,9 @@ $$
 T_{V}(N, k) = E(N, k) \cdot O(N) + k \cdot O(N) = O(N^2 k)
 $$
 
-Sin límite de costos la cota de E(N, k) es exacta; el programa la verifica contando las evaluaciones. El espacio adicional es O(N), el vector q.
+Sin límite de costos la cota de E(N, k) es exacta; el programa la verifica contando las evaluaciones (sección 10.2). El espacio adicional es O(N), el vector q.
+
+**Relación con el enunciado.** El enunciado da T(N, k) = O(N·k), que cuenta evaluaciones de la ganancia suponiendo que cada una cuesta O(1). Eso es exactamente nuestro E(N, k) ≤ N·k. La diferencia está en τ: con la utilidad de influencia una evaluación recorre los N nodos de la red, así que τ = O(N) y el tiempo es O(N·k·τ) = O(N²·k). Con un grafo disperso se podrían recorrer solo los vecinos de i y τ bajaría al grado del nodo.
 
 ### 8.3 Garantía de aproximación (1 − 1/e)
 
@@ -528,7 +540,7 @@ y por lo tanto f(Sₖ) = f(O) − δₖ ≥ (1 − 1/e)·f(O). ∎
 
 Con la restricción Σ cᵢ ≤ P la garantía del Teorema 3 ya no aplica, porque el paso "cada ganancia de O es a lo sumo la elegida" falla: el voraz puede elegir un nodo caro que agota el presupuesto. Un ejemplo con k = 5 y P = 10: un nodo X con costo 10 y f({X}) = 10, y cinco nodos Y₁, …, Y₅ con costo 2 y utilidad 9 cada uno, sin traslape. El voraz elige X primero (10 > 9) y ya no le cabe nada: obtiene 10. El óptimo elige los cinco Yⱼ y obtiene 45. Escalando los números, la razón se puede hacer tan pequeña como se quiera.
 
-Este problema es la cobertura con presupuesto (budgeted maximum coverage). Khuller, Moss y Naor (1999) mostraron que tomar el mejor entre el voraz por razón ganancia/costo y el mejor nodo individual garantiza (1 − 1/e)/2, y que enumerar los grupos de hasta 3 nodos y completarlos con el voraz por razón garantiza (1 − 1/e). Implementar esas versiones es la variante de costos de la entrega final. En el caso de prueba el voraz simple encontró el óptimo en las tres rondas (sección 10), pero eso no está garantizado en general.
+Este problema es la cobertura con presupuesto (budgeted maximum coverage). Khuller, Moss y Naor (1999) mostraron que tomar el mejor entre el voraz por razón ganancia/costo y el mejor nodo individual garantiza (1 − 1/e)/2, y que enumerar los grupos de hasta 3 nodos y completarlos con el voraz por razón garantiza (1 − 1/e). Implementar esas versiones es la variante de costos de la entrega final. En el caso de prueba el voraz simple encontró el óptimo en las tres rondas (sección 11), pero eso no está garantizado en general.
 
 ## 9. Algoritmo completo
 
@@ -558,13 +570,66 @@ Leer y validar el caso cuesta O(N² + │E│), que no cambia el orden. Si adem�
 
 La verificación de la línea 6 revisa nueve condiciones por ronda: │Sₜ│ ≤ k, que no haya nodos repetidos, que todos sean candidatos válidos, que Σ cᵢ ≤ P, que Σ xᵢ ≤ B, que cada xᵢ sea entero no negativo, que xᵢ ≤ rᵢ, y que f(Sₜ) y U(xₜ) recalculados coincidan con los que devolvieron los algoritmos. Al final se revisa una más: que ningún nodo pase su presupuesto total.
 
-## 10. Resultados del caso de 15 nodos
+## 10. Validación experimental
 
-### 10.1 Datos
+La teoría predice cuánto debe crecer el tiempo de cada algoritmo. Aquí lo medimos para valores crecientes del tamaño de la entrada y comparamos el crecimiento medido contra la función T(n) deducida. Cada tiempo es la mediana de varias ejecuciones, para filtrar el ruido del sistema operativo. Además del tiempo contamos operaciones (comparaciones del montículo y evaluaciones de la ganancia), porque ese conteo no depende de la máquina y valida la deducción de forma limpia.
+
+### 10.1 Parte 1: voraz con montículo
+
+Se hicieron dos barridos de 6 tamaños cada uno: N de 1 000 a 1 024 000 con B = 200 000 fijo, y B de 50 000 a 1 600 000 con N = 10 000 fijo. Como T(N, B) = c₁·N + c₂·B·log₂ N tiene dos constantes, las estimamos por mínimos cuadrados con todas las mediciones: c₁ ≈ 1,36·10⁻⁶ s por nodo y c₂ ≈ 8,09·10⁻⁸ s por paso del montículo, con R² = 0,969.
+
+![Figura 7](../resultados/parte1/variaB.png)
+
+*Figura 7. Parte 1, tiempo al variar B con N = 10 000: medido contra c₁·N + c₂·B·log₂ N (izquierda) y cociente medido/predicho (derecha).*
+
+Al variar B el crecimiento es lineal y el cociente medido/predicho se mantiene cerca de 1, como predice la teoría (Figura 7). Al variar N (Figura 8) el tiempo sigue la forma de N + B log N, pero el cociente sube en los tamaños grandes. La causa es la jerarquía de memoria: cuando el montículo deja de caber en la caché del procesador cada acceso cuesta más ciclos, y la notación O no modela ese efecto.
+
+![Figura 8](../resultados/parte1/variaN.png)
+
+*Figura 8. Parte 1, tiempo al variar N con B = 200 000.*
+
+Por eso el conteo de comparaciones es la validación más limpia (Figura 9). Con B = 20N y N de 64 a 262 144, el heapify hace entre 1,53·N y 1,65·N comparaciones, por debajo de la cota 2N de la sección 4.9, y los B reemplazos de la raíz hacen entre 1,06 y 1,19 veces B·log₂ N, por debajo de la cota 2·B·log₂ N. Los dos cocientes se estabilizan al crecer N, que es lo que se espera si la deducción es correcta.
+
+![Figura 9](../resultados/parte1/conteo.png)
+
+*Figura 9. Parte 1, comparaciones del montículo divididas por N (heapify) y por B·log₂ N (reemplazos), contra la cota teórica 2.*
+
+### 10.2 Parte 2: voraz de influencia
+
+Se hicieron dos barridos sobre grafos completos generados con semilla fija, como el del caso de prueba: N de 50 a 800 con k = 10 (7 tamaños), y k de 5 a 80 con N = 400 (5 tamaños). En los 12 puntos el número de evaluaciones de la ganancia fue **exactamente** kN − k(k − 1)/2, el valor deducido en la sección 8.2.
+
+![Figura 10](../resultados/influencia/variaN.png)
+
+*Figura 10. Parte 2, tiempo del voraz de influencia al variar N con k = 10, contra c·N²·k.*
+
+Si T(N, k) = c·N²·k, el cociente t/(N²·k) debe ser constante. Al variar k quedó entre 5,35·10⁻⁸ y 5,87·10⁻⁸ s: el crecimiento es lineal en k (Figura 11). Al variar N quedó entre 4,88·10⁻⁸ y 6,59·10⁻⁸ s: el tiempo crece como N² (Figura 10), con el mismo efecto de memoria de la Parte 1 en los tamaños grandes, donde la matriz W ocupa cientos de miles de números.
+
+![Figura 11](../resultados/influencia/variak.png)
+
+*Figura 11. Parte 2, tiempo del voraz de influencia al variar k con N = 400.*
+
+### 10.3 La cota (1 − 1/e) en nuestros datos
+
+El enunciado pide verificar en datos propios que la utilidad del voraz respeta la cota. Generamos 300 instancias con la utilidad de influencia (entre 8 y 12 nodos, k entre 2 y 4, densidad del grafo entre 0,3 y 0,9) y comparamos el voraz contra el óptimo por fuerza bruta en dos escenarios:
+
+| Escenario | Razón mínima | Razón media | Voraz = óptimo | Por debajo de 1 − 1/e |
+|---|---|---|---|---|
+| Solo cupo k (el Teorema 3 aplica) | 0,878 | 0,990 | 162 de 300 | 0 |
+| Cupo k y costos ≤ P (sin garantía) | 0,404 | 0,938 | 141 de 300 | 5 |
+
+![Figura 12](../resultados/influencia/cota.png)
+
+*Figura 12. Razón entre la utilidad del voraz y la óptima en 300 instancias propias; en rojo, las que quedan por debajo de 1 − 1/e.*
+
+Sin costos ninguna instancia baja de 0,632, como garantiza el Teorema 3, y en la mayoría el voraz queda muy por encima. Con costos aparecen cinco instancias por debajo de la cota, la peor con 0,404 (Figura 12). Es la confirmación experimental de la sección 8.4: el voraz simple pierde su garantía cuando hay un límite de costos, y ese escenario necesita los algoritmos de cobertura con presupuesto de la variante de costos.
+
+## 11. Resultados del caso de 15 nodos
+
+### 11.1 Datos
 
 El caso tiene N = 15 nodos, T = 3 rondas, k = 5, B = 30 y P = 24, un grafo completo con 105 aristas y Rᵢ = 18 para todos los nodos. Un dato curioso del grafo es que el peso de cada arista depende solo del nodo de mayor índice: por ejemplo, todas las aristas que llegan a N11 pesan 0,8 y todas las que llegan a N13 pesan 0,2.
 
-### 10.2 Resumen por ronda
+### 11.2 Resumen por ronda
 
 | Ronda | Participantes | Costo (≤ 24) | f(S) | Óptimo f(S) | U(x) | Tiempo (ms) |
 |---|---|---|---|---|---|---|
@@ -574,15 +639,15 @@ El caso tiene N = 15 nodos, T = 3 rondas, k = 5, B = 30 y P = 24, un grafo compl
 
 En las tres rondas el voraz eligió los mismos cinco nodos, y ese grupo coincide con el óptimo de la fuerza bruta (4 944 grupos revisados por ronda). La utilidad conjunta total es 436,74 y la del reparto 262,74. Las 28 verificaciones se cumplen (9 por ronda y la del presupuesto total) y el caso completo se resuelve en menos de 1 ms.
 
-### 10.3 Por qué se eligen esos nodos
+### 11.3 Por qué se eligen esos nodos
 
-La Figura 7 muestra, para cada participante, el peso de influencia sobre cada nodo, y en la última fila la probabilidad de que cada nodo quede influido por el grupo. Con estos cinco participantes todos los nodos quedan influidos con probabilidad de al menos 0,93, así que casi todo el valor posible de la red queda cubierto.
+La Figura 13 muestra, para cada participante, el peso de influencia sobre cada nodo, y en la última fila la probabilidad de que cada nodo quede influido por el grupo. Con estos cinco participantes todos los nodos quedan influidos con probabilidad de al menos 0,93, así que casi todo el valor posible de la red queda cubierto.
 
-![Figura 7](figuras/fig09_caso15_influencia.png)
+![Figura 13](figuras/fig09_caso15_influencia.png)
 
-*Figura 7. Influencia de los participantes de la ronda 1 sobre cada nodo; la última fila es la probabilidad de quedar influido.*
+*Figura 13. Influencia de los participantes de la ronda 1 sobre cada nodo; la última fila es la probabilidad de quedar influido.*
 
-### 10.4 Traza de la selección
+### 11.4 Traza de la selección
 
 | Paso | Nodo elegido | Ganancia Δ | f(S) acumulada | Candidatos evaluados | Costo acumulado |
 |---|---|---|---|---|---|
@@ -592,13 +657,13 @@ La Figura 7 muestra, para cada participante, el peso de influencia sobre cada no
 | 4 | N15 | 5,53 | 143,23 | 12 | 16 |
 | 5 | N13 | 2,35 | 145,58 | 11 | 23 |
 
-Las ganancias bajan en cada paso, que es lo que predice el Lema 4. N11 entra primero porque todas las aristas que llegan a él pesan 0,8: su ganancia inicial es su propio a = 7,6 más la influencia sobre los otros catorce nodos. Los siguientes aportan cada vez menos porque la mayor parte de la red ya quedó influida. La Figura 8 muestra la misma traza.
+Las ganancias bajan en cada paso, que es lo que predice el Lema 4. N11 entra primero porque todas las aristas que llegan a él pesan 0,8: su ganancia inicial es su propio a = 7,6 más la influencia sobre los otros catorce nodos. Los siguientes aportan cada vez menos porque la mayor parte de la red ya quedó influida. La Figura 14 muestra la misma traza.
 
-![Figura 8](figuras/fig07_caso15_seleccion.png)
+![Figura 14](figuras/fig07_caso15_seleccion.png)
 
-*Figura 8. Traza del voraz de selección en cada ronda: ganancia de cada paso, utilidad acumulada y óptimo.*
+*Figura 14. Traza del voraz de selección en cada ronda: ganancia de cada paso, utilidad acumulada y óptimo.*
 
-### 10.5 Reparto del presupuesto
+### 11.5 Reparto del presupuesto
 
 | Nodo | Ronda 1 | Ronda 2 | Ronda 3 | Total (tope 18) |
 |---|---|---|---|---|
@@ -608,17 +673,38 @@ Las ganancias bajan en cada paso, que es lo que predice el Lema 4. N11 entra pri
 | N15 | 6 | 6 | 6 | 18 |
 | N13 | 5 | 5 | 8 | 18 |
 
-En las dos primeras rondas el reparto es igual. En la tercera actúa el tope: a N14 y N09 solo les quedaban 4 unidades cada uno, así que el voraz les dio esas 4 (sus ganancias siguientes pasaron a valer 0, Lema 2) y entregó el resto a N11 y N13, que tenían las siguientes mejores ganancias. Por eso U(x) baja de 88,56 a 85,61 en la última ronda. Al final los cinco participantes gastaron exactamente su presupuesto total, como muestra la Figura 9.
+En las dos primeras rondas el reparto es igual. En la tercera actúa el tope: a N14 y N09 solo les quedaban 4 unidades cada uno, así que el voraz les dio esas 4 (sus ganancias siguientes pasaron a valer 0, Lema 2) y entregó el resto a N11 y N13, que tenían las siguientes mejores ganancias. Por eso U(x) baja de 88,56 a 85,61 en la última ronda. Al final los cinco participantes gastaron exactamente su presupuesto total, como muestra la Figura 15.
 
-![Figura 9](figuras/fig08_caso15_presupuesto.png)
+![Figura 15](figuras/fig08_caso15_presupuesto.png)
 
-*Figura 9. Presupuesto de ruido usado por cada nodo en las tres rondas, con el tope Rᵢ = 18.*
+*Figura 15. Presupuesto de ruido usado por cada nodo en las tres rondas, con el tope Rᵢ = 18.*
 
-## 11. Síntesis
+## 12. Verificación de la implementación
+
+Además del caso de la profesora, comprobamos la implementación con casos propios en tres niveles. Todos se generan con semilla fija, así que se pueden repetir con el mismo resultado.
+
+1. **Contra métodos exactos.** En 300 instancias pequeñas el voraz de reparto coincide con la programación dinámica exacta de costo O(n·B²). El voraz de selección se compara contra la fuerza bruta: sin costos siempre cumple la cota (sección 10.3) y con costos nunca pasa el presupuesto.
+2. **Contra las propiedades teóricas.** 1 500 pruebas aleatorias con la utilidad de influencia y 2 000 con la de cobertura confirman la monotonía y la submodularidad sin ninguna violación. El número de evaluaciones del voraz coincide exactamente con kN − k(k − 1)/2, y las comparaciones del montículo nunca pasan de 2n y 2·B·log₂ n.
+3. **Contra las restricciones del problema.** Cada ejecución verifica las nueve restricciones de cada ronda y el presupuesto total por nodo (sección 9), y vuelve a calcular f y U desde la solución. Hay pruebas que meten a propósito soluciones inválidas para confirmar que la verificación las detecta, y casos con datos mal formados (pesos fuera de [0, 1], nodos inexistentes, coeficientes negativos) para confirmar que el lector los rechaza con un mensaje claro.
+
+En total son 32 pruebas automáticas que corren en menos de un segundo. El manual técnico explica cómo ejecutarlas.
+
+## 13. Alcance y variantes del proyecto
+
+El enunciado define tres variantes obligatorias para la entrega final. Las planteamos aquí para dejar claro qué cubre esta entrega y qué falta.
+
+**V1: costos de participación.** Es la Parte 2 con la restricción Σᵢ∈S cᵢ ≤ P. Los casos de prueba ya la traen y esta entrega la cumple como restricción, pero con el voraz simple, que no tiene garantía (secciones 8.4 y 10.3). Falta implementar los algoritmos de Khuller, Moss y Naor (1999), con garantías (1 − 1/e)/2 y (1 − 1/e), y deducir su T(n).
+
+**V2: rondas con fallas.** Es el problema de T rondas de la sección 6, donde antes de cada ronda una parte de los nodos puede fallar y no estar disponible. El modelo natural es que cada nodo falla de forma independiente con probabilidad p, y el objetivo es maximizar la utilidad total esperada sumando las rondas. Esta entrega ya resuelve las T rondas con el tope de presupuesto por nodo, pero sin fallas y de forma miope.
+
+**V3: nodos vecinos.** El presupuesto que recibe un nodo también mueve la utilidad de sus vecinos en el grafo. Un modelo posible es uᵢ(xᵢ + α·Σⱼ wᵢⱼ·xⱼ), con α ∈ [0, 1]. Con ese efecto la utilidad total deja de ser separable, así que el Teorema 1 ya no aplica tal cual: hay que estudiar si sigue siendo cóncava y si el voraz conserva la optimalidad o necesita otro algoritmo. En esta entrega el grafo solo se usa en la utilidad conjunta de la Parte 2, no en el reparto.
+
+## 14. Síntesis
 
 - **Parte 1:** es un problema de asignación de recursos separable y cóncavo. El voraz con montículo es óptimo (Teorema 1) y cuesta O(n + B log n), pseudo-polinomial en B.
-- **Parte 2:** con la utilidad de influencia, que es monótona y submodular (Lema 4), el problema de selección es NP-completo (Teorema 2), por reducción desde Cobertura Máxima y desde Conjunto Dominante.
+- **Parte 2:** el problema de selección es NP-completo con una utilidad submodular general (reducción desde Cobertura Máxima) y también con la utilidad de influencia, que es monótona y submodular (Lema 4) (reducción desde Conjunto Dominante); ver el Teorema 2.
 - **Aproximación:** el voraz de selección cuesta O(N²·k) y, con solo la restricción de cupo, garantiza al menos el 63,2 % del óptimo (Teorema 3), que es lo mejor posible para la clase general salvo que P = NP. Con el límite de costos esa garantía no aplica y el problema pasa a ser la variante de costos.
+- **Validación:** los tiempos medidos siguen N + B log N en la Parte 1 y N²·k en la Parte 2, y los conteos de operaciones coinciden con la deducción. En 300 instancias propias el voraz nunca bajó de la cota sin costos, y con costos bajó en 5, lo que confirma que ahí la garantía se pierde.
 - **Caso completo:** las T rondas se resuelven una por una en O(T·(N²·k + B log k)). En el caso de 15 nodos la solución coincidió con el óptimo en las tres rondas y cumplió las 28 restricciones.
 
 ## Referencias

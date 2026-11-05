@@ -93,3 +93,12 @@ def test_rechaza_casos_invalidos(cambio, mensaje):
     cambio(datos)
     with pytest.raises(CasoInvalido, match=mensaje):
         leer_caso_red(datos)
+
+
+def test_generador_de_influencia_y_conteo_de_evaluaciones():
+    from ada.generadores import instancia_influencia
+    inst = instancia_influencia(30, semilla=2, densidad=0.6)
+    assert all(inst.W[u][v] == inst.W[v][u] for u in range(30) for v in range(30))
+    assert all(inst.W[v][v] == 1.0 for v in range(30))
+    _, _, ev = voraz_influencia(inst.a, inst.W, 7, contar=True)
+    assert ev == 7 * 30 - 7 * 6 // 2
