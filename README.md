@@ -96,6 +96,8 @@ Proyecto-ADA-2026-II/
 │
 ├── resultados/{parte1,parte2,casos}/       ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
+│   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
+│   └── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
 
