@@ -1,0 +1,301 @@
+{
+ "entrada": {
+  "nombre": "propio_09_nadie_cabe",
+  "parametros": {
+   "numero_nodos": 6,
+   "numero_rondas": 2,
+   "cupo_participantes_por_ronda_k": 3,
+   "presupuesto_ruido_por_ronda_B": 10,
+   "presupuesto_costos_participacion_por_ronda": 1
+  },
+  "grafo": [
+   {
+    "u": "N01",
+    "v": "N04",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N01",
+    "v": "N06",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N03",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N02",
+    "v": "N04",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N02",
+    "v": "N06",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N03",
+    "v": "N05",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N04",
+    "v": "N05",
+    "peso_influencia": 0.15
+   }
+  ],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 8.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 7.1,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 11.9,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 7.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 12.2,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 7.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "caso": "propio_09_nadie_cabe",
+  "N": 6,
+  "T": 2,
+  "k": 3,
+  "B": 10,
+  "P": 1,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06"
+    ],
+    "seleccion": [],
+    "costo_participacion": 0,
+    "utilidad_conjunta": 0.0,
+    "optimo": {
+     "valor": 0.0,
+     "seleccion": [],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [],
+    "utilidad_reparto": 0.0,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 0, k = 3"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 6"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 0, P = 1"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 0, B = 10"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 5.600042641162872e-06,
+     "reparto": 2.200016751885414e-06,
+     "total": 7.800059393048286e-06
+    },
+    "traza_seleccion": [],
+    "traza_reparto": []
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06"
+    ],
+    "seleccion": [],
+    "costo_participacion": 0,
+    "utilidad_conjunta": 0.0,
+    "optimo": {
+     "valor": 0.0,
+     "seleccion": [],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [],
+    "utilidad_reparto": 0.0,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 0, k = 3"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 6"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 0, P = 1"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 0, B = 10"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 3.8000289350748062e-06,
+     "reparto": 9.997747838497162e-07,
+     "total": 4.799803718924522e-06
+    },
+    "traza_seleccion": [],
+    "traza_reparto": []
+   }
+  ],
+  "utilidad_conjunta_total": 0.0,
+  "utilidad_reparto_total": 0.0,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N02",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N03",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N04",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N06",
+    "usado": 0,
+    "tope": 10
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "máximo usado = 0, tope = 10"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 1.2599863111972809e-05
+  },
+  "supuestos": [
+   "uᵢ(x) = aᵢ·ln(1 + x) en cada ronda",
+   "f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)), con wᵥᵥ = 1",
+   "grafo no dirigido; se exige |S| ≤ k y Σ cᵢ ≤ P a la vez",
+   "solo participan nodos con presupuesto restante > 0"
+  ]
+ }
+}

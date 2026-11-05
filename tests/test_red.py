@@ -102,3 +102,39 @@ def test_generador_de_influencia_y_conteo_de_evaluaciones():
     assert all(inst.W[v][v] == 1.0 for v in range(30))
     _, _, ev = voraz_influencia(inst.a, inst.W, 7, contar=True)
     assert ev == 7 * 30 - 7 * 6 // 2
+
+
+def _resolver_propio(nombre):
+    with open(os.path.join(RAIZ, "casos", "propios", f"{nombre}.json"), encoding="utf-8") as fh:
+        return resolver_caso_red(leer_caso_red(json.load(fh)))
+
+
+def test_todos_los_casos_propios_cumplen_las_restricciones():
+    import glob
+    archivos = glob.glob(os.path.join(RAIZ, "casos", "propios", "*.json"))
+    assert len(archivos) >= 10
+    for ruta in archivos:
+        with open(ruta, encoding="utf-8") as fh:
+            res = resolver_caso_red(leer_caso_red(json.load(fh)))
+        assert res["cumple_todo"], ruta
+
+
+def test_casos_limite():
+    # ningún costo cabe en P: rondas sin participantes y sin reparto, sin errores
+    res = _resolver_propio("propio_09_nadie_cabe")
+    assert all(r["seleccion"] == [] and r["reparto"] == [] for r in res["rondas"])
+    # los nodos agotan su presupuesto: la última ronda ya no tiene candidatos
+    res = _resolver_propio("propio_06_tope_agotado")
+    assert res["rondas"][-1]["seleccion"] == []
+    assert all(p["usado"] <= p["tope"] for p in res["presupuesto_usado"])
+    # un nodo con presupuesto total 0 nunca participa
+    res = _resolver_propio("propio_10_presupuestos_distintos")
+    assert all("N01" not in r["seleccion"] for r in res["rondas"])
+    # B = 0: hay participantes pero no se reparte nada
+    res = _resolver_propio("propio_08_presupuesto_cero")
+    assert all(r["seleccion"] and sum(f["unidades"] for f in r["reparto"]) == 0 for r in res["rondas"])
+
+
+def test_reparto_sin_participantes_no_falla():
+    from ada.parte1.voraz import voraz_heap
+    assert voraz_heap([], 5) == ([], 0.0)

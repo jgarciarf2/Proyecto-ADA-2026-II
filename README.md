@@ -76,7 +76,8 @@ Proyecto-ADA-2026-II/
 │   ├── parte1.py
 │   ├── parte2.py
 │   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
-│   └── figuras_informe.py        ← figuras del documento de formulación
+│   ├── figuras_informe.py        ← figuras del documento de formulación
+│   └── figuras_manual.py         ← diagramas UML del manual técnico
 │
 ├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
 │   ├── principal.py              ← punto de entrada y navegación
@@ -87,6 +88,7 @@ Proyecto-ADA-2026-II/
 │   └── estilos.py                ← colores, íconos SVG y CSS
 │
 ├── casos/profesora/              ← casos entregados por la profesora
+├── casos/propios/                ← 10 casos propios en el formato de la profesora (situaciones límite)
 ├── casos/ejemplos/               ← casos de ejemplo en el formato JSON provisional
 │
 ├── tests/                        ← correctitud en menos de 1 s
@@ -99,6 +101,7 @@ Proyecto-ADA-2026-II/
 ├── resultados/{parte1,parte2,influencia,casos}/   ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
+│   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
 │   └── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
@@ -177,6 +180,7 @@ Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.
 ```bash
 python -m experimentos.casos                    # los casos de casos/ejemplos/
 python -m experimentos.casos casos/profesora/   # los casos de la profesora
+python -m experimentos.casos casos/propios/     # los 10 casos propios (situaciones límite)
 ```
 
 **Casos de la profesora.** Traen N, T rondas, k, B y un presupuesto de participación P por ronda; un grafo con pesos de influencia; y por nodo un coeficiente de utilidad, un costo y un presupuesto total. Mientras la profesora no confirme las fórmulas, usamos estos **supuestos**: uᵢ(x) = aᵢ·ln(1 + x); f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)) con wᵥᵥ = 1 (influencia probabilística, monótona y submodular); grafo no dirigido; en cada ronda se exige |S| ≤ k y Σ cᵢ ≤ P a la vez, y ningún nodo pasa su presupuesto total. Están en [ada/casos_red.py](ada/casos_red.py) y [ada/solucion_red.py](ada/solucion_red.py).

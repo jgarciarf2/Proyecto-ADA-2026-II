@@ -2,7 +2,7 @@
 
 Análisis y Diseño de Algoritmos · Universidad de Caldas · Primera entrega
 
-Las figuras se generan con `python -m experimentos.figuras_informe`.
+Las figuras se generan con `python -m experimentos.figuras_informe` y `python -m experimentos.figuras_manual`.
 
 ## 1. Introducción
 
@@ -687,7 +687,9 @@ Además del caso de la profesora, comprobamos la implementación con casos propi
 2. **Contra las propiedades teóricas.** 1 500 pruebas aleatorias con la utilidad de influencia y 2 000 con la de cobertura confirman la monotonía y la submodularidad sin ninguna violación. El número de evaluaciones del voraz coincide exactamente con kN − k(k − 1)/2, y las comparaciones del montículo nunca pasan de 2n y 2·B·log₂ n.
 3. **Contra las restricciones del problema.** Cada ejecución verifica las nueve restricciones de cada ronda y el presupuesto total por nodo (sección 9), y vuelve a calcular f y U desde la solución. Hay pruebas que meten a propósito soluciones inválidas para confirmar que la verificación las detecta, y casos con datos mal formados (pesos fuera de [0, 1], nodos inexistentes, coeficientes negativos) para confirmar que el lector los rechaza con un mensaje claro.
 
-En total son 32 pruebas automáticas que corren en menos de un segundo. El manual técnico explica cómo ejecutarlas.
+4. **Casos propios en el formato de la profesora.** Creamos diez casos, cada uno pensado para una situación distinta: tamaños de 6 a 150 nodos, costos que dejan elegir menos de k nodos, nodos que agotan su presupuesto, un grafo sin aristas, presupuesto B = 0, rondas en las que ningún costo cabe en P y presupuestos totales distintos. Todos cumplen las restricciones, y los casos límite encontraron tres errores de la implementación (un reparto sin participantes, una evidencia vacía y una división por cero en la interfaz), que ya están corregidos y cubiertos por pruebas. El manual técnico tiene la tabla completa.
+
+En total son 35 pruebas automáticas que corren en menos de un segundo. El manual técnico explica cómo ejecutarlas.
 
 ## 13. Alcance y variantes del proyecto
 

@@ -1,0 +1,38 @@
+restriccion,cumple,detalle
+ronda 1: |S| <= k,True,"|S| = 3, k = 3"
+ronda 1: sin nodos repetidos,True,0 repetidos
+ronda 1: nodos validos (0..N-1),True,N = 8
+ronda 1: costo de participacion <= P,True,"costo = 12, P = 30"
+ronda 1: sum x_i <= B,True,"sum x_i = 18, B = 20"
+ronda 1: x_i entero >= 0,True,todos validos
+ronda 1: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 1: f(S) coincide al recalcular,True,"reportado = 64.347750, recalculado = 64.347750"
+ronda 1: U(x) coincide al recalcular,True,"reportado = 47.674799, recalculado = 47.674799"
+ronda 2: |S| <= k,True,"|S| = 3, k = 3"
+ronda 2: sin nodos repetidos,True,0 repetidos
+ronda 2: nodos validos (0..N-1),True,N = 8
+ronda 2: costo de participacion <= P,True,"costo = 14, P = 30"
+ronda 2: sum x_i <= B,True,"sum x_i = 18, B = 20"
+ronda 2: x_i entero >= 0,True,todos validos
+ronda 2: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 2: f(S) coincide al recalcular,True,"reportado = 63.239200, recalculado = 63.239200"
+ronda 2: U(x) coincide al recalcular,True,"reportado = 61.296170, recalculado = 61.296170"
+ronda 3: |S| <= k,True,"|S| = 2, k = 3"
+ronda 3: sin nodos repetidos,True,0 repetidos
+ronda 3: nodos validos (0..N-1),True,N = 8
+ronda 3: costo de participacion <= P,True,"costo = 5, P = 30"
+ronda 3: sum x_i <= B,True,"sum x_i = 12, B = 20"
+ronda 3: x_i entero >= 0,True,todos validos
+ronda 3: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 3: f(S) coincide al recalcular,True,"reportado = 47.042250, recalculado = 47.042250"
+ronda 3: U(x) coincide al recalcular,True,"reportado = 35.999338, recalculado = 35.999338"
+ronda 4: |S| <= k,True,"|S| = 0, k = 3"
+ronda 4: sin nodos repetidos,True,0 repetidos
+ronda 4: nodos validos (0..N-1),True,N = 8
+ronda 4: costo de participacion <= P,True,"costo = 0, P = 30"
+ronda 4: sum x_i <= B,True,"sum x_i = 0, B = 20"
+ronda 4: x_i entero >= 0,True,todos validos
+ronda 4: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 4: f(S) coincide al recalcular,True,"reportado = 0.000000, recalculado = 0.000000"
+ronda 4: U(x) coincide al recalcular,True,"reportado = 0.000000, recalculado = 0.000000"
+presupuesto total por nodo,True,"máximo usado = 6, tope = 6"

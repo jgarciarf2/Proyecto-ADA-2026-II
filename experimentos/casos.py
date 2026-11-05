@@ -6,7 +6,8 @@ Uso:
     python -m experimentos.casos                      # todos los casos de casos/ejemplos/
     python -m experimentos.casos casos/profesora/     # una carpeta con archivos .json
     python -m experimentos.casos caso_01.json caso_02.json
-    python -m experimentos.casos --generar-ejemplos   # vuelve a crear casos/ejemplos/
+    python -m experimentos.casos casos/propios/       # los casos propios en el formato de la profesora
+    python -m experimentos.casos --generar-ejemplos   # vuelve a crear casos/ejemplos/ y casos/propios/
 
 Salida en resultados/casos/<nombre>/:
     resultado.json, traza_seleccion.csv, traza_reparto.csv (si B no es muy grande), reparto.csv
@@ -19,7 +20,7 @@ import json
 import os
 
 from ada.casos import caso_sintetico, leer_caso, optimo_si_es_factible, resultado_a_dict
-from ada.casos_red import es_formato_red, leer_caso_red
+from ada.casos_red import caso_red_sintetico, es_formato_red, leer_caso_red
 from ada.ronda import resolver_ronda
 from ada.solucion_red import resolver_caso_red
 from experimentos.comun import RAIZ, carpeta_salida, guardar_csv
@@ -45,6 +46,41 @@ def generar_ejemplos():
         nodo["utilidad"] = {"familia": "tabla", "valores": [round(a * (1 - 0.7 ** x), 4) for x in range(13)]}
     _escribir_json(os.path.join(CARPETA_EJEMPLOS, "caso_04_tablas.json"), tabla)
     print(f"Ejemplos creados en {CARPETA_EJEMPLOS}")
+    generar_propios()
+
+
+# Casos propios en el formato de la profesora. Cada uno prueba una situación distinta.
+CARPETA_PROPIOS = os.path.join(RAIZ, "casos", "propios")
+PROPIOS = [  # nombre, argumentos de caso_red_sintetico, qué prueba
+    ("propio_01_basico", dict(N=10, T=2, k=3, B=12, P=10, R=10, densidad=0.6, semilla=1),
+     "caso pequeño y disperso; el óptimo se calcula en todas las rondas"),
+    ("propio_02_como_profesora", dict(N=15, T=3, k=5, B=30, P=24, R=18, densidad=1.0, semilla=2),
+     "mismos parámetros que el caso de la profesora, con otros datos"),
+    ("propio_03_mediano", dict(N=40, T=3, k=6, B=40, P=20, R=25, densidad=0.4, semilla=3),
+     "tamaño intermedio; ya no se calcula el óptimo (unos 4,6 millones de grupos, más que el límite)"),
+    ("propio_04_grande", dict(N=150, T=5, k=10, B=100, P=40, R=60, densidad=0.2, semilla=4),
+     "tamaño grande; sin óptimo de referencia (demasiados grupos)"),
+    ("propio_05_costos_restrictivos", dict(N=12, T=2, k=5, B=15, P=6, R=15, densidad=0.7, costos=(2, 7), semilla=5),
+     "el límite de costos deja elegir menos de k nodos"),
+    ("propio_06_tope_agotado", dict(N=8, T=4, k=3, B=20, P=30, R=6, densidad=0.8, semilla=6),
+     "los nodos agotan su presupuesto total y en rondas tardías cambian los participantes"),
+    ("propio_07_sin_aristas", dict(N=10, T=2, k=4, B=10, P=20, R=10, densidad=0.0, semilla=7),
+     "grafo sin aristas: la utilidad conjunta es la suma de los coeficientes"),
+    ("propio_08_presupuesto_cero", dict(N=8, T=2, k=3, B=0, P=15, R=10, densidad=0.5, semilla=8),
+     "B = 0: se eligen participantes pero no se reparte nada"),
+    ("propio_09_nadie_cabe", dict(N=6, T=2, k=3, B=10, P=1, R=10, densidad=0.5, costos=(2, 7), semilla=9),
+     "ningún costo cabe en P: la ronda queda sin participantes"),
+    ("propio_10_presupuestos_distintos", dict(N=10, T=3, k=4, B=20, P=20, R=[0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
+                                              densidad=0.6, semilla=10),
+     "presupuestos totales distintos, incluido un nodo con 0 que nunca puede participar"),
+]
+
+
+def generar_propios():
+    os.makedirs(CARPETA_PROPIOS, exist_ok=True)
+    for nombre, args, _ in PROPIOS:
+        _escribir_json(os.path.join(CARPETA_PROPIOS, f"{nombre}.json"), caso_red_sintetico(nombre, **args))
+    print(f"Casos propios creados en {CARPETA_PROPIOS}")
 
 
 def ejecutar_caso(datos, con_optimo=True):
@@ -66,10 +102,14 @@ def guardar_evidencia(datos, res, salida):
     _escribir_json(os.path.join(salida, "resultado.json"), {"entrada": datos, "resultado": res})
     rondas = res["rondas"] if res.get("formato") == "red" else [res]
     con_ronda = lambda clave: [{"ronda": r.get("ronda", 1), **fila} for r in rondas for fila in r[clave]]
-    guardar_csv(os.path.join(salida, "traza_seleccion.csv"), con_ronda("traza_seleccion"))
+    # columnas fijas: si una ronda no tiene participantes, el CSV queda con encabezado y sin filas
+    guardar_csv(os.path.join(salida, "traza_seleccion.csv"), con_ronda("traza_seleccion"),
+                ["ronda", "paso", "nodo", "ganancia_marginal", "utilidad_acumulada", "candidatos_evaluados",
+                 "costo_acumulado"])
     if any(r["traza_reparto"] for r in rondas):
         guardar_csv(os.path.join(salida, "traza_reparto.csv"), con_ronda("traza_reparto"))
-    guardar_csv(os.path.join(salida, "reparto.csv"), con_ronda("reparto"))
+    guardar_csv(os.path.join(salida, "reparto.csv"), con_ronda("reparto"),
+                ["ronda", "nodo", "unidades", "utilidad", "ultima_ganancia", "restante_antes"])
     if res.get("formato") == "red":
         guardar_csv(os.path.join(salida, "verificacion.csv"),
                     [*[v for r in rondas for v in r["verificaciones"]], *res["verificacion_global"]])
@@ -119,7 +159,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Ejecuta casos con la solución base y guarda la evidencia.")
     p.add_argument("rutas", nargs="*", default=[CARPETA_EJEMPLOS], help="archivos .json o carpetas")
     p.add_argument("--sin-optimo", action="store_true", help="no calcular el óptimo por fuerza bruta")
-    p.add_argument("--generar-ejemplos", action="store_true", help="crear los casos de casos/ejemplos/")
+    p.add_argument("--generar-ejemplos", action="store_true", help="crear casos/ejemplos/ (formato provisional) y casos/propios/ (formato de la profesora)")
     a = p.parse_args()
     if a.generar_ejemplos:
         generar_ejemplos()

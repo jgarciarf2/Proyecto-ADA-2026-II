@@ -31,9 +31,11 @@ def medir_mediana(funcion, reps=5):
     return statistics.median(tiempos)
 
 
-def guardar_csv(ruta, filas):
+def guardar_csv(ruta, filas, columnas=None):
+    """Si no hay filas (por ejemplo, una ronda sin participantes) escribe solo el encabezado."""
+    columnas = list(filas[0].keys()) if filas else (columnas or [])
     with open(ruta, "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=filas[0].keys())
+        w = csv.DictWriter(fh, fieldnames=columnas)
         w.writeheader()
         w.writerows(filas)
 
