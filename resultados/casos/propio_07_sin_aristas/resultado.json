@@ -1,0 +1,563 @@
+{
+ "entrada": {
+  "nombre": "propio_07_sin_aristas",
+  "parametros": {
+   "numero_nodos": 10,
+   "numero_rondas": 2,
+   "cupo_participantes_por_ronda_k": 4,
+   "presupuesto_ruido_por_ronda_B": 10,
+   "presupuesto_costos_participacion_por_ronda": 20
+  },
+  "grafo": [],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 7.6,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 8.2,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 5.6,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 5.8,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 5.5,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 6.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N07",
+    "coeficiente_utilidad": 8.5,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N08",
+    "coeficiente_utilidad": 6.9,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N09",
+    "coeficiente_utilidad": 8.4,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N10",
+    "coeficiente_utilidad": 6.0,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 3
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "caso": "propio_07_sin_aristas",
+  "N": 10,
+  "T": 2,
+  "k": 4,
+  "B": 10,
+  "P": 20,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10"
+    ],
+    "seleccion": [
+     "N07",
+     "N09",
+     "N02",
+     "N01"
+    ],
+    "costo_participacion": 13,
+    "utilidad_conjunta": 32.699999999999996,
+    "optimo": {
+     "valor": 32.699999999999996,
+     "seleccion": [
+      "N01",
+      "N02",
+      "N07",
+      "N09"
+     ],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [
+     {
+      "nodo": "N07",
+      "unidades": 3,
+      "utilidad": 11.78350206951907,
+      "ultima_ganancia": 2.4452976158401363,
+      "restante_antes": 10
+     },
+     {
+      "nodo": "N09",
+      "unidades": 3,
+      "utilidad": 11.644872633407081,
+      "ultima_ganancia": 2.4165294085949576,
+      "restante_antes": 10
+     },
+     {
+      "nodo": "N02",
+      "unidades": 2,
+      "utilidad": 9.008620767078499,
+      "ultima_ganancia": 3.3248138864869485,
+      "restante_antes": 10
+     },
+     {
+      "nodo": "N01",
+      "unidades": 2,
+      "utilidad": 8.349453393877633,
+      "ultima_ganancia": 3.081534821622049,
+      "restante_antes": 10
+     }
+    ],
+    "utilidad_reparto": 40.786448863882285,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 4, k = 4"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 13, P = 20"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 10, B = 10"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 32.700000, recalculado = 32.700000"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 40.786449, recalculado = 40.786449"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 5.000014789402485e-05,
+     "reparto": 1.8899794667959213e-05,
+     "total": 6.889994256198406e-05
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N07",
+      "ganancia_marginal": 8.5,
+      "utilidad_acumulada": 8.5,
+      "candidatos_evaluados": 10,
+      "costo_acumulado": 2
+     },
+     {
+      "paso": 2,
+      "nodo": "N09",
+      "ganancia_marginal": 8.4,
+      "utilidad_acumulada": 16.9,
+      "candidatos_evaluados": 9,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N02",
+      "ganancia_marginal": 8.2,
+      "utilidad_acumulada": 25.099999999999998,
+      "candidatos_evaluados": 8,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 4,
+      "nodo": "N01",
+      "ganancia_marginal": 7.6,
+      "utilidad_acumulada": 32.699999999999996,
+      "candidatos_evaluados": 7,
+      "costo_acumulado": 13
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N07",
+      "ganancia_marginal": 5.891751034759535
+     },
+     {
+      "unidad": 2,
+      "nodo": "N09",
+      "ganancia_marginal": 5.8224363167035404
+     },
+     {
+      "unidad": 3,
+      "nodo": "N02",
+      "ganancia_marginal": 5.6838068805915505
+     },
+     {
+      "unidad": 4,
+      "nodo": "N01",
+      "ganancia_marginal": 5.267918572255584
+     },
+     {
+      "unidad": 5,
+      "nodo": "N07",
+      "ganancia_marginal": 3.4464534189193987
+     },
+     {
+      "unidad": 6,
+      "nodo": "N09",
+      "ganancia_marginal": 3.405906908108583
+     },
+     {
+      "unidad": 7,
+      "nodo": "N02",
+      "ganancia_marginal": 3.3248138864869485
+     },
+     {
+      "unidad": 8,
+      "nodo": "N01",
+      "ganancia_marginal": 3.081534821622049
+     },
+     {
+      "unidad": 9,
+      "nodo": "N07",
+      "ganancia_marginal": 2.4452976158401363
+     },
+     {
+      "unidad": 10,
+      "nodo": "N09",
+      "ganancia_marginal": 2.4165294085949576
+     }
+    ]
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10"
+    ],
+    "seleccion": [
+     "N07",
+     "N09",
+     "N02",
+     "N01"
+    ],
+    "costo_participacion": 13,
+    "utilidad_conjunta": 32.699999999999996,
+    "optimo": {
+     "valor": 32.699999999999996,
+     "seleccion": [
+      "N01",
+      "N02",
+      "N07",
+      "N09"
+     ],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [
+     {
+      "nodo": "N07",
+      "unidades": 3,
+      "utilidad": 11.78350206951907,
+      "ultima_ganancia": 2.4452976158401363,
+      "restante_antes": 7
+     },
+     {
+      "nodo": "N09",
+      "unidades": 3,
+      "utilidad": 11.644872633407081,
+      "ultima_ganancia": 2.4165294085949576,
+      "restante_antes": 7
+     },
+     {
+      "nodo": "N02",
+      "unidades": 2,
+      "utilidad": 9.008620767078499,
+      "ultima_ganancia": 3.3248138864869485,
+      "restante_antes": 8
+     },
+     {
+      "nodo": "N01",
+      "unidades": 2,
+      "utilidad": 8.349453393877633,
+      "ultima_ganancia": 3.081534821622049,
+      "restante_antes": 8
+     }
+    ],
+    "utilidad_reparto": 40.786448863882285,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 4, k = 4"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 13, P = 20"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 10, B = 10"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 32.700000, recalculado = 32.700000"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 40.786449, recalculado = 40.786449"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 5.119992420077324e-05,
+     "reparto": 1.659989356994629e-05,
+     "total": 6.779981777071953e-05
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N07",
+      "ganancia_marginal": 8.5,
+      "utilidad_acumulada": 8.5,
+      "candidatos_evaluados": 10,
+      "costo_acumulado": 2
+     },
+     {
+      "paso": 2,
+      "nodo": "N09",
+      "ganancia_marginal": 8.4,
+      "utilidad_acumulada": 16.9,
+      "candidatos_evaluados": 9,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N02",
+      "ganancia_marginal": 8.2,
+      "utilidad_acumulada": 25.099999999999998,
+      "candidatos_evaluados": 8,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 4,
+      "nodo": "N01",
+      "ganancia_marginal": 7.6,
+      "utilidad_acumulada": 32.699999999999996,
+      "candidatos_evaluados": 7,
+      "costo_acumulado": 13
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N07",
+      "ganancia_marginal": 5.891751034759535
+     },
+     {
+      "unidad": 2,
+      "nodo": "N09",
+      "ganancia_marginal": 5.8224363167035404
+     },
+     {
+      "unidad": 3,
+      "nodo": "N02",
+      "ganancia_marginal": 5.6838068805915505
+     },
+     {
+      "unidad": 4,
+      "nodo": "N01",
+      "ganancia_marginal": 5.267918572255584
+     },
+     {
+      "unidad": 5,
+      "nodo": "N07",
+      "ganancia_marginal": 3.4464534189193987
+     },
+     {
+      "unidad": 6,
+      "nodo": "N09",
+      "ganancia_marginal": 3.405906908108583
+     },
+     {
+      "unidad": 7,
+      "nodo": "N02",
+      "ganancia_marginal": 3.3248138864869485
+     },
+     {
+      "unidad": 8,
+      "nodo": "N01",
+      "ganancia_marginal": 3.081534821622049
+     },
+     {
+      "unidad": 9,
+      "nodo": "N07",
+      "ganancia_marginal": 2.4452976158401363
+     },
+     {
+      "unidad": 10,
+      "nodo": "N09",
+      "ganancia_marginal": 2.4165294085949576
+     }
+    ]
+   }
+  ],
+  "utilidad_conjunta_total": 65.39999999999999,
+  "utilidad_reparto_total": 81.57289772776457,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 4,
+    "tope": 10
+   },
+   {
+    "nodo": "N02",
+    "usado": 4,
+    "tope": 10
+   },
+   {
+    "nodo": "N03",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N04",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N06",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N07",
+    "usado": 6,
+    "tope": 10
+   },
+   {
+    "nodo": "N08",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N09",
+    "usado": 6,
+    "tope": 10
+   },
+   {
+    "nodo": "N10",
+    "usado": 0,
+    "tope": 10
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "máximo usado = 6, tope = 10"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 0.0001366997603327036
+  },
+  "supuestos": [
+   "uᵢ(x) = aᵢ·ln(1 + x) en cada ronda",
+   "f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)), con wᵥᵥ = 1",
+   "grafo no dirigido; se exige |S| ≤ k y Σ cᵢ ≤ P a la vez",
+   "solo participan nodos con presupuesto restante > 0"
+  ]
+ }
+}

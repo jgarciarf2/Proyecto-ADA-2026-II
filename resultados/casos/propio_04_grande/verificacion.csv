@@ -1,0 +1,47 @@
+restriccion,cumple,detalle
+ronda 1: |S| <= k,True,"|S| = 10, k = 10"
+ronda 1: sin nodos repetidos,True,0 repetidos
+ronda 1: nodos validos (0..N-1),True,N = 150
+ronda 1: costo de participacion <= P,True,"costo = 38, P = 40"
+ronda 1: sum x_i <= B,True,"sum x_i = 100, B = 100"
+ronda 1: x_i entero >= 0,True,todos validos
+ronda 1: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 1: f(S) coincide al recalcular,True,"reportado = 1064.401978, recalculado = 1064.401978"
+ronda 1: U(x) coincide al recalcular,True,"reportado = 225.945761, recalculado = 225.945761"
+ronda 2: |S| <= k,True,"|S| = 10, k = 10"
+ronda 2: sin nodos repetidos,True,0 repetidos
+ronda 2: nodos validos (0..N-1),True,N = 150
+ronda 2: costo de participacion <= P,True,"costo = 38, P = 40"
+ronda 2: sum x_i <= B,True,"sum x_i = 100, B = 100"
+ronda 2: x_i entero >= 0,True,todos validos
+ronda 2: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 2: f(S) coincide al recalcular,True,"reportado = 1064.401978, recalculado = 1064.401978"
+ronda 2: U(x) coincide al recalcular,True,"reportado = 225.945761, recalculado = 225.945761"
+ronda 3: |S| <= k,True,"|S| = 10, k = 10"
+ronda 3: sin nodos repetidos,True,0 repetidos
+ronda 3: nodos validos (0..N-1),True,N = 150
+ronda 3: costo de participacion <= P,True,"costo = 38, P = 40"
+ronda 3: sum x_i <= B,True,"sum x_i = 100, B = 100"
+ronda 3: x_i entero >= 0,True,todos validos
+ronda 3: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 3: f(S) coincide al recalcular,True,"reportado = 1064.401978, recalculado = 1064.401978"
+ronda 3: U(x) coincide al recalcular,True,"reportado = 225.945761, recalculado = 225.945761"
+ronda 4: |S| <= k,True,"|S| = 10, k = 10"
+ronda 4: sin nodos repetidos,True,0 repetidos
+ronda 4: nodos validos (0..N-1),True,N = 150
+ronda 4: costo de participacion <= P,True,"costo = 38, P = 40"
+ronda 4: sum x_i <= B,True,"sum x_i = 100, B = 100"
+ronda 4: x_i entero >= 0,True,todos validos
+ronda 4: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 4: f(S) coincide al recalcular,True,"reportado = 1064.401978, recalculado = 1064.401978"
+ronda 4: U(x) coincide al recalcular,True,"reportado = 225.945761, recalculado = 225.945761"
+ronda 5: |S| <= k,True,"|S| = 10, k = 10"
+ronda 5: sin nodos repetidos,True,0 repetidos
+ronda 5: nodos validos (0..N-1),True,N = 150
+ronda 5: costo de participacion <= P,True,"costo = 38, P = 40"
+ronda 5: sum x_i <= B,True,"sum x_i = 100, B = 100"
+ronda 5: x_i entero >= 0,True,todos validos
+ronda 5: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 5: f(S) coincide al recalcular,True,"reportado = 1064.401978, recalculado = 1064.401978"
+ronda 5: U(x) coincide al recalcular,True,"reportado = 223.245748, recalculado = 223.245748"
+presupuesto total por nodo,True,"máximo usado = 60, tope = 60"

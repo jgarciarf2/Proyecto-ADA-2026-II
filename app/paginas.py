@@ -91,10 +91,19 @@ def _leer_evidencias(_marca):
         f = fila_resumen(r)          # mismas columnas para los dos formatos (en red se suman las rondas)
         filas.append({"Caso": f["caso"], "Rondas": f["rondas"], "N": f["N"], "k": f["k"], "B": f["B"],
                       "f(S)": f["f(S)"],
-                      "f(S) / óptimo": f"{f['f(S)'] / f['optimo_f']:.4f}" if f["optimo_f"] != "" else "—",
+                      "f(S) / óptimo": _razon(f["f(S)"], f["optimo_f"]),
                       "U(x)": f["U(x)"], "Tiempo (ms)": f["t_total_ms"],
                       "Restricciones": "cumple" if f["cumple_restricciones"] else "NO cumple"})
     return filas, todos
+
+
+def _razon(valor, optimo):
+    """f(S)/óptimo como texto. Sin óptimo calculado: "—". Óptimo 0 (nadie pudo participar): 1 si f(S) también es 0."""
+    if optimo == "":
+        return "—"
+    if optimo == 0:
+        return "1.0000" if valor == 0 else "—"
+    return f"{valor / optimo:.4f}"
 
 
 def evidencias():

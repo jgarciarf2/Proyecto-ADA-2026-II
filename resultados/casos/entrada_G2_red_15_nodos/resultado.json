@@ -763,9 +763,9 @@
     ],
     "cumple_todo": true,
     "tiempo_s": {
-     "seleccion": 0.00011319993063807487,
-     "reparto": 4.549999721348286e-05,
-     "total": 0.00015869992785155773
+     "seleccion": 0.00010879989713430405,
+     "reparto": 4.5000109821558e-05,
+     "total": 0.00015380000695586205
     },
     "traza_seleccion": [
      {
@@ -1088,9 +1088,9 @@
     ],
     "cumple_todo": true,
     "tiempo_s": {
-     "seleccion": 0.0001034000888466835,
-     "reparto": 3.3400021493434906e-05,
-     "total": 0.0001368001103401184
+     "seleccion": 0.00010120007209479809,
+     "reparto": 3.2800016924738884e-05,
+     "total": 0.00013400008901953697
     },
     "traza_seleccion": [
      {
@@ -1413,9 +1413,9 @@
     ],
     "cumple_todo": true,
     "tiempo_s": {
-     "seleccion": 9.690015576779842e-05,
-     "reparto": 3.260001540184021e-05,
-     "total": 0.00012950017116963863
+     "seleccion": 9.729992598295212e-05,
+     "reparto": 3.2400013878941536e-05,
+     "total": 0.00012969993986189365
     },
     "traza_seleccion": [
      {
@@ -1701,7 +1701,7 @@
   ],
   "cumple_todo": true,
   "tiempo_s": {
-   "total": 0.0004250002093613148
+   "total": 0.00041750003583729267
   },
   "supuestos": [
    "uᵢ(x) = aᵢ·ln(1 + x) en cada ronda",

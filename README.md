@@ -6,7 +6,7 @@ Proyecto semestral de Análisis y Diseño de Algoritmos. Una red de N nodos entr
 |---|---|---|---|
 | 1. Reparto del presupuesto | Repartir B unidades entre N nodos con utilidades cóncavas | Voraz con montículo, óptimo por intercambio | Polinomial: `O(N + B log N)` |
 | 2. Selección de participantes | Elegir k de N nodos que maximicen una utilidad submodular | Voraz submodular, cota `(1 − 1/e)` | NP-difícil (reducción desde Cobertura Máxima) |
-| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | Por definir | Por definir |
+| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 y T rondas (sin fallas) ya están en la solución base; el resto es de la entrega final | Por definir |
 
 ---
 
@@ -29,14 +29,14 @@ En la sustentación grupal cada uno debe poder explicar **sin notas** la reducci
 
 | Semanas | Hito | Estado |
 |---|---|---|
-| 1-2 | Equipo, variante y formalización escrita (sin código) | 🟡 Parte 1 y Parte 2 formalizadas; **faltan las variantes y el documento de entrega** |
-| 3-4 | Prueba de NP-dureza (revisa la profesora) | ✅ Hecha: `docs/02_parte2.md` §3 |
+| 1-2 | Equipo, variante y formalización escrita (sin código) | ✅ Primera entrega: `docs/formulacion.md` y `docs/manual_tecnico.md` (Word/PDF en `entregables/`) · ⬜ formalizar V2 con fallas y V3 |
+| 3-4 | Prueba de NP-dureza (revisa la profesora) | ✅ Hecha: `docs/formulacion.md` §7 (desde Cobertura Máxima y desde Conjunto Dominante) |
 | 5-6 | Algoritmo exacto y su T(n) | ✅ Parte 1 (voraz + verificador DP); ✅ Parte 2 (fuerza bruta) |
 | 7-8 | Aproximado, su T(n) y su cota | ✅ Voraz submodular con `(1 − 1/e)` |
 | 9-10 | Experimentos | ✅ Parte 1 y Parte 2 · ⬜ variantes |
 | 11 | Entrega final y sustentación | ⬜ |
 
-**Resumen:** el núcleo (Partes 1 y 2) está completo con teoría, código y gráficas. Lo que falta son **las tres variantes**, el **documento formal de la primera entrega** y el **informe final**.
+**Resumen:** la primera entrega está completa: formulación con las dos reducciones, solución base para los casos de la profesora (T rondas, k y costos ≤ P, tope por nodo), 10 casos propios, 35 pruebas y manual técnico. Para la entrega final faltan **las variantes** (fallas en V2, vecinos en V3 y un voraz con garantía para V1) y el **informe final**.
 
 ---
 
@@ -51,8 +51,8 @@ Proyecto-ADA-2026-II/
 ├── pytest.ini                    ← configuración de las pruebas
 │
 ├── ada/                          ← TODA la lógica (no dibuja ni escribe archivos)
-│   ├── modelo.py                 ← dataclasses: InstanciaReparto, InstanciaCobertura
-│   ├── utilidades.py             ← utilidades cóncavas: UtilidadLog, UtilidadRaiz, UtilidadSaturacion
+│   ├── modelo.py                 ← dataclasses: InstanciaReparto, InstanciaCobertura, InstanciaInfluencia
+│   ├── utilidades.py             ← utilidades cóncavas: UtilidadLog, UtilidadRaiz, UtilidadSaturacion, UtilidadTabla, UtilidadConTope
 │   ├── generadores.py            ← todas las instancias sintéticas (semilla fija)
 │   ├── parte1/
 │   │   ├── voraz.py              ← voraz con heap O(N + B log N) + ContadorComparaciones
@@ -74,7 +74,10 @@ Proyecto-ADA-2026-II/
 │   ├── comun.py                  ← medir (mediana), guardar CSV, gráfica medido/teoría/cociente
 │   ├── casos.py                  ← ejecuta casos .json y guarda la evidencia (resultado, tiempo, trazas)
 │   ├── parte1.py
-│   └── parte2.py
+│   ├── parte2.py
+│   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
+│   ├── figuras_informe.py        ← figuras del documento de formulación
+│   └── figuras_manual.py         ← diagramas UML del manual técnico
 │
 ├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
 │   ├── principal.py              ← punto de entrada y navegación
@@ -85,6 +88,7 @@ Proyecto-ADA-2026-II/
 │   └── estilos.py                ← colores, íconos SVG y CSS
 │
 ├── casos/profesora/              ← casos entregados por la profesora
+├── casos/propios/                ← 10 casos propios en el formato de la profesora (situaciones límite)
 ├── casos/ejemplos/               ← casos de ejemplo en el formato JSON provisional
 │
 ├── tests/                        ← correctitud en menos de 1 s
@@ -94,8 +98,12 @@ Proyecto-ADA-2026-II/
 │   ├── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
 │   └── test_red.py               ← influencia submodular, voraz con costos, caso de la profesora
 │
-├── resultados/{parte1,parte2,casos}/       ← CSV, gráficas y evidencia de cada caso
+├── resultados/{parte1,parte2,influencia,casos}/   ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
+│   ├── 01_formalizacion_y_parte1.md, 02_parte2.md  ← notas teóricas iniciales de las Partes 1 y 2
+│   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
+│   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
+│   └── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
 
@@ -123,7 +131,7 @@ Proyecto-ADA-2026-II/
 
 | # | Tarea | Para cuándo | Responsable |
 |---|---|---|---|
-| 1 | `docs/00_formalizacion.md`: formalización de las Partes 1 y 2 **y de las 3 variantes**, con los nombres del equipo | Primera entrega | |
+| 1 | ~~Documento de la primera entrega~~ ✅ `docs/formulacion.md` + manual técnico | Primera entrega | |
 | 2 | Variante 1 (costos): formalizar, implementar y citar la cota de Khuller, Moss y Naor (1999) | | |
 | 3 | Variante 2 (T rondas con fallas): formalizar el modelo de fallas y el presupuesto acumulado | | |
 | 4 | Variante 3 (vecinos): formalizar el efecto de los vecinos y ver si se conserva la concavidad | | |
@@ -144,10 +152,10 @@ Proyecto-ADA-2026-II/
 1. El cronograma habla de "elección de la variante" en las semanas 1-2, pero el §4.4 dice que las variantes son "todas obligatorias". ¿Hacemos las tres? ¿En la primera entrega se formalizan todas?
 2. En la Parte 1 el enunciado toma n = N, pero el tiempo depende del **valor** de B (es pseudo-polinomial). ¿Acepta que el tamaño de entrada sea (N, B)?
 3. Como algoritmo exacto de la Parte 2, ¿basta la fuerza bruta `O(C(N,k) · k · d)`?
-4. ¿Podemos usar cobertura ponderada como utilidad submodular concreta, o quiere f como un oráculo general? Con cobertura, T pasa de `O(N·k)` a `O(N·k·d)`.
+4. Los casos traen un grafo con pesos de influencia pero no la fórmula de f ni de uᵢ. ¿Son correctas las que supusimos (ver §6, "Casos de la profesora")?
 5. V3: ¿cómo afecta el gasto a los vecinos (aditivo, puede ser negativo)? ¿Debe conservarse la concavidad?
 6. V2: ¿el presupuesto de ruido es por nodo y se acumula en las T rondas? ¿Las fallas son aleatorias, y se conocen antes o después de seleccionar?
-7. ¿En qué formato se entrega (PDF, Word, repositorio)? ¿Hay plantilla para el informe?
+7. ¿Hay plantilla para el informe final? (La guía de la primera entrega ya respondió el formato: informe, repositorio y manual técnico.)
 
 ---
 
@@ -163,20 +171,22 @@ pip install -r requirements.txt
 python -m pytest                  # correctitud, menos de 1 s
 python -m experimentos.parte1     # ~2 min: tiempos, ajuste c1·N + c2·B·log N, conteo de comparaciones
 python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, voraz vs. fuerza bruta
+python -m experimentos.influencia # ~1 min: voraz de influencia contra c·N²·k y cota con y sin costos
 ```
 
-Los CSV y las gráficas quedan en `resultados/parte1/` y `resultados/parte2/`.
+Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/` y `resultados/influencia/`.
 
 ### Ejecutar casos (evidencia de la entrega)
 
 ```bash
 python -m experimentos.casos                    # los casos de casos/ejemplos/
 python -m experimentos.casos casos/profesora/   # los casos de la profesora
+python -m experimentos.casos casos/propios/     # los 10 casos propios (situaciones límite)
 ```
 
 **Casos de la profesora.** Traen N, T rondas, k, B y un presupuesto de participación P por ronda; un grafo con pesos de influencia; y por nodo un coeficiente de utilidad, un costo y un presupuesto total. Mientras la profesora no confirme las fórmulas, usamos estos **supuestos**: uᵢ(x) = aᵢ·ln(1 + x); f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)) con wᵥᵥ = 1 (influencia probabilística, monótona y submodular); grafo no dirigido; en cada ronda se exige |S| ≤ k y Σ cᵢ ≤ P a la vez, y ningún nodo pasa su presupuesto total. Están en [ada/casos_red.py](ada/casos_red.py) y [ada/solucion_red.py](ada/solucion_red.py).
 
-Por cada caso se crea `resultados/casos/<nombre>/` con `resultado.json` (entrada, selección, reparto, tiempos, trazas y verificación), `traza_seleccion.csv`, `traza_reparto.csv` y `reparto.csv`. Además se genera `resultados/casos/resumen.csv` con una fila por caso. El formato del caso está documentado en [ada/casos.py](ada/casos.py). Es **provisional**: cuando llegue el de la profesora solo cambia `leer_caso`.
+Por cada caso se crea `resultados/casos/<nombre>/` con `resultado.json` (entrada, selección, reparto, tiempos, trazas y verificación), `traza_seleccion.csv`, `traza_reparto.csv` y `reparto.csv`. En los casos de la profesora también se crea `verificacion.csv`. Además se genera `resultados/casos/resumen.csv` con una fila por caso. El programa reconoce dos formatos: el de la profesora ([ada/casos_red.py](ada/casos_red.py)) y el provisional que usamos antes de recibirlo ([ada/casos.py](ada/casos.py), solo para `casos/ejemplos/`). Los dos están descritos en `docs/manual_tecnico.md` §8.
 
 ### Interfaz visual
 
@@ -187,4 +197,3 @@ streamlit run app/principal.py
 
 Tiene cuatro secciones. **Cargar caso** resuelve un JSON subido o de ejemplo. **Evidencias** muestra los casos guardados en `resultados/casos/`. **Modo demo** tiene controles para N, k y B, pensados para la sustentación. **Experimentos** reúne las gráficas de tiempo contra la teoría. La interfaz solo presenta resultados: la evidencia oficial son los archivos que genera `experimentos.casos`.
 
-> Nota: `docs/01` y `docs/02` todavía mencionan los nombres antiguos (`experimentos_parte1.py`, `experimentos_parte2.py`). Ahora son `experimentos/parte1.py` y `experimentos/parte2.py`. La correctitud voraz == DP y la prueba de submodularidad se movieron a `tests/`.

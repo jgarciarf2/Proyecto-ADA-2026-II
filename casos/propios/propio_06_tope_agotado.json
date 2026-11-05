@@ -1,0 +1,162 @@
+{
+ "nombre": "propio_06_tope_agotado",
+ "parametros": {
+  "numero_nodos": 8,
+  "numero_rondas": 4,
+  "cupo_participantes_por_ronda_k": 3,
+  "presupuesto_ruido_por_ronda_B": 20,
+  "presupuesto_costos_participacion_por_ronda": 30
+ },
+ "grafo": [
+  {
+   "u": "N01",
+   "v": "N03",
+   "peso_influencia": 0.2
+  },
+  {
+   "u": "N01",
+   "v": "N04",
+   "peso_influencia": 0.45
+  },
+  {
+   "u": "N01",
+   "v": "N05",
+   "peso_influencia": 0.15
+  },
+  {
+   "u": "N01",
+   "v": "N07",
+   "peso_influencia": 0.15
+  },
+  {
+   "u": "N01",
+   "v": "N08",
+   "peso_influencia": 0.7
+  },
+  {
+   "u": "N02",
+   "v": "N04",
+   "peso_influencia": 0.2
+  },
+  {
+   "u": "N02",
+   "v": "N05",
+   "peso_influencia": 0.5
+  },
+  {
+   "u": "N02",
+   "v": "N06",
+   "peso_influencia": 0.1
+  },
+  {
+   "u": "N02",
+   "v": "N07",
+   "peso_influencia": 0.35
+  },
+  {
+   "u": "N03",
+   "v": "N05",
+   "peso_influencia": 0.35
+  },
+  {
+   "u": "N03",
+   "v": "N06",
+   "peso_influencia": 0.85
+  },
+  {
+   "u": "N03",
+   "v": "N08",
+   "peso_influencia": 0.6
+  },
+  {
+   "u": "N04",
+   "v": "N05",
+   "peso_influencia": 0.7
+  },
+  {
+   "u": "N04",
+   "v": "N06",
+   "peso_influencia": 0.2
+  },
+  {
+   "u": "N04",
+   "v": "N07",
+   "peso_influencia": 0.85
+  },
+  {
+   "u": "N04",
+   "v": "N08",
+   "peso_influencia": 0.45
+  },
+  {
+   "u": "N05",
+   "v": "N06",
+   "peso_influencia": 0.35
+  },
+  {
+   "u": "N05",
+   "v": "N07",
+   "peso_influencia": 0.4
+  },
+  {
+   "u": "N05",
+   "v": "N08",
+   "peso_influencia": 0.35
+  },
+  {
+   "u": "N07",
+   "v": "N08",
+   "peso_influencia": 0.35
+  }
+ ],
+ "nodos": [
+  {
+   "id": "N01",
+   "coeficiente_utilidad": 11.3,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 2
+  },
+  {
+   "id": "N02",
+   "coeficiente_utilidad": 8.9,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 4
+  },
+  {
+   "id": "N03",
+   "coeficiente_utilidad": 5.3,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 3
+  },
+  {
+   "id": "N04",
+   "coeficiente_utilidad": 10.3,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 5
+  },
+  {
+   "id": "N05",
+   "coeficiente_utilidad": 12.7,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 7
+  },
+  {
+   "id": "N06",
+   "coeficiente_utilidad": 8.0,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 2
+  },
+  {
+   "id": "N07",
+   "coeficiente_utilidad": 7.2,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 3
+  },
+  {
+   "id": "N08",
+   "coeficiente_utilidad": 10.8,
+   "presupuesto_total_nodo": 6,
+   "costo_participacion": 5
+  }
+ ]
+}

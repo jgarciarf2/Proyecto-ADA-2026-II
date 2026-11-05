@@ -33,7 +33,7 @@ def voraz_heap(utilidades, B, contador=None, traza=None):
     if contador is not None:
         contador.fin_heapify()
     total = 0.0
-    for unidad in range(1, B + 1):
+    for unidad in range(1, B + 1 if heap else 1):     # sin participantes no hay nada que repartir
         neg_g, i = heap[0]
         if -neg_g <= 0:          # ninguna unidad extra aporta: parar (sum x_i <= B)
             break

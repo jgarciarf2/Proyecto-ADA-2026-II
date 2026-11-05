@@ -1,0 +1,3351 @@
+{
+ "entrada": {
+  "nombre": "propio_03_mediano",
+  "parametros": {
+   "numero_nodos": 40,
+   "numero_rondas": 3,
+   "cupo_participantes_por_ronda_k": 6,
+   "presupuesto_ruido_por_ronda_B": 40,
+   "presupuesto_costos_participacion_por_ronda": 20
+  },
+  "grafo": [
+   {
+    "u": "N01",
+    "v": "N03",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N01",
+    "v": "N05",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N01",
+    "v": "N08",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N01",
+    "v": "N09",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N01",
+    "v": "N12",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N01",
+    "v": "N14",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N01",
+    "v": "N15",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N01",
+    "v": "N18",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N01",
+    "v": "N19",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N01",
+    "v": "N21",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N01",
+    "v": "N24",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N01",
+    "v": "N26",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N01",
+    "v": "N32",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N01",
+    "v": "N34",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N01",
+    "v": "N36",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N01",
+    "v": "N38",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N02",
+    "v": "N03",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N02",
+    "v": "N06",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N02",
+    "v": "N08",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N02",
+    "v": "N10",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N02",
+    "v": "N11",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N12",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N02",
+    "v": "N13",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N14",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N02",
+    "v": "N16",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N02",
+    "v": "N17",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N02",
+    "v": "N20",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N02",
+    "v": "N21",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N02",
+    "v": "N22",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N25",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N02",
+    "v": "N28",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N29",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N02",
+    "v": "N32",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N02",
+    "v": "N33",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N02",
+    "v": "N34",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N36",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N02",
+    "v": "N38",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N03",
+    "v": "N07",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N03",
+    "v": "N08",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N03",
+    "v": "N09",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N03",
+    "v": "N17",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N03",
+    "v": "N21",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N03",
+    "v": "N26",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N03",
+    "v": "N27",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N03",
+    "v": "N32",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N03",
+    "v": "N33",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N03",
+    "v": "N34",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N03",
+    "v": "N39",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N04",
+    "v": "N07",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N04",
+    "v": "N08",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N04",
+    "v": "N09",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N04",
+    "v": "N13",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N04",
+    "v": "N14",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N04",
+    "v": "N15",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N04",
+    "v": "N17",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N04",
+    "v": "N19",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N04",
+    "v": "N21",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N04",
+    "v": "N22",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N04",
+    "v": "N24",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N04",
+    "v": "N26",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N04",
+    "v": "N27",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N04",
+    "v": "N29",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N04",
+    "v": "N32",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N04",
+    "v": "N34",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N04",
+    "v": "N36",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N04",
+    "v": "N39",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N05",
+    "v": "N07",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N05",
+    "v": "N09",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N05",
+    "v": "N11",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N05",
+    "v": "N13",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N05",
+    "v": "N14",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N05",
+    "v": "N17",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N05",
+    "v": "N18",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N23",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N26",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N05",
+    "v": "N28",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N05",
+    "v": "N29",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N05",
+    "v": "N32",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N05",
+    "v": "N33",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N34",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N40",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N06",
+    "v": "N08",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N06",
+    "v": "N10",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N06",
+    "v": "N12",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N06",
+    "v": "N13",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N06",
+    "v": "N18",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N06",
+    "v": "N22",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N06",
+    "v": "N26",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N06",
+    "v": "N28",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N06",
+    "v": "N30",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N06",
+    "v": "N37",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N06",
+    "v": "N38",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N06",
+    "v": "N39",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N07",
+    "v": "N16",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N07",
+    "v": "N18",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N07",
+    "v": "N20",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N07",
+    "v": "N22",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N07",
+    "v": "N24",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N07",
+    "v": "N32",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N07",
+    "v": "N35",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N07",
+    "v": "N37",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N07",
+    "v": "N39",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N08",
+    "v": "N09",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N08",
+    "v": "N10",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N08",
+    "v": "N11",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N08",
+    "v": "N12",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N08",
+    "v": "N14",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N08",
+    "v": "N17",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N08",
+    "v": "N18",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N08",
+    "v": "N19",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N08",
+    "v": "N20",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N08",
+    "v": "N21",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N08",
+    "v": "N22",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N08",
+    "v": "N23",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N08",
+    "v": "N24",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N08",
+    "v": "N26",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N08",
+    "v": "N28",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N08",
+    "v": "N29",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N08",
+    "v": "N30",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N08",
+    "v": "N33",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N08",
+    "v": "N35",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N08",
+    "v": "N38",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N08",
+    "v": "N39",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N08",
+    "v": "N40",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N09",
+    "v": "N14",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N09",
+    "v": "N16",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N09",
+    "v": "N18",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N09",
+    "v": "N22",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N09",
+    "v": "N23",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N09",
+    "v": "N25",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N09",
+    "v": "N26",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N09",
+    "v": "N27",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N09",
+    "v": "N31",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N09",
+    "v": "N33",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N09",
+    "v": "N38",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N10",
+    "v": "N11",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N10",
+    "v": "N13",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N10",
+    "v": "N16",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N10",
+    "v": "N17",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N10",
+    "v": "N18",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N10",
+    "v": "N19",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N10",
+    "v": "N22",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N10",
+    "v": "N26",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N10",
+    "v": "N27",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N10",
+    "v": "N29",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N10",
+    "v": "N33",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N10",
+    "v": "N34",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N10",
+    "v": "N37",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N10",
+    "v": "N40",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N11",
+    "v": "N13",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N11",
+    "v": "N17",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N11",
+    "v": "N18",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N11",
+    "v": "N20",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N11",
+    "v": "N23",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N11",
+    "v": "N29",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N11",
+    "v": "N33",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N11",
+    "v": "N38",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N12",
+    "v": "N15",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N12",
+    "v": "N16",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N12",
+    "v": "N18",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N12",
+    "v": "N19",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N12",
+    "v": "N21",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N12",
+    "v": "N22",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N12",
+    "v": "N24",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N12",
+    "v": "N25",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N12",
+    "v": "N28",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N12",
+    "v": "N30",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N12",
+    "v": "N32",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N12",
+    "v": "N34",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N12",
+    "v": "N35",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N12",
+    "v": "N36",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N12",
+    "v": "N37",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N12",
+    "v": "N39",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N12",
+    "v": "N40",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N13",
+    "v": "N16",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N13",
+    "v": "N21",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N13",
+    "v": "N23",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N13",
+    "v": "N24",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N13",
+    "v": "N27",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N13",
+    "v": "N29",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N13",
+    "v": "N30",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N13",
+    "v": "N31",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N13",
+    "v": "N33",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N13",
+    "v": "N34",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N13",
+    "v": "N37",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N13",
+    "v": "N40",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N14",
+    "v": "N15",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N14",
+    "v": "N16",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N14",
+    "v": "N23",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N14",
+    "v": "N25",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N14",
+    "v": "N29",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N14",
+    "v": "N35",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N14",
+    "v": "N37",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N14",
+    "v": "N38",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N14",
+    "v": "N39",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N15",
+    "v": "N20",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N15",
+    "v": "N21",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N15",
+    "v": "N22",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N15",
+    "v": "N23",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N15",
+    "v": "N24",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N15",
+    "v": "N26",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N15",
+    "v": "N29",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N15",
+    "v": "N30",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N15",
+    "v": "N32",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N15",
+    "v": "N38",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N15",
+    "v": "N40",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N16",
+    "v": "N19",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N16",
+    "v": "N20",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N16",
+    "v": "N21",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N16",
+    "v": "N25",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N16",
+    "v": "N27",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N16",
+    "v": "N29",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N16",
+    "v": "N32",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N16",
+    "v": "N33",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N16",
+    "v": "N36",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N16",
+    "v": "N38",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N16",
+    "v": "N40",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N17",
+    "v": "N19",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N17",
+    "v": "N20",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N17",
+    "v": "N36",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N17",
+    "v": "N37",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N17",
+    "v": "N38",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N17",
+    "v": "N39",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N17",
+    "v": "N40",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N18",
+    "v": "N19",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N18",
+    "v": "N20",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N18",
+    "v": "N21",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N18",
+    "v": "N24",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N18",
+    "v": "N28",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N18",
+    "v": "N34",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N18",
+    "v": "N39",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N18",
+    "v": "N40",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N19",
+    "v": "N20",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N19",
+    "v": "N22",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N19",
+    "v": "N25",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N19",
+    "v": "N26",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N19",
+    "v": "N27",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N19",
+    "v": "N28",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N19",
+    "v": "N29",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N19",
+    "v": "N31",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N19",
+    "v": "N32",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N19",
+    "v": "N34",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N19",
+    "v": "N38",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N19",
+    "v": "N40",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N20",
+    "v": "N21",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N20",
+    "v": "N26",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N20",
+    "v": "N31",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N20",
+    "v": "N32",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N20",
+    "v": "N33",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N21",
+    "v": "N25",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N21",
+    "v": "N26",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N21",
+    "v": "N30",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N21",
+    "v": "N31",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N21",
+    "v": "N34",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N21",
+    "v": "N35",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N22",
+    "v": "N23",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N22",
+    "v": "N25",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N22",
+    "v": "N26",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N22",
+    "v": "N27",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N22",
+    "v": "N32",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N22",
+    "v": "N33",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N22",
+    "v": "N35",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N22",
+    "v": "N36",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N22",
+    "v": "N38",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N22",
+    "v": "N40",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N23",
+    "v": "N24",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N23",
+    "v": "N29",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N23",
+    "v": "N32",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N23",
+    "v": "N38",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N23",
+    "v": "N39",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N24",
+    "v": "N25",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N24",
+    "v": "N28",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N24",
+    "v": "N29",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N24",
+    "v": "N30",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N24",
+    "v": "N31",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N24",
+    "v": "N33",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N24",
+    "v": "N35",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N24",
+    "v": "N37",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N24",
+    "v": "N38",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N24",
+    "v": "N39",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N24",
+    "v": "N40",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N25",
+    "v": "N29",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N25",
+    "v": "N32",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N25",
+    "v": "N35",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N26",
+    "v": "N29",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N26",
+    "v": "N32",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N26",
+    "v": "N35",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N26",
+    "v": "N36",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N26",
+    "v": "N37",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N26",
+    "v": "N40",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N27",
+    "v": "N28",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N27",
+    "v": "N34",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N27",
+    "v": "N35",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N27",
+    "v": "N36",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N28",
+    "v": "N31",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N28",
+    "v": "N32",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N28",
+    "v": "N33",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N28",
+    "v": "N35",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N28",
+    "v": "N37",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N29",
+    "v": "N36",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N29",
+    "v": "N39",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N30",
+    "v": "N31",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N30",
+    "v": "N32",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N30",
+    "v": "N33",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N30",
+    "v": "N38",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N30",
+    "v": "N39",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N30",
+    "v": "N40",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N31",
+    "v": "N34",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N31",
+    "v": "N35",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N31",
+    "v": "N36",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N31",
+    "v": "N38",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N31",
+    "v": "N39",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N31",
+    "v": "N40",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N32",
+    "v": "N33",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N33",
+    "v": "N34",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N33",
+    "v": "N35",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N33",
+    "v": "N37",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N33",
+    "v": "N38",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N33",
+    "v": "N40",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N34",
+    "v": "N36",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N34",
+    "v": "N38",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N34",
+    "v": "N39",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N35",
+    "v": "N40",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N36",
+    "v": "N37",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N36",
+    "v": "N38",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N36",
+    "v": "N39",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N37",
+    "v": "N38",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N38",
+    "v": "N39",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N38",
+    "v": "N40",
+    "peso_influencia": 0.65
+   }
+  ],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 6.9,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 6.0,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 8.8,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 5.5,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 12.3,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 7.1,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N07",
+    "coeficiente_utilidad": 6.5,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N08",
+    "coeficiente_utilidad": 8.8,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N09",
+    "coeficiente_utilidad": 8.8,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N10",
+    "coeficiente_utilidad": 11.9,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N11",
+    "coeficiente_utilidad": 10.1,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N12",
+    "coeficiente_utilidad": 8.1,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N13",
+    "coeficiente_utilidad": 10.4,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N14",
+    "coeficiente_utilidad": 6.3,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N15",
+    "coeficiente_utilidad": 5.3,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N16",
+    "coeficiente_utilidad": 11.6,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N17",
+    "coeficiente_utilidad": 8.8,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N18",
+    "coeficiente_utilidad": 12.4,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N19",
+    "coeficiente_utilidad": 10.7,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N20",
+    "coeficiente_utilidad": 8.2,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N21",
+    "coeficiente_utilidad": 8.6,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N22",
+    "coeficiente_utilidad": 12.0,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N23",
+    "coeficiente_utilidad": 5.3,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N24",
+    "coeficiente_utilidad": 6.7,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N25",
+    "coeficiente_utilidad": 8.5,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N26",
+    "coeficiente_utilidad": 11.8,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N27",
+    "coeficiente_utilidad": 9.1,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N28",
+    "coeficiente_utilidad": 9.6,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N29",
+    "coeficiente_utilidad": 9.7,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N30",
+    "coeficiente_utilidad": 6.9,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N31",
+    "coeficiente_utilidad": 10.5,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N32",
+    "coeficiente_utilidad": 11.9,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N33",
+    "coeficiente_utilidad": 10.4,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N34",
+    "coeficiente_utilidad": 10.6,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N35",
+    "coeficiente_utilidad": 12.7,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N36",
+    "coeficiente_utilidad": 9.6,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N37",
+    "coeficiente_utilidad": 10.2,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N38",
+    "coeficiente_utilidad": 11.7,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N39",
+    "coeficiente_utilidad": 7.1,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N40",
+    "coeficiente_utilidad": 5.5,
+    "presupuesto_total_nodo": 25,
+    "costo_participacion": 7
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "caso": "propio_03_mediano",
+  "N": 40,
+  "T": 3,
+  "k": 6,
+  "B": 40,
+  "P": 20,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10",
+     "N11",
+     "N12",
+     "N13",
+     "N14",
+     "N15",
+     "N16",
+     "N17",
+     "N18",
+     "N19",
+     "N20",
+     "N21",
+     "N22",
+     "N23",
+     "N24",
+     "N25",
+     "N26",
+     "N27",
+     "N28",
+     "N29",
+     "N30",
+     "N31",
+     "N32",
+     "N33",
+     "N34",
+     "N35",
+     "N36",
+     "N37",
+     "N38",
+     "N39",
+     "N40"
+    ],
+    "seleccion": [
+     "N08",
+     "N13",
+     "N22",
+     "N38",
+     "N12",
+     "N04"
+    ],
+    "costo_participacion": 20,
+    "utilidad_conjunta": 321.29062368750004,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N08",
+      "unidades": 6,
+      "utilidad": 17.12400931168676,
+      "ultima_ganancia": 1.3565259824798748,
+      "restante_antes": 25
+     },
+     {
+      "nodo": "N13",
+      "unidades": 7,
+      "utilidad": 21.626192033470293,
+      "ultima_ganancia": 1.3887264832950343,
+      "restante_antes": 25
+     },
+     {
+      "nodo": "N22",
+      "unidades": 9,
+      "utilidad": 27.63102111592855,
+      "ultima_ganancia": 1.2643261878939178,
+      "restante_antes": 25
+     },
+     {
+      "nodo": "N38",
+      "unidades": 9,
+      "utilidad": 26.940245588030336,
+      "ultima_ganancia": 1.2327180331965693,
+      "restante_antes": 25
+     },
+     {
+      "nodo": "N12",
+      "unidades": 6,
+      "utilidad": 15.761872207348036,
+      "ultima_ganancia": 1.2486205066007923,
+      "restante_antes": 25
+     },
+     {
+      "nodo": "N04",
+      "unidades": 3,
+      "utilidad": 7.6246189861593985,
+      "ultima_ganancia": 1.5822513984847948,
+      "restante_antes": 25
+     }
+    ],
+    "utilidad_reparto": 116.70795924262339,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 6, k = 6"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 40"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 20, P = 20"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 40, B = 40"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 321.290624, recalculado = 321.290624"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 116.707959, recalculado = 116.707959"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 0.00044790003448724747,
+     "reparto": 4.1899969801306725e-05,
+     "total": 0.0004898000042885542
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 120.475,
+      "utilidad_acumulada": 120.475,
+      "candidatos_evaluados": 40,
+      "costo_acumulado": 6
+     },
+     {
+      "paso": 2,
+      "nodo": "N13",
+      "ganancia_marginal": 75.96775,
+      "utilidad_acumulada": 196.44275,
+      "candidatos_evaluados": 39,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N22",
+      "ganancia_marginal": 55.21085,
+      "utilidad_acumulada": 251.65359999999998,
+      "candidatos_evaluados": 38,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 4,
+      "nodo": "N38",
+      "ganancia_marginal": 31.2988225,
+      "utilidad_acumulada": 282.9524225,
+      "candidatos_evaluados": 37,
+      "costo_acumulado": 16
+     },
+     {
+      "paso": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 23.301202250000003,
+      "utilidad_acumulada": 306.25362475000003,
+      "candidatos_evaluados": 12,
+      "costo_acumulado": 18
+     },
+     {
+      "paso": 6,
+      "nodo": "N04",
+      "ganancia_marginal": 15.0369989375,
+      "utilidad_acumulada": 321.29062368750004,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 20
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N22",
+      "ganancia_marginal": 8.317766166719343
+     },
+     {
+      "unidad": 2,
+      "nodo": "N38",
+      "ganancia_marginal": 8.109822012551358
+     },
+     {
+      "unidad": 3,
+      "nodo": "N13",
+      "ganancia_marginal": 7.208730677823431
+     },
+     {
+      "unidad": 4,
+      "nodo": "N08",
+      "ganancia_marginal": 6.099695188927519
+     },
+     {
+      "unidad": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 5.614492162535557
+     },
+     {
+      "unidad": 6,
+      "nodo": "N22",
+      "ganancia_marginal": 4.8655812972979735
+     },
+     {
+      "unidad": 7,
+      "nodo": "N38",
+      "ganancia_marginal": 4.743941764865525
+     },
+     {
+      "unidad": 8,
+      "nodo": "N13",
+      "ganancia_marginal": 4.21683712432491
+     },
+     {
+      "unidad": 9,
+      "nodo": "N04",
+      "ganancia_marginal": 3.8123094930796992
+     },
+     {
+      "unidad": 10,
+      "nodo": "N08",
+      "ganancia_marginal": 3.568092951351848
+     },
+     {
+      "unidad": 11,
+      "nodo": "N22",
+      "ganancia_marginal": 3.4521848694213695
+     },
+     {
+      "unidad": 12,
+      "nodo": "N38",
+      "ganancia_marginal": 3.3658802476858334
+     },
+     {
+      "unidad": 13,
+      "nodo": "N12",
+      "ganancia_marginal": 3.284267375676132
+     },
+     {
+      "unidad": 14,
+      "nodo": "N13",
+      "ganancia_marginal": 2.991893553498521
+     },
+     {
+      "unidad": 15,
+      "nodo": "N22",
+      "ganancia_marginal": 2.6777226157705165
+     },
+     {
+      "unidad": 16,
+      "nodo": "N38",
+      "ganancia_marginal": 2.610779550376254
+     },
+     {
+      "unidad": 17,
+      "nodo": "N08",
+      "ganancia_marginal": 2.5316022375756706
+     },
+     {
+      "unidad": 18,
+      "nodo": "N12",
+      "ganancia_marginal": 2.330224786859425
+     },
+     {
+      "unidad": 19,
+      "nodo": "N13",
+      "ganancia_marginal": 2.3206929336677806
+     },
+     {
+      "unidad": 20,
+      "nodo": "N04",
+      "ganancia_marginal": 2.2300580945949044
+     },
+     {
+      "unidad": 21,
+      "nodo": "N22",
+      "ganancia_marginal": 2.1878586815274588
+     },
+     {
+      "unidad": 22,
+      "nodo": "N38",
+      "ganancia_marginal": 2.1331622144892712
+     },
+     {
+      "unidad": 23,
+      "nodo": "N08",
+      "ganancia_marginal": 1.9636632515650465
+     },
+     {
+      "unidad": 24,
+      "nodo": "N13",
+      "ganancia_marginal": 1.8961441906571288
+     },
+     {
+      "unidad": 25,
+      "nodo": "N22",
+      "ganancia_marginal": 1.8498081579270966
+     },
+     {
+      "unidad": 26,
+      "nodo": "N12",
+      "ganancia_marginal": 1.8074627656450986
+     },
+     {
+      "unidad": 27,
+      "nodo": "N38",
+      "ganancia_marginal": 1.803562953978922
+     },
+     {
+      "unidad": 28,
+      "nodo": "N08",
+      "ganancia_marginal": 1.6044296997868006
+     },
+     {
+      "unidad": 29,
+      "nodo": "N13",
+      "ganancia_marginal": 1.6031670702034866
+     },
+     {
+      "unidad": 30,
+      "nodo": "N22",
+      "ganancia_marginal": 1.6023767114942693
+     },
+     {
+      "unidad": 31,
+      "nodo": "N04",
+      "ganancia_marginal": 1.5822513984847948
+     },
+     {
+      "unidad": 32,
+      "nodo": "N38",
+      "ganancia_marginal": 1.5623172937069114
+     },
+     {
+      "unidad": 33,
+      "nodo": "N12",
+      "ganancia_marginal": 1.4768046100310315
+     },
+     {
+      "unidad": 34,
+      "nodo": "N22",
+      "ganancia_marginal": 1.4133964278766058
+     },
+     {
+      "unidad": 35,
+      "nodo": "N13",
+      "ganancia_marginal": 1.3887264832950343
+     },
+     {
+      "unidad": 36,
+      "nodo": "N38",
+      "ganancia_marginal": 1.3780615171796917
+     },
+     {
+      "unidad": 37,
+      "nodo": "N08",
+      "ganancia_marginal": 1.3565259824798748
+     },
+     {
+      "unidad": 38,
+      "nodo": "N22",
+      "ganancia_marginal": 1.2643261878939178
+     },
+     {
+      "unidad": 39,
+      "nodo": "N12",
+      "ganancia_marginal": 1.2486205066007923
+     },
+     {
+      "unidad": 40,
+      "nodo": "N38",
+      "ganancia_marginal": 1.2327180331965693
+     }
+    ]
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10",
+     "N11",
+     "N12",
+     "N13",
+     "N14",
+     "N15",
+     "N16",
+     "N17",
+     "N18",
+     "N19",
+     "N20",
+     "N21",
+     "N22",
+     "N23",
+     "N24",
+     "N25",
+     "N26",
+     "N27",
+     "N28",
+     "N29",
+     "N30",
+     "N31",
+     "N32",
+     "N33",
+     "N34",
+     "N35",
+     "N36",
+     "N37",
+     "N38",
+     "N39",
+     "N40"
+    ],
+    "seleccion": [
+     "N08",
+     "N13",
+     "N22",
+     "N38",
+     "N12",
+     "N04"
+    ],
+    "costo_participacion": 20,
+    "utilidad_conjunta": 321.29062368750004,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N08",
+      "unidades": 6,
+      "utilidad": 17.12400931168676,
+      "ultima_ganancia": 1.3565259824798748,
+      "restante_antes": 19
+     },
+     {
+      "nodo": "N13",
+      "unidades": 7,
+      "utilidad": 21.626192033470293,
+      "ultima_ganancia": 1.3887264832950343,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N22",
+      "unidades": 9,
+      "utilidad": 27.63102111592855,
+      "ultima_ganancia": 1.2643261878939178,
+      "restante_antes": 16
+     },
+     {
+      "nodo": "N38",
+      "unidades": 9,
+      "utilidad": 26.940245588030336,
+      "ultima_ganancia": 1.2327180331965693,
+      "restante_antes": 16
+     },
+     {
+      "nodo": "N12",
+      "unidades": 6,
+      "utilidad": 15.761872207348036,
+      "ultima_ganancia": 1.2486205066007923,
+      "restante_antes": 19
+     },
+     {
+      "nodo": "N04",
+      "unidades": 3,
+      "utilidad": 7.6246189861593985,
+      "ultima_ganancia": 1.5822513984847948,
+      "restante_antes": 22
+     }
+    ],
+    "utilidad_reparto": 116.70795924262339,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 6, k = 6"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 40"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 20, P = 20"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 40, B = 40"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 321.290624, recalculado = 321.290624"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 116.707959, recalculado = 116.707959"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 0.00043010013177990913,
+     "reparto": 3.509991802275181e-05,
+     "total": 0.00046520004980266094
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 120.475,
+      "utilidad_acumulada": 120.475,
+      "candidatos_evaluados": 40,
+      "costo_acumulado": 6
+     },
+     {
+      "paso": 2,
+      "nodo": "N13",
+      "ganancia_marginal": 75.96775,
+      "utilidad_acumulada": 196.44275,
+      "candidatos_evaluados": 39,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N22",
+      "ganancia_marginal": 55.21085,
+      "utilidad_acumulada": 251.65359999999998,
+      "candidatos_evaluados": 38,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 4,
+      "nodo": "N38",
+      "ganancia_marginal": 31.2988225,
+      "utilidad_acumulada": 282.9524225,
+      "candidatos_evaluados": 37,
+      "costo_acumulado": 16
+     },
+     {
+      "paso": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 23.301202250000003,
+      "utilidad_acumulada": 306.25362475000003,
+      "candidatos_evaluados": 12,
+      "costo_acumulado": 18
+     },
+     {
+      "paso": 6,
+      "nodo": "N04",
+      "ganancia_marginal": 15.0369989375,
+      "utilidad_acumulada": 321.29062368750004,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 20
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N22",
+      "ganancia_marginal": 8.317766166719343
+     },
+     {
+      "unidad": 2,
+      "nodo": "N38",
+      "ganancia_marginal": 8.109822012551358
+     },
+     {
+      "unidad": 3,
+      "nodo": "N13",
+      "ganancia_marginal": 7.208730677823431
+     },
+     {
+      "unidad": 4,
+      "nodo": "N08",
+      "ganancia_marginal": 6.099695188927519
+     },
+     {
+      "unidad": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 5.614492162535557
+     },
+     {
+      "unidad": 6,
+      "nodo": "N22",
+      "ganancia_marginal": 4.8655812972979735
+     },
+     {
+      "unidad": 7,
+      "nodo": "N38",
+      "ganancia_marginal": 4.743941764865525
+     },
+     {
+      "unidad": 8,
+      "nodo": "N13",
+      "ganancia_marginal": 4.21683712432491
+     },
+     {
+      "unidad": 9,
+      "nodo": "N04",
+      "ganancia_marginal": 3.8123094930796992
+     },
+     {
+      "unidad": 10,
+      "nodo": "N08",
+      "ganancia_marginal": 3.568092951351848
+     },
+     {
+      "unidad": 11,
+      "nodo": "N22",
+      "ganancia_marginal": 3.4521848694213695
+     },
+     {
+      "unidad": 12,
+      "nodo": "N38",
+      "ganancia_marginal": 3.3658802476858334
+     },
+     {
+      "unidad": 13,
+      "nodo": "N12",
+      "ganancia_marginal": 3.284267375676132
+     },
+     {
+      "unidad": 14,
+      "nodo": "N13",
+      "ganancia_marginal": 2.991893553498521
+     },
+     {
+      "unidad": 15,
+      "nodo": "N22",
+      "ganancia_marginal": 2.6777226157705165
+     },
+     {
+      "unidad": 16,
+      "nodo": "N38",
+      "ganancia_marginal": 2.610779550376254
+     },
+     {
+      "unidad": 17,
+      "nodo": "N08",
+      "ganancia_marginal": 2.5316022375756706
+     },
+     {
+      "unidad": 18,
+      "nodo": "N12",
+      "ganancia_marginal": 2.330224786859425
+     },
+     {
+      "unidad": 19,
+      "nodo": "N13",
+      "ganancia_marginal": 2.3206929336677806
+     },
+     {
+      "unidad": 20,
+      "nodo": "N04",
+      "ganancia_marginal": 2.2300580945949044
+     },
+     {
+      "unidad": 21,
+      "nodo": "N22",
+      "ganancia_marginal": 2.1878586815274588
+     },
+     {
+      "unidad": 22,
+      "nodo": "N38",
+      "ganancia_marginal": 2.1331622144892712
+     },
+     {
+      "unidad": 23,
+      "nodo": "N08",
+      "ganancia_marginal": 1.9636632515650465
+     },
+     {
+      "unidad": 24,
+      "nodo": "N13",
+      "ganancia_marginal": 1.8961441906571288
+     },
+     {
+      "unidad": 25,
+      "nodo": "N22",
+      "ganancia_marginal": 1.8498081579270966
+     },
+     {
+      "unidad": 26,
+      "nodo": "N12",
+      "ganancia_marginal": 1.8074627656450986
+     },
+     {
+      "unidad": 27,
+      "nodo": "N38",
+      "ganancia_marginal": 1.803562953978922
+     },
+     {
+      "unidad": 28,
+      "nodo": "N08",
+      "ganancia_marginal": 1.6044296997868006
+     },
+     {
+      "unidad": 29,
+      "nodo": "N13",
+      "ganancia_marginal": 1.6031670702034866
+     },
+     {
+      "unidad": 30,
+      "nodo": "N22",
+      "ganancia_marginal": 1.6023767114942693
+     },
+     {
+      "unidad": 31,
+      "nodo": "N04",
+      "ganancia_marginal": 1.5822513984847948
+     },
+     {
+      "unidad": 32,
+      "nodo": "N38",
+      "ganancia_marginal": 1.5623172937069114
+     },
+     {
+      "unidad": 33,
+      "nodo": "N12",
+      "ganancia_marginal": 1.4768046100310315
+     },
+     {
+      "unidad": 34,
+      "nodo": "N22",
+      "ganancia_marginal": 1.4133964278766058
+     },
+     {
+      "unidad": 35,
+      "nodo": "N13",
+      "ganancia_marginal": 1.3887264832950343
+     },
+     {
+      "unidad": 36,
+      "nodo": "N38",
+      "ganancia_marginal": 1.3780615171796917
+     },
+     {
+      "unidad": 37,
+      "nodo": "N08",
+      "ganancia_marginal": 1.3565259824798748
+     },
+     {
+      "unidad": 38,
+      "nodo": "N22",
+      "ganancia_marginal": 1.2643261878939178
+     },
+     {
+      "unidad": 39,
+      "nodo": "N12",
+      "ganancia_marginal": 1.2486205066007923
+     },
+     {
+      "unidad": 40,
+      "nodo": "N38",
+      "ganancia_marginal": 1.2327180331965693
+     }
+    ]
+   },
+   {
+    "ronda": 3,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10",
+     "N11",
+     "N12",
+     "N13",
+     "N14",
+     "N15",
+     "N16",
+     "N17",
+     "N18",
+     "N19",
+     "N20",
+     "N21",
+     "N22",
+     "N23",
+     "N24",
+     "N25",
+     "N26",
+     "N27",
+     "N28",
+     "N29",
+     "N30",
+     "N31",
+     "N32",
+     "N33",
+     "N34",
+     "N35",
+     "N36",
+     "N37",
+     "N38",
+     "N39",
+     "N40"
+    ],
+    "seleccion": [
+     "N08",
+     "N13",
+     "N22",
+     "N38",
+     "N12",
+     "N04"
+    ],
+    "costo_participacion": 20,
+    "utilidad_conjunta": 321.29062368750004,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N08",
+      "unidades": 7,
+      "utilidad": 18.299085566782555,
+      "ultima_ganancia": 1.1750762550957958,
+      "restante_antes": 13
+     },
+     {
+      "nodo": "N13",
+      "unidades": 9,
+      "utilidad": 23.94688496713808,
+      "ultima_ganancia": 1.0957493628413957,
+      "restante_antes": 11
+     },
+     {
+      "nodo": "N22",
+      "unidades": 7,
+      "utilidad": 24.953298500158027,
+      "ultima_ganancia": 1.6023767114942693,
+      "restante_antes": 7
+     },
+     {
+      "nodo": "N38",
+      "unidades": 7,
+      "utilidad": 24.329466037654075,
+      "ultima_ganancia": 1.5623172937069114,
+      "restante_antes": 7
+     },
+     {
+      "nodo": "N12",
+      "unidades": 6,
+      "utilidad": 15.761872207348036,
+      "ultima_ganancia": 1.2486205066007923,
+      "restante_antes": 13
+     },
+     {
+      "nodo": "N04",
+      "unidades": 4,
+      "utilidad": 8.851908518387551,
+      "ultima_ganancia": 1.227289532228153,
+      "restante_antes": 19
+     }
+    ],
+    "utilidad_reparto": 116.14251579746835,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 3: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 6, k = 6"
+     },
+     {
+      "restriccion": "ronda 3: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 3: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 40"
+     },
+     {
+      "restriccion": "ronda 3: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 20, P = 20"
+     },
+     {
+      "restriccion": "ronda 3: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 40, B = 40"
+     },
+     {
+      "restriccion": "ronda 3: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 3: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 3: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 321.290624, recalculado = 321.290624"
+     },
+     {
+      "restriccion": "ronda 3: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 116.142516, recalculado = 116.142516"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 0.00042799999937415123,
+     "reparto": 3.569992259144783e-05,
+     "total": 0.00046369992196559906
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 120.475,
+      "utilidad_acumulada": 120.475,
+      "candidatos_evaluados": 40,
+      "costo_acumulado": 6
+     },
+     {
+      "paso": 2,
+      "nodo": "N13",
+      "ganancia_marginal": 75.96775,
+      "utilidad_acumulada": 196.44275,
+      "candidatos_evaluados": 39,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N22",
+      "ganancia_marginal": 55.21085,
+      "utilidad_acumulada": 251.65359999999998,
+      "candidatos_evaluados": 38,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 4,
+      "nodo": "N38",
+      "ganancia_marginal": 31.2988225,
+      "utilidad_acumulada": 282.9524225,
+      "candidatos_evaluados": 37,
+      "costo_acumulado": 16
+     },
+     {
+      "paso": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 23.301202250000003,
+      "utilidad_acumulada": 306.25362475000003,
+      "candidatos_evaluados": 12,
+      "costo_acumulado": 18
+     },
+     {
+      "paso": 6,
+      "nodo": "N04",
+      "ganancia_marginal": 15.0369989375,
+      "utilidad_acumulada": 321.29062368750004,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 20
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N22",
+      "ganancia_marginal": 8.317766166719343
+     },
+     {
+      "unidad": 2,
+      "nodo": "N38",
+      "ganancia_marginal": 8.109822012551358
+     },
+     {
+      "unidad": 3,
+      "nodo": "N13",
+      "ganancia_marginal": 7.208730677823431
+     },
+     {
+      "unidad": 4,
+      "nodo": "N08",
+      "ganancia_marginal": 6.099695188927519
+     },
+     {
+      "unidad": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 5.614492162535557
+     },
+     {
+      "unidad": 6,
+      "nodo": "N22",
+      "ganancia_marginal": 4.8655812972979735
+     },
+     {
+      "unidad": 7,
+      "nodo": "N38",
+      "ganancia_marginal": 4.743941764865525
+     },
+     {
+      "unidad": 8,
+      "nodo": "N13",
+      "ganancia_marginal": 4.21683712432491
+     },
+     {
+      "unidad": 9,
+      "nodo": "N04",
+      "ganancia_marginal": 3.8123094930796992
+     },
+     {
+      "unidad": 10,
+      "nodo": "N08",
+      "ganancia_marginal": 3.568092951351848
+     },
+     {
+      "unidad": 11,
+      "nodo": "N22",
+      "ganancia_marginal": 3.4521848694213695
+     },
+     {
+      "unidad": 12,
+      "nodo": "N38",
+      "ganancia_marginal": 3.3658802476858334
+     },
+     {
+      "unidad": 13,
+      "nodo": "N12",
+      "ganancia_marginal": 3.284267375676132
+     },
+     {
+      "unidad": 14,
+      "nodo": "N13",
+      "ganancia_marginal": 2.991893553498521
+     },
+     {
+      "unidad": 15,
+      "nodo": "N22",
+      "ganancia_marginal": 2.6777226157705165
+     },
+     {
+      "unidad": 16,
+      "nodo": "N38",
+      "ganancia_marginal": 2.610779550376254
+     },
+     {
+      "unidad": 17,
+      "nodo": "N08",
+      "ganancia_marginal": 2.5316022375756706
+     },
+     {
+      "unidad": 18,
+      "nodo": "N12",
+      "ganancia_marginal": 2.330224786859425
+     },
+     {
+      "unidad": 19,
+      "nodo": "N13",
+      "ganancia_marginal": 2.3206929336677806
+     },
+     {
+      "unidad": 20,
+      "nodo": "N04",
+      "ganancia_marginal": 2.2300580945949044
+     },
+     {
+      "unidad": 21,
+      "nodo": "N22",
+      "ganancia_marginal": 2.1878586815274588
+     },
+     {
+      "unidad": 22,
+      "nodo": "N38",
+      "ganancia_marginal": 2.1331622144892712
+     },
+     {
+      "unidad": 23,
+      "nodo": "N08",
+      "ganancia_marginal": 1.9636632515650465
+     },
+     {
+      "unidad": 24,
+      "nodo": "N13",
+      "ganancia_marginal": 1.8961441906571288
+     },
+     {
+      "unidad": 25,
+      "nodo": "N22",
+      "ganancia_marginal": 1.8498081579270966
+     },
+     {
+      "unidad": 26,
+      "nodo": "N12",
+      "ganancia_marginal": 1.8074627656450986
+     },
+     {
+      "unidad": 27,
+      "nodo": "N38",
+      "ganancia_marginal": 1.803562953978922
+     },
+     {
+      "unidad": 28,
+      "nodo": "N08",
+      "ganancia_marginal": 1.6044296997868006
+     },
+     {
+      "unidad": 29,
+      "nodo": "N13",
+      "ganancia_marginal": 1.6031670702034866
+     },
+     {
+      "unidad": 30,
+      "nodo": "N22",
+      "ganancia_marginal": 1.6023767114942693
+     },
+     {
+      "unidad": 31,
+      "nodo": "N04",
+      "ganancia_marginal": 1.5822513984847948
+     },
+     {
+      "unidad": 32,
+      "nodo": "N38",
+      "ganancia_marginal": 1.5623172937069114
+     },
+     {
+      "unidad": 33,
+      "nodo": "N12",
+      "ganancia_marginal": 1.4768046100310315
+     },
+     {
+      "unidad": 34,
+      "nodo": "N13",
+      "ganancia_marginal": 1.3887264832950343
+     },
+     {
+      "unidad": 35,
+      "nodo": "N08",
+      "ganancia_marginal": 1.3565259824798748
+     },
+     {
+      "unidad": 36,
+      "nodo": "N12",
+      "ganancia_marginal": 1.2486205066007923
+     },
+     {
+      "unidad": 37,
+      "nodo": "N04",
+      "ganancia_marginal": 1.227289532228153
+     },
+     {
+      "unidad": 38,
+      "nodo": "N13",
+      "ganancia_marginal": 1.2249435708263903
+     },
+     {
+      "unidad": 39,
+      "nodo": "N08",
+      "ganancia_marginal": 1.1750762550957958
+     },
+     {
+      "unidad": 40,
+      "nodo": "N13",
+      "ganancia_marginal": 1.0957493628413957
+     }
+    ]
+   }
+  ],
+  "utilidad_conjunta_total": 963.8718710625001,
+  "utilidad_reparto_total": 349.5584342827151,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N02",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N03",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N04",
+    "usado": 10,
+    "tope": 25
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N06",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N07",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N08",
+    "usado": 19,
+    "tope": 25
+   },
+   {
+    "nodo": "N09",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N10",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N11",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N12",
+    "usado": 18,
+    "tope": 25
+   },
+   {
+    "nodo": "N13",
+    "usado": 23,
+    "tope": 25
+   },
+   {
+    "nodo": "N14",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N15",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N16",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N17",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N18",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N19",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N20",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N21",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N22",
+    "usado": 25,
+    "tope": 25
+   },
+   {
+    "nodo": "N23",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N24",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N25",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N26",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N27",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N28",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N29",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N30",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N31",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N32",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N33",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N34",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N35",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N36",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N37",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N38",
+    "usado": 25,
+    "tope": 25
+   },
+   {
+    "nodo": "N39",
+    "usado": 0,
+    "tope": 25
+   },
+   {
+    "nodo": "N40",
+    "usado": 0,
+    "tope": 25
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "máximo usado = 25, tope = 25"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 0.0014186999760568142
+  },
+  "supuestos": [
+   "uᵢ(x) = aᵢ·ln(1 + x) en cada ronda",
+   "f(S) = Σᵥ aᵥ·(1 − Πᵤ∈S (1 − wᵤᵥ)), con wᵥᵥ = 1",
+   "grafo no dirigido; se exige |S| ≤ k y Σ cᵢ ≤ P a la vez",
+   "solo participan nodos con presupuesto restante > 0"
+  ]
+ }
+}

@@ -85,7 +85,7 @@ T(N, B) = c₁·N + B·(c₂ + c₃·log₂ N) = O(N + B log N)
 
 **Presupuesto continuo (water-filling).** Si `x_i ∈ ℝ≥0` y las `u_i` son derivables y cóncavas, las condiciones de optimalidad (KKT) dicen que existe un "nivel" `λ` tal que `u_i'(x_i) = λ` para todo nodo con `x_i > 0`, y `u_i'(0) ≤ λ` para los demás. Cada `x_i(λ) = (u_i')⁻¹(λ)` decrece con `λ`. Basta entonces con buscar por bisección el `λ` que cumple `Σ x_i(λ) = B`. Cada iteración cuesta `O(N)` y con precisión `ε` se necesitan `O(log(1/ε))` iteraciones: `T = O(N log(1/ε))`, que **no depende del valor de B**. La misma idea con enteros (bisección sobre `λ` y luego un ajuste fino) quita la dependencia pseudo-polinomial.
 
-### 2.5 Validación experimental (código: `experimentos_parte1.py`)
+### 2.5 Validación experimental (código: `experimentos/parte1.py`; la correctitud está en `tests/test_parte1.py`)
 
 1. **Correctitud:** en 300 instancias pequeñas (N ≤ 7, B ≤ 25), el voraz coincide con un verificador exacto por programación dinámica de costo `O(N·B²)` en **300/300** casos.
 2. **Conteo de operaciones** (independiente de la máquina): heapify usa unas `1.65·N` comparaciones (cota `2N`) y los pasos unas `1.1·B·log₂ N` (cota `2·B·log₂ N`). Los dos cocientes se mantienen estables desde N = 64 hasta N = 262 144.

@@ -321,9 +321,9 @@
   ],
   "cumple_todo": true,
   "tiempo_s": {
-   "seleccion": 6.429990753531456e-05,
-   "reparto": 3.3300137147307396e-05,
-   "total": 9.760004468262196e-05
+   "seleccion": 3.0800001695752144e-05,
+   "reparto": 1.8600141629576683e-05,
+   "total": 4.940014332532883e-05
   },
   "traza_seleccion": [
    {

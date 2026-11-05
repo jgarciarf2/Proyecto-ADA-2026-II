@@ -89,3 +89,24 @@ def leer_caso_red(datos, nombre="caso"):
 
     return CasoRed(datos.get("nombre", nombre), ids, a, matriz_influencia(len(ids), aristas),
                    costos, presupuesto_nodo, T=valores["T"], k=valores["k"], B=valores["B"], P=valores["P"])
+
+
+def caso_red_sintetico(nombre, N, T, k, B, P, R=18, densidad=1.0, costos=(2, 7), semilla=0):
+    """
+    Caso en el MISMO formato JSON de la profesora, con datos al azar y semilla fija.
+    R puede ser un número (igual para todos) o una lista con el presupuesto total de cada nodo.
+    densidad = probabilidad de que exista cada arista; costos = rango entero de los costos.
+    """
+    import random
+    rng = random.Random(semilla)
+    ids = [f"N{i + 1:02d}" if N < 100 else f"N{i + 1:03d}" for i in range(N)]
+    topes = list(R) if isinstance(R, (list, tuple)) else [R] * N
+    nodos = [{"id": ids[i], "coeficiente_utilidad": round(rng.uniform(5.0, 13.0), 1),
+              "presupuesto_total_nodo": topes[i], "costo_participacion": rng.randint(*costos)}
+             for i in range(N)]
+    grafo = [{"u": ids[u], "v": ids[v], "peso_influencia": round(rng.choice(range(5, 90, 5)) / 100, 2)}
+             for u in range(N) for v in range(u + 1, N) if rng.random() < densidad]
+    return {"nombre": nombre,
+            "parametros": {"numero_nodos": N, "numero_rondas": T, "cupo_participantes_por_ronda_k": k,
+                           "presupuesto_ruido_por_ronda_B": B, "presupuesto_costos_participacion_por_ronda": P},
+            "grafo": grafo, "nodos": nodos}
