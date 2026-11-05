@@ -187,9 +187,10 @@ for paso in range(min(k, len(restantes))):
         g = ganancia(i)                                # Δᵢ(S), costo τ
         if g > mejor_g or (g == mejor_g and i < mejor):
             mejor, mejor_g = i, g
-    if mejor is None:
-        break                                          # ningún candidato cabe
+    if mejor is None: break                            # ningún candidato cabe
     elegidos.append(mejor); restantes.remove(mejor); agregar(mejor)
+    valor += mejor_g                                   # f(S) acumulada
+    gastado += costos[mejor] if costos is not None else 0
 ```
 
 El contrato de las dos funciones que recibe es simple: ganancia(i) devuelve f(S ∪ {i}) − f(S) para el grupo actual, y agregar(i) actualiza el estado interno de la utilidad cuando i entra al grupo. Con contar=True devuelve además el número de evaluaciones de la ganancia, que la teoría predice exactamente (kN − k(k−1)/2 sin costos). Con traza=[] agrega un registro por paso: {paso, nodo, ganancia_marginal, utilidad_acumulada, candidatos_evaluados} y, si hay costos, costo_acumulado.
@@ -221,7 +222,7 @@ Archivo ada/verificacion.py. Cada función devuelve una lista de registros {rest
 | verificar_seleccion(S, N, k) | │S│ ≤ k, que no haya nodos repetidos y que todos los nodos existan |
 | verificar_reparto(x, B) | Σ xᵢ ≤ B y que cada xᵢ sea un entero mayor o igual que 0 |
 | verificar_valor(nombre, reportado, recalculado) | Que el valor que devolvió el algoritmo coincida con el recalculado desde la solución (tolerancia 10⁻⁹) |
-| todas_cumplen(lista) | Si todos los registros se cumplen |
+| todas_cumplen(verificaciones) | Si todos los registros se cumplen |
 
 resolver_caso_red agrega dos más por ronda (Σ cᵢ ≤ P y xᵢ ≤ saldo del nodo) y una global (ningún nodo pasa su presupuesto total). En total son 9 por ronda más 1.
 
@@ -377,7 +378,7 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | verificacion_global | Lista | La restricción de presupuesto total por nodo |
 | cumple_todo | Booleano | True si se cumplen todas las restricciones de todas las rondas |
 | tiempo_s | Objeto | {total} en segundos |
-| supuestos | Lista de texto | Las fórmulas supuestas (sección 2.2 del documento de formulación) |
+| supuestos | Lista de texto | Las fórmulas supuestas (sección 3.4 del documento de formulación) |
 
 | Clave de cada ronda | Contenido |
 |---|---|
@@ -399,7 +400,7 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | verificacion.csv | restriccion, cumple, detalle |
 | resumen.csv | caso, rondas, N, k, B, f(S), optimo_f, U(x), t_seleccion_ms, t_reparto_ms, t_total_ms, cumple_restricciones |
 
-Si una ronda no tiene participantes (por ejemplo, porque ningún costo cabe en P), sus archivos quedan con el encabezado y sin filas para esa ronda. En resumen.csv, optimo_f queda vacío cuando el caso es demasiado grande para la fuerza bruta.
+Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el formato de la profesora; los casos del formato provisional (casos/ejemplos/) no tienen costos ni presupuesto por nodo, y en ellos la columna ronda siempre vale 1. Si una ronda no tiene participantes (por ejemplo, porque ningún costo cabe en P), sus archivos quedan con el encabezado y sin filas para esa ronda. En resumen.csv, optimo_f queda vacío cuando el caso es demasiado grande para la fuerza bruta.
 
 ## 10. Ejecución paso a paso
 
@@ -472,7 +473,7 @@ El monitor indicó que cada grupo debe crear sus propios casos de prueba a parti
 
 | Caso | N | T | k | B | P | Qué prueba |
 |---|---|---|---|---|---|---|
-| propio_01_basico | 10 | 2 | 3 | 12 | 10 | Caso pequeño y disperso, con óptimo en todas las rondas |
+| propio_01_basico | 10 | 2 | 3 | 12 | 10 | Caso pequeño y disperso; el óptimo se calcula en todas las rondas |
 | propio_02_como_profesora | 15 | 3 | 5 | 30 | 24 | Mismos parámetros que el de la profesora, con otros datos |
 | propio_03_mediano | 40 | 3 | 6 | 40 | 20 | Tamaño intermedio; ya no se calcula el óptimo |
 | propio_04_grande | 150 | 5 | 10 | 100 | 40 | Tamaño grande |
@@ -499,7 +500,7 @@ Todos cumplen las restricciones. La razón es la utilidad conjunta total dividid
 | propio_09_nadie_cabe | 0,00 | 1,000 | 0,00 | 0,01 |
 | propio_10_presupuestos_distintos | 265,09 | 0,991 | 204,41 | 0,20 |
 
-Las razones menores que 1 aparecen en los casos donde el límite de costos restringe la selección, lo que coincide con el análisis del documento de formulación: con costos, el voraz simple no tiene garantía.
+En propio_09 ambos valores son 0 y la razón se toma como 1. Repitiendo cada ronda sin el límite de costos se ven dos causas de las razones menores que 1. En propio_05 y propio_08 es el límite de costos: sin él, el voraz halla el óptimo; con él, en propio_05 gasta casi todo P en el nodo de mayor ganancia, y el óptimo prefiere dos nodos baratos (58,95 contra 49,59). En propio_01, propio_02 y propio_10 el voraz queda por debajo aun sin costos (en propio_01, 77,61 contra 81,02), como en el ejemplo de la sección 5.8 del documento: no siempre es óptimo, pero sin costos nunca baja de 1 − 1/e ≈ 0,632, y aquí supera 0,94.
 
 ### 12.3 Errores que encontraron los casos propios
 

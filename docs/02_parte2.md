@@ -143,7 +143,7 @@ Con la instancia del ejemplo de §3 (`k = 2`), el voraz toma primero `S_3 = {1,2
 | Cota `(1 − 1/e)` en 500 instancias pequeñas con mucho traslape (fuerza bruta como referencia) | **todas cumplen**. Razón mínima observada ≈ 0.82, y el voraz fue exactamente óptimo en ~80 % de los casos |
 | Conteo de evaluaciones de ganancia marginal | coincide **exactamente** con `kN − k(k−1)/2` en todos los tamaños |
 | Tiempo del voraz al variar `N` (k = 20) y `k` (N = 2 000) | crecimiento lineal en cada variable. El cociente `t / (N·k·d)` se mantiene casi constante |
-| Voraz contra fuerza bruta con `k = N/2`, para N de 8 a 22 | la fuerza bruta crece exponencialmente (de 0.2 ms a 2 s, una recta en escala logarítmica); el voraz se mantiene por debajo de 1 ms |
+| Voraz contra fuerza bruta con `k = N/2`, para N de 8 a 22 | la fuerza bruta crece exponencialmente (de 0.2 ms a casi 3 s, una recta en escala logarítmica); el voraz se mantiene por debajo de 1 ms |
 
 La cota `(1 − 1/e)` es una garantía para el **peor caso**. En instancias aleatorias el voraz suele quedar muy por encima. La desigualdad del teorema es ajustada solo en instancias construidas a propósito.
 
