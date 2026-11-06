@@ -103,7 +103,8 @@ Proyecto-ADA-2026-II/
 │   ├── 01_formalizacion_y_parte1.md, 02_parte2.md  ← notas teóricas iniciales de las Partes 1 y 2
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
 │   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
-│   └── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
+│   ├── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
+│   └── entrega-1/                ← PDF entregados: informe (formulación) y manual técnico
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
 ```
 

@@ -438,7 +438,7 @@ Si un caso tiene un error de formato, la ejecución se detiene con el mensaje de
 
 Se abre con streamlit run app/principal.py y queda disponible en http://localhost:8501. Tiene cuatro secciones en la barra lateral:
 
-- **Cargar caso:** se sube un JSON o se elige uno guardado (primero los de la profesora, luego los propios y los de ejemplo). El caso se resuelve en el momento y se puede guardar como evidencia con el mismo resultado que da la línea de comandos.
+- **Cargar caso:** se sube un JSON o se elige uno guardado (primero los de la profesora y luego los de ejemplo). El caso se resuelve en el momento y se puede guardar como evidencia con el mismo resultado que da la línea de comandos.
 - **Evidencias:** tabla con todos los casos de resultados/casos; al seleccionar una fila se ve su detalle.
 - **Modo demo:** casos sintéticos con controles para N, k, M, d, B y la semilla, pensado para explicar los algoritmos en vivo.
 - **Experimentos:** las gráficas de tiempo medido contra la teoría.
