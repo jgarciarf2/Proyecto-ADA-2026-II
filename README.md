@@ -6,7 +6,7 @@ Proyecto semestral de Análisis y Diseño de Algoritmos. Una red de N nodos entr
 |---|---|---|---|
 | 1. Reparto del presupuesto | Repartir B unidades entre N nodos con utilidades cóncavas | Voraz con montículo, óptimo por intercambio | Polinomial: `O(N + B log N)` |
 | 2. Selección de participantes | Elegir k de N nodos que maximicen una utilidad submodular | Voraz submodular, cota `(1 − 1/e)` | NP-difícil (reducción desde Cobertura Máxima) |
-| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 y T rondas (sin fallas) ya están en la solución base; el resto es de la entrega final | Por definir |
+| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1: voraz por razón + mejor nodo y enumeración parcial (`docs/03_variantes.md`) · V2 y V3 por definir | V1: cota ½(1 − 1/e) y (1 − 1/e) con solo presupuesto |
 
 ---
 
@@ -77,7 +77,8 @@ Proyecto-ADA-2026-II/
 │   ├── parte2.py
 │   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
 │   ├── figuras_informe.py        ← figuras del documento de formulación
-│   └── figuras_manual.py         ← diagramas UML del manual técnico
+│   ├── figuras_manual.py         ← diagramas UML del manual técnico
+│   └── figuras_variantes.py      ← figuras de docs/03_variantes.md (contraejemplos de V1)
 │
 ├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
 │   ├── principal.py              ← punto de entrada y navegación
@@ -103,6 +104,7 @@ Proyecto-ADA-2026-II/
 │   ├── 01_formalizacion_y_parte1.md, 02_parte2.md  ← notas teóricas iniciales de las Partes 1 y 2
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
 │   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
+│   ├── 03_variantes.md           ← teoría de las variantes (V1 costos: algoritmos A y B, T(n) y cotas; V2 y V3 pendientes)
 │   ├── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 │   └── entrega-1/                ← PDF entregados: informe (formulación) y manual técnico
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
