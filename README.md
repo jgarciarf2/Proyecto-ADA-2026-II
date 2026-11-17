@@ -6,7 +6,7 @@ Proyecto semestral de Análisis y Diseño de Algoritmos. Una red de N nodos entr
 |---|---|---|---|
 | 1. Reparto del presupuesto | Repartir B unidades entre N nodos con utilidades cóncavas | Voraz con montículo, óptimo por intercambio | Polinomial: `O(N + B log N)` |
 | 2. Selección de participantes | Elegir k de N nodos que maximicen una utilidad submodular | Voraz submodular, cota `(1 − 1/e)` | NP-difícil (reducción desde Cobertura Máxima) |
-| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 y T rondas (sin fallas) ya están en la solución base; el resto es de la entrega final | Por definir |
+| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1: voraz por razón + mejor nodo y enumeración parcial (`docs/03_variantes.md`) · V2 y V3 por definir | V1: cota ½(1 − 1/e) y (1 − 1/e) con solo presupuesto |
 
 ---
 
@@ -68,7 +68,8 @@ Proyecto-ADA-2026-II/
 │   ├── solucion_red.py           ← solución base para ese formato: T rondas, k y costo ≤ P, tope por nodo
 │   ├── ronda.py                  ← solución base: selecciona k nodos y reparte B entre ellos, con trazas
 │   ├── verificacion.py           ← revisa |S| ≤ k, Σxᵢ ≤ B, xᵢ entero ≥ 0 y los valores recalculados
-│   └── variantes/                ← V1 costos.py · V2 rondas.py · V3 vecinos.py (por crear)
+│   └── variantes/
+│       └── costos.py             ← V1: algoritmo A (razón + mejor nodo, O(N²k)) y B (enumeración, O(N⁵k)) · V2 y V3 por crear
 │
 ├── experimentos/                 ← miden, guardan CSV y grafican contra la teoría
 │   ├── comun.py                  ← medir (mediana), guardar CSV, gráfica medido/teoría/cociente
@@ -76,12 +77,16 @@ Proyecto-ADA-2026-II/
 │   ├── parte1.py
 │   ├── parte2.py
 │   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
+│   ├── variantes.py              ← V1: tiempos de A y B contra la teoría y calidad contra el óptimo en 600 instancias
 │   ├── figuras_informe.py        ← figuras del documento de formulación
-│   └── figuras_manual.py         ← diagramas UML del manual técnico
+│   ├── figuras_manual.py         ← diagramas UML del manual técnico
+│   └── figuras_variantes.py      ← figuras de docs/03_variantes.md (contraejemplos de V1)
 │
 ├── app/                          ← interfaz en Streamlit (solo muestra; no tiene lógica)
 │   ├── principal.py              ← punto de entrada y navegación
-│   ├── paginas.py                ← Cargar caso · Evidencias · Modo demo · Experimentos
+│   ├── paginas.py                ← Cargar caso (con selector de algoritmo) · Evidencias
+│   ├── demo.py                   ← Modo demo con el modelo de la profesora y comparación de algoritmos
+│   ├── pagina_experimentos.py    ← gráficas de experimentos (Parte 1, Parte 2, influencia y V1)
 │   ├── vista_resultado.py        ← métricas, pestañas y verificación de un caso
 │   ├── vista_red.py              ← vista de los casos de la profesora (rondas, influencia, presupuesto por nodo)
 │   ├── graficas.py               ← selección paso a paso, mapa de cobertura, nivel de agua del reparto
@@ -96,13 +101,15 @@ Proyecto-ADA-2026-II/
 │   ├── test_parte2.py            ← monotonía/submodularidad, cota (1 − 1/e), E(N,k), ejemplo de la reducción
 │   ├── test_ronda.py             ← trazas, verificación de restricciones y solución base
 │   ├── test_casos.py             ← formato de casos (válidos e inválidos) y ejecución de un caso
-│   └── test_red.py               ← influencia submodular, voraz con costos, caso de la profesora
+│   ├── test_red.py               ← influencia submodular, voraz con costos, caso de la profesora
+│   └── test_variantes.py         ← V1: contraejemplos, cotas de A y B contra fuerza bruta, k_max, costo 0
 │
-├── resultados/{parte1,parte2,influencia,casos}/   ← CSV, gráficas y evidencia de cada caso
+├── resultados/{parte1,parte2,influencia,variantes,casos}/   ← CSV, gráficas y evidencia de cada caso
 ├── docs/                         ← documentación técnica en Markdown
 │   ├── 01_formalizacion_y_parte1.md, 02_parte2.md  ← notas teóricas iniciales de las Partes 1 y 2
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
 │   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
+│   ├── 03_variantes.md           ← teoría de las variantes (V1 costos: algoritmos A y B, T(n) y cotas; V2 y V3 pendientes)
 │   ├── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 │   └── entrega-1/                ← PDF entregados: informe (formulación) y manual técnico
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
@@ -169,13 +176,16 @@ python -m venv .venv
 .venv\Scripts\activate            # Windows  (Linux/Mac: source .venv/bin/activate)
 pip install -r requirements.txt
 
-python -m pytest                  # correctitud, menos de 1 s
+python -m pytest                  # correctitud (50 pruebas), unos 2 s
 python -m experimentos.parte1     # ~2 min: tiempos, ajuste c1·N + c2·B·log N, conteo de comparaciones
 python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, voraz vs. fuerza bruta
 python -m experimentos.influencia # ~1 min: voraz de influencia contra c·N²·k y cota con y sin costos
+python -m experimentos.variantes  # ~15 s: V1, tiempos de A y B y calidad contra el óptimo
 ```
 
-Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/` y `resultados/influencia/`.
+Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/`, `resultados/influencia/` y `resultados/variantes/`.
+
+Para resolver los casos con los algoritmos de la variante V1: `python -m experimentos.casos casos/profesora/ --seleccion A` (o `B`). Esa evidencia va a `resultados/casos/<nombre>__A/` y no pisa la de la solución base.
 
 ### Ejecutar casos (evidencia de la entrega)
 
@@ -196,5 +206,5 @@ pip install -r requirements-app.txt
 streamlit run app/principal.py
 ```
 
-Tiene cuatro secciones. **Cargar caso** resuelve un JSON subido o de ejemplo. **Evidencias** muestra los casos guardados en `resultados/casos/`. **Modo demo** tiene controles para N, k y B, pensados para la sustentación. **Experimentos** reúne las gráficas de tiempo contra la teoría. La interfaz solo presenta resultados: la evidencia oficial son los archivos que genera `experimentos.casos`.
+Tiene cuatro secciones. **Cargar caso** resuelve un JSON subido o guardado con el algoritmo de selección que se elija (voraz por ganancia, o A y B de la V1). **Evidencias** muestra los casos guardados en `resultados/casos/`. **Modo demo** genera casos con el modelo de la profesora (N, T, k, P, B, densidad y semilla), dice si el cupo restringe y compara los tres algoritmos contra el óptimo, pensado para la sustentación. **Experimentos** reúne las gráficas de tiempo contra la teoría y de calidad contra el óptimo. La interfaz solo presenta resultados: la evidencia oficial son los archivos que genera `experimentos.casos`.
 

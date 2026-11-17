@@ -58,12 +58,15 @@ class EstadoInfluencia:
         self.q = [qv * (1.0 - w) for qv, w in zip(self.q, fila)]
 
 
-def voraz_influencia(a, W, k, candidatos=None, costos=None, presupuesto=None, contar=False, traza=None):
+def voraz_influencia(a, W, k, candidatos=None, costos=None, presupuesto=None, contar=False, traza=None,
+                     razon=False, estado=None):
     """
     Voraz sobre f_influencia. Con n candidatos: T(n, k) = O(n · k · N), porque cada
     evaluación de la ganancia recorre los N nodos. Si además hay costos, solo se
     consideran los nodos cuyo costo cabe en el presupuesto de participación.
+    razon=True elige por Δᵢ/cᵢ (variante V1). Se puede pasar un estado ya iniciado
+    (con algunos nodos agregados) para continuar el voraz desde ese grupo.
     """
-    estado = EstadoInfluencia(a, W)
+    estado = estado or EstadoInfluencia(a, W)
     return voraz_general(len(a), k, estado.ganancia, estado.agregar, candidatos=candidatos,
-                         costos=costos, presupuesto=presupuesto, contar=contar, traza=traza)
+                         costos=costos, presupuesto=presupuesto, contar=contar, traza=traza, razon=razon)

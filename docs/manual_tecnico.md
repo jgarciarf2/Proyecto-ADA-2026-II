@@ -46,7 +46,7 @@ El entorno virtual .venv queda dentro del proyecto y está ignorado por git, as�
 python -m pytest
 ```
 
-Debe terminar con el mensaje "35 passed" en alrededor de un segundo. Si alguna prueba falla, la instalación o el código no están en buen estado (ver la sección 16).
+Debe terminar con el mensaje "50 passed" en alrededor de un segundo. Si alguna prueba falla, la instalación o el código no están en buen estado (ver la sección 16).
 
 ## 3. Arquitectura
 
@@ -75,6 +75,7 @@ Las pruebas (tests/) verifican el núcleo, y los datos (casos/) y la salida (res
 | ada/parte2/cobertura.py | Utilidad de cobertura ponderada (casos sintéticos) |
 | ada/parte2/fuerza_bruta.py | Óptimo exacto de la selección para casos pequeños |
 | ada/parte2/reduccion.py | La reducción desde Cobertura Máxima, en código |
+| ada/variantes/costos.py | Variante V1: algoritmos A y B con costos de participación y k_max |
 | ada/casos_red.py | Lector, validador y generador del formato de la profesora |
 | ada/solucion_red.py | Solución base por rondas |
 | ada/verificacion.py | Verificación de restricciones |
@@ -82,11 +83,11 @@ Las pruebas (tests/) verifican el núcleo, y los datos (casos/) y la salida (res
 | ada/casos.py, ada/ronda.py | Formato provisional de casos sintéticos y su solución de una ronda |
 | ada/modelo.py, ada/generadores.py | Clases de datos e instancias sintéticas con semilla fija |
 | experimentos/casos.py | Ejecuta casos y guarda la evidencia |
-| experimentos/parte1.py, parte2.py, influencia.py | Miden tiempos contra la teoría y verifican la cota |
-| experimentos/figuras_informe.py, figuras_manual.py | Figuras de los documentos |
+| experimentos/parte1.py, parte2.py, influencia.py, variantes.py | Miden tiempos contra la teoría y verifican las cotas |
+| experimentos/figuras_informe.py, figuras_manual.py, figuras_variantes.py | Figuras de los documentos |
 | experimentos/comun.py | Medición con mediana, escritura de CSV y gráfica medido contra teórico |
 | app/ | Interfaz en Streamlit |
-| tests/ | 35 pruebas automáticas |
+| tests/ | 50 pruebas automáticas |
 | casos/profesora/, casos/propios/, casos/ejemplos/ | Casos de prueba |
 | resultados/ | Evidencia, tiempos y gráficas generadas |
 | docs/ | Documentación en Markdown y figuras |
@@ -110,18 +111,15 @@ La Figura 2 muestra las clases del núcleo. Los algoritmos son funciones; las cl
 
 | Clase | Archivo | Responsabilidad |
 |---|---|---|
-| Utilidad | ada/utilidades.py | Clase base abstracta: u(x) y su ganancia marginal u(x+1) − u(x) |
+| Utilidad | ada/utilidades.py | Clase base: da u(x+1) − u(x); las demás heredan e implementan __call__ |
 | UtilidadLog | ada/utilidades.py | a·ln(1+x), la utilidad que usamos para los casos de la profesora |
-| UtilidadConTope | ada/utilidades.py | Envuelve otra utilidad y la deja constante después de un tope (el saldo del nodo) |
+| UtilidadConTope | ada/utilidades.py | Composición: envuelve otra utilidad y la deja constante después de un tope (el saldo del nodo) |
 | UtilidadRaiz, UtilidadSaturacion, UtilidadTabla | ada/utilidades.py | Otras familias cóncavas, usadas en casos sintéticos |
 | CasoRed | ada/casos_red.py | Un caso de la profesora ya validado: ids, a, W, costos, presupuestos, T, k, B, P |
-| Caso | ada/casos.py | Un caso del formato provisional |
-| CasoInvalido | ada/casos.py | Excepción con un mensaje que dice qué campo está mal |
+| Caso, CasoInvalido | ada/casos.py | Un caso del formato provisional, y la excepción que dice qué campo está mal |
 | EstadoInfluencia | ada/parte2/influencia.py | Guarda qᵥ para calcular la ganancia de influencia en O(N) |
 | ContadorComparaciones | ada/parte1/voraz.py | Cuenta las comparaciones del montículo para validar T(n) |
-| InstanciaReparto, InstanciaCobertura, InstanciaInfluencia | ada/modelo.py | Instancias sintéticas de los experimentos |
-
-Todas las utilidades heredan de Utilidad e implementan __call__. La ganancia marginal la da la clase base, así que una utilidad nueva solo necesita su fórmula. UtilidadConTope es una composición: contiene otra utilidad y le aplica el tope, lo que permite combinar cualquier fórmula con el presupuesto que le queda a un nodo.
+| Instancia… (Reparto, Cobertura, Influencia, Costos) | ada/modelo.py | Instancias sintéticas |
 
 ## 5. Flujo de ejecución
 
@@ -228,9 +226,29 @@ resolver_caso_red agrega dos más por ronda (Σ cᵢ ≤ P y xᵢ ≤ saldo del 
 
 ### 6.7 Solución por rondas
 
-Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True). Para cada ronda calcula los saldos rᵢ = Rᵢ − usadoᵢ, toma como candidatos los nodos con rᵢ > 0, construye para cada participante la utilidad UtilidadConTope(UtilidadLog(aᵢ), rᵢ) y mide por separado el tiempo de la selección y el del reparto con time.perf_counter. Devuelve un diccionario con una entrada por ronda, los totales, el presupuesto usado por nodo, las verificaciones, los tiempos y la lista de supuestos. Costo: O(T·(N²·k + B log k)).
+Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True, seleccion="ganancia"). El parámetro seleccion elige el algoritmo de la Parte 2: "ganancia" es el voraz de la solución base, y "A" y "B" son los algoritmos de la variante V1 (sección 6.8). Para cada ronda calcula los saldos rᵢ = Rᵢ − usadoᵢ, toma como candidatos los nodos con rᵢ > 0, construye para cada participante la utilidad UtilidadConTope(UtilidadLog(aᵢ), rᵢ) y mide por separado el tiempo de la selección y el del reparto con time.perf_counter. Devuelve un diccionario con una entrada por ronda, los totales, el presupuesto usado por nodo, las verificaciones, los tiempos y la lista de supuestos. Costo: O(T·(N²·k + B log k)).
 
-### 6.8 Correspondencia con el documento de formulación
+### 6.8 Variante V1: algoritmos A y B
+
+Archivo ada/variantes/costos.py. Implementa los dos algoritmos con garantía de la variante de costos de participación. Su teoría (formalización, T(n), cotas y demostraciones) está en docs/03_variantes.md.
+
+- **k_max(costos, P, candidatos=None):** cuántos nodos caben como máximo en P. Ordena los costos y toma los más baratos mientras quepan, en O(n log n). Si k ≥ k_max(P) el cupo no restringe y valen las cotas de los Teoremas V1.1 y V1.2; si no, solo las del Teorema V1.4.
+- **algoritmo_a(a, W, k, costos, P, candidatos=None, contar=False):** el voraz por razón (voraz_influencia con razon=True), comparado al final con el mejor nodo individual. Cuesta O(N²·k). Garantiza ½(1 − 1/e) sin cupo restrictivo y 1/k con él.
+- **algoritmo_b(…):** misma firma. Prueba los grupos factibles de 1 y 2 nodos y completa cada grupo factible de 3 nodos con el voraz por razón. Cuesta O(N⁵·k). Garantiza 1 − 1/e sin cupo restrictivo y 1/⌈k/3⌉ con él, y es exacto si k ≤ 3.
+
+Los dos descartan primero los nodos con cᵢ > P y devuelven (S, valor), o (S, valor, evaluaciones) con contar=True. El voraz por razón no es una copia del voraz: es voraz_general con el parámetro razon=True, que solo cambia el criterio de cada paso (Δᵢ/cᵢ en lugar de Δᵢ, con razón infinita si cᵢ = 0):
+
+```text
+p = (g / costos[i] if costos[i] > 0 else float("inf")) if razon else g   # criterio del paso
+if p > mejor_p or (p == mejor_p and i < mejor):
+    mejor, mejor_g, mejor_p = i, g, p
+```
+
+Para arrancar desde un grupo G de tres nodos, B le pasa a voraz_influencia un EstadoInfluencia con G ya agregado, un cupo k − 3 y el presupuesto que queda, y suma f(G) a lo que el voraz agrega. En la solución por rondas, la traza de A y B lista los nodos en su orden de entrada con su ganancia marginal (sin candidatos evaluados), y B solo se acepta con C(N, 3) ≤ 20 000, es decir, N ≤ 50; si no, se lanza ValueError.
+
+En el caso de 15 nodos de la profesora el cupo restringe (k_max(24) = 7 > k = 5). Ahí el voraz por ganancia obtiene el óptimo, 436,74, y los algoritmos A y B quedan apenas por debajo, con 435,32 y 435,75. Con el cupo restrictivo A y B no tienen ventaja garantizada; su ventaja aparece cuando manda el presupuesto.
+
+### 6.9 Correspondencia con el documento de formulación
 
 | Documento | Código | Prueba que lo comprueba |
 |---|---|---|
@@ -242,6 +260,7 @@ Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True). 
 | Teorema 3 (cota 1 − 1/e) | voraz_influencia | test_voraz_sin_costos_respeta_la_cota |
 | Reducción desde Cobertura Máxima | reducir_desde_cobertura_maxima | test_ejemplo_de_la_reduccion |
 | Algoritmo RESOLVER-CASO | resolver_caso_red | test_caso_de_la_profesora_cumple_todo, test_casos_limite |
+| V1: contraejemplos y Teoremas V1.1, V1.2 y V1.4 (docs/03_variantes.md) | algoritmo_a, algoritmo_b | las 15 pruebas de tests/test_variantes.py |
 
 ## 7. Referencia de funciones públicas
 
@@ -257,7 +276,7 @@ Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True). 
 
 | Función | Parámetros | Devuelve | Costo |
 |---|---|---|---|
-| resolver_caso_red(caso, con_optimo=True) | CasoRed; si se calcula el óptimo de referencia | Diccionario con rondas, totales, verificaciones y tiempos (sección 9.2) | O(T·(N²·k + B log k)) |
+| resolver_caso_red(caso, con_optimo=True, seleccion="ganancia") | CasoRed; si se calcula el óptimo; "ganancia", "A" o "B" | Diccionario con rondas, totales, verificaciones y tiempos (sección 9.2) | O(T·(N²·k + B log k)) |
 
 ### 7.3 ada/parte1 y ada/parte2
 
@@ -265,8 +284,8 @@ Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True). 
 |---|---|---|---|
 | voraz_heap(utilidades, B, contador=None, traza=None) | Lista de Utilidad, presupuesto | (x, U) | O(n + B log n) |
 | exacto_dp(utilidades, B) | Lista de Utilidad, presupuesto | (x, U) óptimos | O(n·B²) |
-| voraz_general(N, k, ganancia, agregar, candidatos, costos, presupuesto, contar, traza) | Funciones de la utilidad y restricciones | (elegidos, valor) y, con contar, las evaluaciones | O(n·k·τ) |
-| voraz_influencia(a, W, k, candidatos, costos, presupuesto, contar, traza) | Coeficientes, matriz, cupo y restricciones | (elegidos, valor) | O(N²·k) |
+| voraz_general(N, k, ganancia, agregar, candidatos, costos, presupuesto, contar, traza, razon) | Funciones de la utilidad y restricciones | (elegidos, valor) y, con contar, las evaluaciones | O(n·k·τ) |
+| voraz_influencia(a, W, k, candidatos, costos, presupuesto, contar, traza, razon, estado) | Coeficientes, matriz, cupo y restricciones; razon=True para el voraz por razón; estado para continuar desde un grupo | (elegidos, valor) | O(N²·k) |
 | f_influencia(S, a, W) | Grupo, coeficientes, matriz | f(S) | O(N·│S│) |
 | matriz_influencia(N, aristas) | Lista de (u, v, w) con índices | Matriz W simétrica con diagonal 1 | O(N² + │E│) |
 | fuerza_bruta_general(valor, k, candidatos, costos, presupuesto) | Función f, cupo, restricciones | (mejor grupo, valor) | O(Σⱼ≤ₖ C(n, j)·τ_f) |
@@ -274,11 +293,20 @@ Archivo ada/solucion_red.py, función resolver_caso_red(caso, con_optimo=True). 
 | voraz_submodular(conjuntos, pesos, k, contar, traza) | Utilidad de cobertura | (elegidos, valor) | O(N·k·d) |
 | reducir_desde_cobertura_maxima(universo, subconjuntos, k, t) | Instancia de Cobertura Máxima | (conjuntos, pesos, k, t) | O(│U│ + Σ│Sᵢ│) |
 
-### 7.4 experimentos/casos.py
+### 7.4 ada/variantes/costos.py
+
+| Función | Parámetros | Devuelve | Costo |
+|---|---|---|---|
+| k_max(costos, P, candidatos=None) | Costos y presupuesto | Máximo número de nodos que caben en P | O(n log n) |
+| algoritmo_a(a, W, k, costos, P, candidatos=None, contar=False) | Instancia de la V1 | (S, valor) y, con contar, las evaluaciones | O(N²·k) |
+| algoritmo_b(a, W, k, costos, P, candidatos=None, contar=False) | Instancia de la V1 | (S, valor) y, con contar, las evaluaciones | O(N⁵·k) |
+| instancia_costos(N, semilla=0, densidad=0.5, regimen="presupuesto"), en ada/generadores.py | Tamaño, semilla y régimen ("presupuesto" o "mixto") | InstanciaCostos con a, W, costos, k y P | O(N²) |
+
+### 7.5 experimentos/casos.py
 
 | Función | Qué hace |
 |---|---|
-| ejecutar_caso(datos, con_optimo=True) | Reconoce el formato, lee y valida el caso, lo resuelve y devuelve el resultado serializable |
+| ejecutar_caso(datos, con_optimo=True, seleccion="ganancia") | Reconoce el formato, lee y valida el caso, lo resuelve y devuelve el resultado serializable |
 | guardar_evidencia(datos, res, salida) | Escribe resultado.json y los CSV en la carpeta salida |
 | fila_resumen(res) | Una fila con las columnas de resumen.csv (las mismas para los dos formatos) |
 | actualizar_resumen(base) | Rehace resumen.csv con todos los casos guardados |
@@ -408,16 +436,17 @@ Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el 
 
 | Comando | Qué hace | Tiempo aproximado |
 |---|---|---|
-| python -m pytest | Corre las 35 pruebas de correctitud | 1 s |
+| python -m pytest | Corre las 50 pruebas de correctitud | 2 s |
 | python -m experimentos.casos casos/profesora | Resuelve los casos de la profesora y guarda la evidencia | 1 s |
 | python -m experimentos.casos casos/propios | Resuelve los 10 casos propios | 1 s |
-| python -m experimentos.casos ruta/al/caso.json | Resuelve un caso puntual | 1 s |
-| python -m experimentos.casos --sin-optimo casos/propios | Igual, sin calcular el óptimo de referencia | 1 s |
+| python -m experimentos.casos ruta/al/caso.json [--sin-optimo] | Resuelve un caso puntual (sin el óptimo de referencia, si se pide) | 1 s |
 | python -m experimentos.casos --generar-ejemplos | Vuelve a crear casos/ejemplos y casos/propios | 1 s |
+| python -m experimentos.casos casos/profesora --seleccion A | Igual, con el algoritmo A (o B) de la V1 | 1 s |
 | python -m experimentos.parte1 | Tiempos del reparto contra la teoría y conteo de comparaciones | 2 min |
 | python -m experimentos.parte2 | Tiempos de la selección con utilidad de cobertura | 20 s |
 | python -m experimentos.influencia | Tiempos del voraz de influencia y verificación de la cota | 1 min |
-| python -m experimentos.figuras_informe | Figuras del documento de formulación | 10 s |
+| python -m experimentos.variantes | V1: tiempos y calidad de A y B | 15 s |
+| python -m experimentos.figuras_informe (o figuras_variantes) | Figuras del documento de formulación (o de las variantes) | 10 s |
 | python -m experimentos.figuras_manual | Diagramas UML de este manual | 5 s |
 | streamlit run app/principal.py | Abre la interfaz visual en el navegador | — |
 
@@ -425,23 +454,21 @@ Todos los comandos se ejecutan desde la carpeta raíz del proyecto y con el ento
 
 ### 10.2 Resolver los casos de la profesora
 
-Los casos se guardan en casos/profesora/ y se ejecuta python -m experimentos.casos casos/profesora. La consola muestra una línea por caso con su tamaño, las utilidades totales, el tiempo y si cumple todas las restricciones:
+Los casos se guardan en casos/profesora/ y se ejecuta python -m experimentos.casos casos/profesora; los casos privados se corren igual, copiándolos a una carpeta y pasando esa carpeta al comando. Si un caso tiene un error de formato, la ejecución se detiene con el mensaje de CasoInvalido que indica el campo. Si no, la consola muestra una línea por caso con su tamaño, las utilidades totales, el tiempo y si cumple todas las restricciones:
 
 ```text
   entrada_G2_red_15_nodos N=   15 k=  5 B=    30  f(S)=   436.739  U(x)=  262.739  t=    0.417 ms  cumple
 Evidencia de 1 casos en ...\resultados\casos (resumen.csv con 15 casos guardados)
 ```
 
-Si un caso tiene un error de formato, la ejecución se detiene con el mensaje de CasoInvalido que indica el campo. Para los casos privados de la profesora el procedimiento es el mismo: copiarlos a una carpeta y pasar esa carpeta al comando.
-
 ## 11. Interfaz visual
 
 Se abre con streamlit run app/principal.py y queda disponible en http://localhost:8501. Tiene cuatro secciones en la barra lateral:
 
-- **Cargar caso:** se sube un JSON o se elige uno guardado (primero los de la profesora y luego los de ejemplo). El caso se resuelve en el momento y se puede guardar como evidencia con el mismo resultado que da la línea de comandos.
+- **Cargar caso:** se sube un JSON o se elige uno guardado (primero los de la profesora y luego los de ejemplo), y se elige el algoritmo de selección: el voraz por ganancia de la solución base o los algoritmos A y B de la variante V1. El caso se resuelve en el momento y se puede guardar como evidencia con el mismo resultado que da la línea de comandos.
 - **Evidencias:** tabla con todos los casos de resultados/casos; al seleccionar una fila se ve su detalle.
-- **Modo demo:** casos sintéticos con controles para N, k, M, d, B y la semilla, pensado para explicar los algoritmos en vivo.
-- **Experimentos:** las gráficas de tiempo medido contra la teoría.
+- **Modo demo:** casos sintéticos con el modelo de la profesora y controles para N, T, k, P, B, la densidad del grafo y la semilla. Indica si el cupo restringe (k frente a k_max(P)), compara los tres algoritmos de selección contra el óptimo y debajo muestra la solución completa con el algoritmo elegido.
+- **Experimentos:** las gráficas de tiempo medido contra la teoría y de calidad contra el óptimo, en cuatro pestañas: Parte 1, Parte 2 con cobertura, Parte 2 con influencia y variante V1.
 
 Para un caso de la profesora la vista muestra los supuestos, las métricas totales, el resumen por ronda y el presupuesto usado por cada nodo contra su tope. Para la ronda elegida muestra además la selección paso a paso, el mapa de influencia de los participantes, el reparto como nivel de agua, las trazas en tablas y la verificación de cada restricción. La Figura 5 muestra esa vista con el caso de 15 nodos y la Figura 6 la tabla de evidencias.
 
@@ -457,7 +484,7 @@ Para un caso de la profesora la vista muestra los supuestos, las métricas total
 
 ### 12.1 Pruebas automáticas
 
-Las 35 pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
+Las 50 pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
 
 | Archivo | Pruebas | Qué comprueban |
 |---|---|---|
@@ -466,6 +493,7 @@ Las 35 pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
 | tests/test_ronda.py | 5 | Que las trazas coincidan con los resultados, que la traza no cambie el resultado, que la verificación detecte soluciones inválidas y que la ronda reparta de forma óptima |
 | tests/test_casos.py | 9 | Lectura del formato provisional, rechazo de 6 tipos de caso inválido y ejecución completa de un caso |
 | tests/test_red.py | 13 | Submodularidad de la influencia (1 500 pruebas), cota sin costos, presupuesto con costos, el caso de la profesora, rechazo de 4 tipos de caso inválido, el generador, los 10 casos propios, los casos límite y el reparto sin participantes |
+| tests/test_variantes.py | 15 | V1: contraejemplos, ejemplo de 1/k, las cuatro cotas de A y B contra la fuerza bruta (300 instancias), k_max, costo 0 y el caso de la profesora con A y B |
 
 ### 12.2 Casos propios
 
@@ -529,7 +557,7 @@ Se escribe un estado con dos métodos, ganancia(i) y agregar(j), y una función 
 
 ### 14.3 Agregar una variante
 
-1. El algoritmo va en ada/variantes/<variante>.py, con su T(n) deducido en el docstring.
+1. El algoritmo va en ada/variantes/<variante>.py, con su T(n) deducido en el docstring (ejemplo: ada/variantes/costos.py, de la V1).
 2. Si necesita datos nuevos, el lector se amplía en ada/casos_red.py con su validación.
 3. Las pruebas van en tests/, comparando contra la fuerza bruta en casos pequeños.
 4. Los experimentos van en experimentos/, usando experimentos/comun.py para medir y graficar.
@@ -538,7 +566,8 @@ Se escribe un estado con dos métodos, ganancia(i) y agregar(j), y una función 
 ## 15. Limitaciones
 
 - **Supuestos de modelado.** Las fórmulas de la utilidad del reparto y de la utilidad conjunta son supuestos documentados, porque los casos no las definen.
-- **Garantía con costos.** El voraz garantiza el 63 % del óptimo solo con la restricción de cupo. Con el límite de costos no hay garantía, y en los experimentos hubo casos por debajo de esa cota (la peor razón observada fue 0,404).
+- **Garantía con costos.** El voraz por ganancia garantiza el 63 % del óptimo solo con la restricción de cupo; con el límite de costos no hay garantía (la peor razón observada fue 0,404). Los algoritmos A y B de la V1 recuperan las cotas ½(1 − 1/e) y 1 − 1/e, pero solo cuando el cupo no restringe. Con el cupo restrictivo, como en los casos de la profesora, solo garantizan 1/k y 1/⌈k/3⌉.
+- **Costo del algoritmo B.** Es O(N⁵·k): la solución por rondas solo lo acepta con N ≤ 50, y el modo demo, con N ≤ 32.
 - **Rondas miopes y sin fallas.** Cada ronda se resuelve por separado, sin reservar presupuesto para las siguientes, y no se modelan fallas de nodos.
 - **Óptimo de referencia limitado.** La fuerza bruta solo se calcula con a lo sumo 200 000 grupos por revisar.
 - **Costo de la selección.** Cada evaluación de la ganancia recorre los N nodos, así que la selección cuesta O(N²·k). Con miles de nodos y un grafo completo sería lenta; con grafos dispersos se podría recorrer solo a los vecinos.
