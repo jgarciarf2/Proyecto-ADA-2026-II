@@ -257,7 +257,7 @@ En el caso de la profesora (k = 5) esto da al menos 20 % del óptimo para A y al
 
 **La garantía de A no puede ser mejor que 1/k.** Tomamos k nodos baratos con cᵢ = 1 y f({i}) = 1, y k nodos caros con cᵢ = P/k y f({i}) = P/(2k), sin aristas, con P = 2k². Los baratos tienen razón 1 y los caros 1/2, así que el voraz por razón toma los k baratos, llena el cupo y obtiene k. El mejor nodo solo vale P/(2k) = k. El óptimo toma los k caros: cuestan exactamente P y valen P/2 = k². La razón del algoritmo A es k/k² = 1/k, que tiende a 0 cuando k crece. Lo comprobamos con la fuerza bruta para k = 3, 4 y 6, con razones de 0,333, 0,25 y 0,167. En ese mismo ejemplo el algoritmo B obtiene 9 de 9 con k = 3, 13 de 16 con k = 4 y 21 de 36 con k = 6, siempre por encima de su cota 1/⌈k/3⌉.
 
-Por eso, en el régimen mixto, la evaluación de la V1 es experimental: en la implementación (issue #11) se compararán los dos algoritmos y el voraz por ganancia contra la fuerza bruta en cientos de instancias pequeñas, con k restrictivo y sin él.
+Por eso, en el régimen mixto, la calidad real de los algoritmos se evalúa con experimentos (sección V1.10).
 
 ### V1.8 Algoritmo exacto de referencia
 
@@ -279,7 +279,46 @@ y es el juez contra el que se miden los algoritmos A y B. En el régimen de solo
 | **B**: enumeración parcial | O(N⁵·k) | 1 − 1/e ≈ 0,632 (Teorema V1.2), la mejor posible | 1/⌈k/3⌉ (Teorema V1.4); exacto si k ≤ 3 |
 | Fuerza bruta | O(N·k·Σⱼ≤ₖ C(N, j)) | exacto | exacto |
 
-Comprobamos los números de esta sección con la fuerza bruta antes de escribirlos. En 300 instancias de 6 a 10 nodos donde el cupo no restringe, el algoritmo A nunca bajó de 0,768 del óptimo y el algoritmo B lo encontró siempre. En otras 300 con el cupo restringiendo (k entre 2 y 6), el peor caso fue 0,529 para A y 0,984 para B, sin violar ninguna de las dos cotas del Teorema V1.4. Los experimentos completos, con tiempos medidos y al menos cinco tamaños de N, son parte de la issue #11.
+Todos los números de los ejemplos de esta sección se comprobaron con la fuerza bruta (pruebas en `tests/test_variantes.py`). La validación experimental está en la sección siguiente.
+
+### V1.10 Validación experimental
+
+El código está en `ada/variantes/costos.py` y los experimentos se reproducen con `python -m experimentos.variantes` (menos de un minuto). Las gráficas y los CSV quedan en `resultados/variantes/`.
+
+**Tiempo del algoritmo A.** Con k = 10 y grafo completo, para N = 50, 100, 200, 300, 400 y 600, el tiempo crece de 1,7 ms a 0,3 s. El cociente entre el tiempo medido y c·N²·k queda entre 0,90 y 1,21: el crecimiento es el que predice T_A = O(N²·k). La leve subida en N = 600 es el mismo efecto de la memoria caché que se observa en el voraz de la solución base (sección 10.2 del documento de formulación).
+
+![Tiempo del algoritmo A](../resultados/variantes/tiempo_A.png)
+
+*Figura V1.2. Algoritmo A: tiempo medido contra c·N²·k (izquierda) y cociente medido/predicho (derecha).*
+
+**Tiempo del algoritmo B.** Con k = 5, para N = 10, 14, 18, 22, 26 y 30, el tiempo crece de 3 ms a 0,6 s, y el cociente contra c·C(N, 3)·N²·k queda entre 0,91 y 1,29, cada vez más cerca de una constante a medida que N crece. Al multiplicar N por 3 (de 10 a 30), el tiempo se multiplica por más de 200: es el crecimiento polinomial de grado alto que anticipa T_B = O(N⁵·k), y la razón por la que B solo se usa con N pequeño.
+
+![Tiempo del algoritmo B](../resultados/variantes/tiempo_B.png)
+
+*Figura V1.3. Algoritmo B: tiempo medido contra c·C(N, 3)·N²·k (izquierda) y cociente medido/predicho (derecha).*
+
+**Calidad.** Comparamos el voraz por ganancia de la primera entrega, el algoritmo A y el algoritmo B contra el óptimo por fuerza bruta en 600 instancias de 7 a 11 nodos con densidades entre 0,3 y 0,9: 300 donde el cupo no restringe y 300 donde sí (k entre 2 y 7).
+
+| Régimen | Algoritmo | Peor razón | Razón media | Óptimo exacto |
+|---|---|---|---|---|
+| El cupo no restringe | Voraz por ganancia | 0,698 | 0,963 | 64 de 300 |
+| | Algoritmo A | 0,857 | 0,991 | 141 de 300 |
+| | Algoritmo B | 0,990 | 1,000 | 296 de 300 |
+| El cupo restringe | Voraz por ganancia | 0,746 | 0,984 | 156 de 300 |
+| | Algoritmo A | 0,655 | 0,916 | 36 de 300 |
+| | Algoritmo B | 0,932 | 0,999 | 285 de 300 |
+
+![Calidad contra el óptimo](../resultados/variantes/calidad.png)
+
+*Figura V1.4. Utilidad de cada algoritmo dividida por la óptima. Izquierda: el cupo no restringe, con las cotas de A y B. Derecha: el cupo restringe.*
+
+Tres conclusiones:
+
+1. **Ninguna instancia viola su cota.** Cuando el cupo no restringe, A nunca baja de 0,316 y B nunca de 0,632; de hecho quedan muy por encima. Cuando restringe, el producto (razón de A)·k nunca baja de 1,34 (la cota pide 1), y B nunca baja de 1/⌈k/3⌉.
+2. **Cuando manda el presupuesto, la teoría se nota.** El voraz por ganancia, que no tiene garantía, es el peor de los tres (0,698), A lo mejora (0,857) y B es casi exacto: encuentra el óptimo en 296 de 300 instancias.
+3. **Cuando el cupo restringe, A pierde frente al voraz por ganancia** (0,655 contra 0,746, y óptimo en solo 36 instancias). Es lo que anticipa la sección V1.7: si el cupo es la restricción escasa, elegir por ganancia por unidad de costo desperdicia lugares en nodos baratos de poco valor, como en el ejemplo donde A llega a 1/k. B sigue siendo el mejor, porque enumerar los grupos de tres le permite recuperarse.
+
+**Recomendación de uso.** Calcular kₘₐₓ(P) antes de elegir. Si k ≥ kₘₐₓ(P), usar B cuando N es pequeño (N ≤ 50 en la implementación) y A cuando N es grande. Si k < kₘₐₓ(P), usar B si N lo permite; si no, conviene comparar A con el voraz por ganancia y quedarse con el mejor de los dos, porque ninguno domina al otro. En el caso de 15 nodos de la profesora, que está en este segundo régimen, el voraz por ganancia obtiene el óptimo (436,74 en las tres rondas), y A y B quedan a menos del 0,3 % (435,32 y 435,75).
 
 ### Referencias de la variante V1
 

@@ -6,7 +6,7 @@ pruebas y variantes usen exactamente los mismos datos.
 """
 import random
 
-from ada.modelo import InstanciaCobertura, InstanciaInfluencia, InstanciaReparto
+from ada.modelo import InstanciaCobertura, InstanciaCostos, InstanciaInfluencia, InstanciaReparto
 from ada.parte2.influencia import matriz_influencia
 from ada.utilidades import UtilidadLog, UtilidadRaiz, UtilidadSaturacion
 
@@ -62,3 +62,25 @@ def instancia_influencia(N, semilla=0, densidad=1.0):
     aristas = [(u, v, round(rng.uniform(0.05, 0.9), 2)) for u in range(N) for v in range(u + 1, N)
                if rng.random() < densidad]
     return InstanciaInfluencia(a, matriz_influencia(N, aristas), costos)
+
+
+def instancia_costos(N, semilla=0, densidad=0.5, regimen="presupuesto"):
+    """
+    Instancia de la variante V1 sobre instancia_influencia (mismos a, W y costos en [1, 7]).
+    P es una fracción al azar (entre 30 % y 60 %) de la suma de los costos.
+      regimen = "presupuesto": k = N, así que el cupo nunca restringe (k >= k_max(P)).
+      regimen = "mixto":       k < k_max(P), así que las dos restricciones pueden estar activas.
+    Usa un generador aparte (semilla + 1) para no cambiar los números de instancia_influencia.
+    """
+    from ada.variantes.costos import k_max          # import local: variantes depende de parte2, no al revés
+    base = instancia_influencia(N, semilla, densidad)
+    rng = random.Random(semilla + 1)
+    P = max(1, int(sum(base.costos) * rng.uniform(0.3, 0.6)))
+    tope = k_max(base.costos, P)
+    if regimen == "mixto" and tope >= 2:
+        k = rng.randint(min(2, tope - 1), tope - 1)       # k = 1 sería trivial (basta el mejor nodo)
+    elif regimen == "mixto":
+        raise ValueError("con estos costos no hay un k que restrinja: pruebe otra semilla o un N mayor")
+    else:
+        k = N
+    return InstanciaCostos(base.a, base.W, base.costos, k, P, regimen)

@@ -50,3 +50,21 @@ class InstanciaInfluencia:
     @property
     def N(self):
         return len(self.a)
+
+
+@dataclass
+class InstanciaCostos:
+    """
+    Variante V1: la instancia de influencia con un cupo k y un presupuesto de
+    participación P. 'regimen' dice si el cupo restringe ("mixto") o no ("presupuesto").
+    """
+    a: list
+    W: list
+    costos: list
+    k: int
+    P: int
+    regimen: str
+
+    @property
+    def N(self):
+        return len(self.a)

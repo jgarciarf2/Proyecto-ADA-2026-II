@@ -9,9 +9,11 @@ from ada.parte2.cobertura import ganancia_marginal
 
 
 def voraz_general(N, k, ganancia, agregar, candidatos=None, costos=None, presupuesto=None,
-                  contar=False, traza=None):
+                  contar=False, traza=None, razon=False):
     """
-    En cada paso (como mucho k) agrega el candidato de mayor ganancia marginal.
+    En cada paso (como mucho k) agrega el candidato de mayor ganancia marginal o,
+    con razon=True, el de mayor ganancia por unidad de costo Δᵢ/cᵢ (∞ si cᵢ = 0):
+    es el voraz por razón de la variante V1 (docs/03_variantes.md, sección V1.5).
 
     ganancia(i)  -> f(S ∪ {i}) - f(S) para el S actual (costo tau)
     agregar(i)   -> actualiza el estado interno de la utilidad con S := S ∪ {i}
@@ -23,24 +25,27 @@ def voraz_general(N, k, ganancia, agregar, candidatos=None, costos=None, presupu
     Devuelve (elegidos, valor) o, con contar=True, (elegidos, valor, evaluaciones).
     Si se pasa una lista en traza, se le agrega un registro por paso:
     {"paso", "nodo", "ganancia_marginal", "utilidad_acumulada", "candidatos_evaluados"}
-    y, con costos, también "costo_acumulado".
+    y, con costos, también "costo_acumulado"; con razon=True, también "razon".
 
     Conteo (n = número de candidatos):
       paso t: evalúa como mucho n - t candidatos, cada uno con costo tau
       Evaluaciones totales <= sum_{t=0}^{k-1} (n - t) = kn - k(k-1)/2 <= n k
       T(n, k) = O(n · k · tau)
     """
+    if razon and costos is None:
+        raise ValueError("el voraz por razón necesita costos")
     restantes = set(range(N)) if candidatos is None else set(candidatos)
     elegidos, valor, evaluaciones, gastado = [], 0.0, 0, 0
     for paso in range(min(k, len(restantes))):
-        mejor, mejor_g, evaluados = None, -1.0, 0
+        mejor, mejor_g, mejor_p, evaluados = None, -1.0, -1.0, 0
         for i in restantes:
             if costos is not None and gastado + costos[i] > presupuesto:
                 continue
             g = ganancia(i)
             evaluados += 1
-            if g > mejor_g or (g == mejor_g and i < mejor):
-                mejor, mejor_g = i, g
+            p = (g / costos[i] if costos[i] > 0 else float("inf")) if razon else g   # criterio del paso
+            if p > mejor_p or (p == mejor_p and i < mejor):
+                mejor, mejor_g, mejor_p = i, g, p
         evaluaciones += evaluados
         if mejor is None:                 # ningún candidato cabe en el presupuesto
             break
@@ -55,6 +60,8 @@ def voraz_general(N, k, ganancia, agregar, candidatos=None, costos=None, presupu
                         "utilidad_acumulada": valor, "candidatos_evaluados": evaluados}
             if costos is not None:
                 registro["costo_acumulado"] = gastado
+            if razon:
+                registro["razon"] = mejor_p
             traza.append(registro)
     if contar:
         return elegidos, valor, evaluaciones

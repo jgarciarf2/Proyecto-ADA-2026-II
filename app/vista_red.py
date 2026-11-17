@@ -28,7 +28,8 @@ def mostrar_red(entrada, res, clave):
 
     st.markdown(f"#### {res['caso']}")
     nota(f"N = {res['N']} nodos · {res['T']} rondas · k = {res['k']} por ronda · B = {res['B']} por ronda · "
-         f"presupuesto de participación P = {res['P']} por ronda")
+         f"presupuesto de participación P = {res['P']} por ronda · selección: "
+         f"{res.get('seleccion', 'voraz por ganancia')}")
     aviso("<b>Supuestos provisionales</b> (falta confirmarlos con la profesora): " + "; ".join(res["supuestos"]) + ".")
 
     metricas([

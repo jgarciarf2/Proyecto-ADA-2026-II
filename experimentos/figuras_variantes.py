@@ -10,29 +10,17 @@ import matplotlib.pyplot as plt
 
 from ada.parte2.fuerza_bruta import fuerza_bruta_general
 from ada.parte2.influencia import f_influencia, matriz_influencia, voraz_influencia
+from ada.variantes.costos import algoritmo_a
 from experimentos.figuras_informe import AZUL, GRIS, NARANJA, TINTA, VERDE, guardar
-
-
-def _voraz_razon(a, W, c, P, k):
-    """Voraz por razón Δ/c (provisional para la figura; la versión oficial irá en ada/variantes/costos.py)."""
-    S, gasto = [], 0
-    while len(S) < k:
-        validos = [i for i in range(len(a)) if i not in S and gasto + c[i] <= P]
-        if not validos:
-            break
-        j = max(validos, key=lambda i: (f_influencia(S + [i], a, W) - f_influencia(S, a, W)) / c[i])
-        S.append(j)
-        gasto += c[j]
-    return f_influencia(S, a, W)
 
 
 def _valores(a, c, P, k):
     W = matriz_influencia(len(a), [])          # sin aristas: f(S) es la suma de los coeficientes
     simple = voraz_influencia(a, W, k, costos=c, presupuesto=P)[1]
-    razon = _voraz_razon(a, W, c, P, k)
+    razon = voraz_influencia(a, W, k, costos=c, presupuesto=P, razon=True)[1]
     solo = max(f_influencia([i], a, W) for i in range(len(a)) if c[i] <= P)
     _, optimo = fuerza_bruta_general(lambda S: f_influencia(list(S), a, W), k, range(len(a)), c, P)
-    return [simple, razon, solo, max(razon, solo)], optimo
+    return [simple, razon, solo, algoritmo_a(a, W, k, c, P)[1]], optimo
 
 
 def contraejemplos_v1():

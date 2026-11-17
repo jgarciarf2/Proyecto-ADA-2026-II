@@ -8,11 +8,13 @@ Uso:
     python -m experimentos.casos caso_01.json caso_02.json
     python -m experimentos.casos casos/propios/       # los casos propios en el formato de la profesora
     python -m experimentos.casos --generar-ejemplos   # vuelve a crear casos/ejemplos/ y casos/propios/
+    python -m experimentos.casos casos/profesora/ --seleccion A   # selección con el algoritmo A o B de la V1
 
 Salida en resultados/casos/<nombre>/:
     resultado.json, traza_seleccion.csv, traza_reparto.csv (si B no es muy grande), reparto.csv
     y, en los casos de la profesora, verificacion.csv. Los CSV llevan una columna "ronda".
-Además, un resumen de todos los casos en resultados/casos/resumen.csv.
+Además, un resumen de todos los casos en resultados/casos/resumen.csv. Con --seleccion A o B la
+evidencia va a resultados/casos/<nombre>__A/ (o __B/), para no pisar la de la solución base.
 """
 import argparse
 import glob
@@ -83,13 +85,14 @@ def generar_propios():
     print(f"Casos propios creados en {CARPETA_PROPIOS}")
 
 
-def ejecutar_caso(datos, con_optimo=True):
+def ejecutar_caso(datos, con_optimo=True, seleccion="ganancia"):
     """
     Resuelve un caso (diccionario) y devuelve el resultado serializable.
     Reconoce los dos formatos: el de la profesora (con "parametros" y "grafo") y el provisional.
+    seleccion ("ganancia", "A" o "B") solo aplica al formato de la profesora (variante V1).
     """
     if es_formato_red(datos):
-        return resolver_caso_red(leer_caso_red(datos, datos.get("nombre", "caso")), con_optimo)
+        return resolver_caso_red(leer_caso_red(datos, datos.get("nombre", "caso")), con_optimo, seleccion)
     caso = leer_caso(datos)
     r = resolver_ronda(caso.conjuntos, caso.pesos, caso.k, caso.utilidades, caso.B)
     optimo = optimo_si_es_factible(caso) if con_optimo else None
@@ -159,6 +162,8 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description="Ejecuta casos con la solución base y guarda la evidencia.")
     p.add_argument("rutas", nargs="*", default=[CARPETA_EJEMPLOS], help="archivos .json o carpetas")
     p.add_argument("--sin-optimo", action="store_true", help="no calcular el óptimo por fuerza bruta")
+    p.add_argument("--seleccion", choices=["ganancia", "A", "B"], default="ganancia",
+                   help="algoritmo de selección en los casos de la profesora (A y B son de la variante V1)")
     p.add_argument("--generar-ejemplos", action="store_true", help="crear casos/ejemplos/ (formato provisional) y casos/propios/ (formato de la profesora)")
     a = p.parse_args()
     if a.generar_ejemplos:
@@ -170,7 +175,9 @@ if __name__ == "__main__":
             with open(archivo, encoding="utf-8") as fh:
                 datos = json.load(fh)
             datos.setdefault("nombre", os.path.splitext(os.path.basename(archivo))[0])
-            res = ejecutar_caso(datos, con_optimo=not a.sin_optimo)
+            res = ejecutar_caso(datos, con_optimo=not a.sin_optimo, seleccion=a.seleccion)
+            if a.seleccion != "ganancia" and res.get("formato") == "red":
+                res["caso"] = f"{res['caso']}__{a.seleccion}"
             guardar_evidencia(datos, res, os.path.join(base, res["caso"]))
             filas.append(fila_resumen(res))
             f = filas[-1]

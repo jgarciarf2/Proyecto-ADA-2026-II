@@ -8,31 +8,46 @@ Por ronda, con N nodos, cupo k y presupuesto B:
     reparto    O(k + B log k)        voraz con montículo sobre los elegidos
     verificar  O(N · k)              recalcular f(S) y U(x)
     T_total = O(T · (N²·k + B log k))
+
+La selección se puede cambiar con seleccion= (variante V1, docs/03_variantes.md):
+    "ganancia"  voraz por ganancia (solución base de la primera entrega), O(N²·k)
+    "A"         voraz por razón + mejor nodo solo, O(N²·k)
+    "B"         enumeración parcial de 3 nodos, O(N⁵·k): solo para N pequeño (LIMITE_ARRANQUES_B)
 """
 import time
+from math import comb
 
 from ada.parte1.voraz import voraz_heap
 from ada.parte2.fuerza_bruta import fuerza_bruta_general, subconjuntos_a_probar
 from ada.parte2.influencia import f_influencia, voraz_influencia
 from ada.utilidades import UtilidadConTope, UtilidadLog
+from ada.variantes.costos import algoritmo_a, algoritmo_b
 from ada.verificacion import (_registro, todas_cumplen, verificar_reparto, verificar_seleccion,
                               verificar_valor)
 
 LIMITE_FUERZA_BRUTA = 200_000      # subconjuntos máximos para calcular el óptimo de una ronda
+LIMITE_ARRANQUES_B = 20_000        # grupos de 3 nodos máximos para el algoritmo B (N ≈ 50)
+SELECCIONES = {"ganancia": "voraz por ganancia", "A": "algoritmo A (voraz por razón + mejor nodo)",
+               "B": "algoritmo B (enumeración parcial de 3 nodos)"}
 
 
-def resolver_caso_red(caso, con_optimo=True):
+def resolver_caso_red(caso, con_optimo=True, seleccion="ganancia"):
     """Devuelve un diccionario serializable con el resultado de cada ronda y los totales."""
+    if seleccion not in SELECCIONES:
+        raise ValueError(f"seleccion debe ser una de {list(SELECCIONES)}")
+    if seleccion == "B" and comb(caso.N, 3) > LIMITE_ARRANQUES_B:
+        raise ValueError(f"el algoritmo B revisaría C({caso.N}, 3) = {comb(caso.N, 3)} grupos; "
+                         f"el límite es {LIMITE_ARRANQUES_B} (N ≤ 50)")
     usado = [0] * caso.N
     rondas = []
     for t in range(1, caso.T + 1):
-        rondas.append(_ronda(caso, t, usado, con_optimo))
+        rondas.append(_ronda(caso, t, usado, con_optimo, seleccion))
     global_ok = [_registro("presupuesto total por nodo",
                            all(u <= p for u, p in zip(usado, caso.presupuesto_nodo)),
                            f"máximo usado = {max(usado)}, tope = {min(caso.presupuesto_nodo)}")]
     verificaciones = [v for r in rondas for v in r["verificaciones"]] + global_ok
     return {
-        "formato": "red", "caso": caso.nombre,
+        "formato": "red", "caso": caso.nombre, "seleccion": SELECCIONES[seleccion],
         "N": caso.N, "T": caso.T, "k": caso.k, "B": caso.B, "P": caso.P,
         "rondas": rondas,
         "utilidad_conjunta_total": sum(r["utilidad_conjunta"] for r in rondas),
@@ -49,16 +64,22 @@ def resolver_caso_red(caso, con_optimo=True):
     }
 
 
-def _ronda(caso, t, usado, con_optimo):
+def _ronda(caso, t, usado, con_optimo, seleccion="ganancia"):
     ids = caso.ids
     restante = [p - u for p, u in zip(caso.presupuesto_nodo, usado)]
     candidatos = [i for i in range(caso.N) if restante[i] > 0]
 
     traza_sel = []
     t0 = time.perf_counter()
-    S, valor_f = voraz_influencia(caso.a, caso.W, caso.k, candidatos=candidatos,
-                                  costos=caso.costos, presupuesto=caso.P, traza=traza_sel)
+    if seleccion == "ganancia":
+        S, valor_f = voraz_influencia(caso.a, caso.W, caso.k, candidatos=candidatos,
+                                      costos=caso.costos, presupuesto=caso.P, traza=traza_sel)
+    else:
+        algoritmo = algoritmo_a if seleccion == "A" else algoritmo_b
+        S, valor_f = algoritmo(caso.a, caso.W, caso.k, caso.costos, caso.P, candidatos=candidatos)
     t_sel = time.perf_counter() - t0
+    if seleccion != "ganancia":
+        traza_sel = _traza_en_orden(caso, S)
 
     utilidades = [UtilidadConTope(UtilidadLog(caso.a[i]), restante[i]) for i in S]
     traza_local = []
@@ -106,3 +127,19 @@ def _ronda(caso, t, usado, con_optimo):
         "traza_seleccion": [{**p, "nodo": ids[p["nodo"]]} for p in traza_sel],
         "traza_reparto": [{**p, "nodo": ids[S[p["nodo"]]]} for p in traza_local],
     }
+
+
+def _traza_en_orden(caso, S):
+    """
+    Traza de los algoritmos A y B: los nodos en el orden en que entraron al grupo, con la
+    ganancia marginal de cada uno en ese orden. No tienen "candidatos evaluados" por paso,
+    porque A compara dos soluciones y B prueba muchos arranques. O(|S| · N · |S|).
+    """
+    traza, previo, gastado = [], 0.0, 0
+    for paso, i in enumerate(S, 1):
+        valor = f_influencia(S[:paso], caso.a, caso.W)
+        gastado += caso.costos[i]
+        traza.append({"paso": paso, "nodo": i, "ganancia_marginal": valor - previo, "utilidad_acumulada": valor,
+                      "candidatos_evaluados": None, "costo_acumulado": gastado})
+        previo = valor
+    return traza

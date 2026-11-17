@@ -1,5 +1,6 @@
 """
-Las cuatro páginas de la interfaz. Cada función dibuja una página completa.
+Páginas Cargar caso y Evidencias (el modo demo está en app/demo.py y los experimentos en
+app/pagina_experimentos.py). Cada función dibuja una página completa.
 """
 import glob
 import json
@@ -8,7 +9,7 @@ import os
 import pandas as pd
 import streamlit as st
 
-from ada.casos import CasoInvalido, caso_sintetico
+from ada.casos import CasoInvalido
 from app.estilos import aviso, encabezado, nota
 from app.vista_resultado import mostrar
 from experimentos.casos import CARPETA_EJEMPLOS, ejecutar_caso, fila_resumen, guardar_evidencia
@@ -18,29 +19,35 @@ CARPETA_EVIDENCIAS = os.path.join(RAIZ, "resultados", "casos")
 CARPETA_PROFESORA = os.path.join(RAIZ, "casos", "profesora")
 
 
+SELECCION_UI = {"Voraz por ganancia (solución base)": "ganancia", "Algoritmo A · V1 (razón + mejor nodo)": "A",
+                "Algoritmo B · V1 (enumeración parcial)": "B"}
+
+
 @st.cache_data(show_spinner=False)
-def _resolver(texto_json, con_optimo):
+def _resolver(texto_json, con_optimo, seleccion="ganancia"):
     """Se cachea por el texto del caso: volver a una página no repite el cálculo."""
     datos = json.loads(texto_json)
-    return datos, ejecutar_caso(datos, con_optimo=con_optimo)
+    return datos, ejecutar_caso(datos, con_optimo=con_optimo, seleccion=seleccion)
 
 
-def _resolver_seguro(texto, nombre, con_optimo):
+def _resolver_seguro(texto, nombre, con_optimo, seleccion="ganancia"):
     try:
         datos = json.loads(texto)
         datos.setdefault("nombre", nombre)
-        return _resolver(json.dumps(datos, sort_keys=True), con_optimo)
+        return _resolver(json.dumps(datos, sort_keys=True), con_optimo, seleccion)
     except json.JSONDecodeError as e:
         st.error(f"El archivo no es un JSON válido: {e}")
     except CasoInvalido as e:
         st.error(f"El caso no es válido: {e}")
+    except ValueError as e:                     # por ejemplo, el algoritmo B con un caso demasiado grande
+        st.error(f"No se pudo resolver con ese algoritmo: {e}")
     return None, None
 
 
 # ---------------------------------------------------------------------------
 def cargar_caso():
-    encabezado("Cargar caso", "Sube un caso en JSON o elige uno de ejemplo. Se resuelve en el momento con la "
-                              "solución base: selección voraz y reparto óptimo.", "archivo")
+    encabezado("Cargar caso", "Sube un caso en JSON o elige uno guardado. Se resuelve en el momento con el "
+                              "algoritmo de selección que elijas y el reparto óptimo.", "archivo")
     # primero los casos de la profesora, después los ejemplos sintéticos
     rutas = (sorted(glob.glob(os.path.join(CARPETA_PROFESORA, "*.json")))
              + sorted(glob.glob(os.path.join(CARPETA_EJEMPLOS, "*.json"))))
@@ -53,6 +60,9 @@ def cargar_caso():
         nombres = ["Ninguno"] + list(etiquetas)
         elegido = st.selectbox("O usa un caso guardado", nombres, index=1 if len(nombres) > 1 else 0,
                                disabled=archivo is not None)
+        etiqueta = st.selectbox("Algoritmo de selección", list(SELECCION_UI),
+                                help="Solo para casos con el formato de la profesora. A y B son los algoritmos "
+                                     "de la variante V1 (docs/03_variantes.md); B solo admite N ≤ 50.")
         con_optimo = st.toggle("Comparar con el óptimo", value=True,
                                help="Calcula el óptimo por fuerza bruta solo si hay pocos subconjuntos por revisar "
                                     "(≤ 200 000). Si no, se muestra el techo que da la cota (1−1/e).")
@@ -67,7 +77,7 @@ def cargar_caso():
         aviso("Sube un archivo o elige un ejemplo para ver el resultado.")
         return
 
-    datos, res = _resolver_seguro(texto, nombre, con_optimo)
+    datos, res = _resolver_seguro(texto, nombre, con_optimo, SELECCION_UI[etiqueta])
     if res is None:
         return
     st.divider()
@@ -129,51 +139,3 @@ def evidencias():
 
 
 # ---------------------------------------------------------------------------
-def modo_demo():
-    encabezado("Modo demo", "Instancias sintéticas para explicar el algoritmo en vivo: mueve los controles "
-                            "y mira cómo cambian la selección y el reparto.", "controles")
-    c1, c2, c3 = st.columns(3, gap="large")
-    with c1:
-        N = st.slider("Nodos candidatos (N)", 5, 80, 14)
-        k = st.slider("Cupo de la ronda (k)", 1, N - 1, min(4, N - 1))
-    with c2:
-        M = st.slider("Tipos de datos (M)", 5, 200, 30)
-        d = st.slider("Tipos por nodo (d)", 1, min(20, M), min(5, M))
-    with c3:
-        B = st.slider("Presupuesto (B)", 0, 300, 20)
-        semilla = st.number_input("Semilla", 0, 10_000, 7, step=1)
-    datos = caso_sintetico(f"demo_N{N}_k{k}_B{B}", N, M, d, k, B, int(semilla))
-    _, res = _resolver(json.dumps(datos, sort_keys=True), True)
-    st.divider()
-    mostrar(datos, res, clave="demo")
-
-
-# ---------------------------------------------------------------------------
-def experimentos():
-    encabezado("Experimentos", "Tiempo medido contra la función de eficiencia teórica. Se generan con "
-                               "python -m experimentos.parte1 y python -m experimentos.parte2.", "grafica")
-    p1, p2 = st.tabs(["Parte 1: reparto", "Parte 2: selección"])
-    with p1:
-        _figura("parte1/variaN.png", "Tiempo al variar N con B fijo",
-                "Izquierda: tiempo medido y la curva c₁·N + c₂·B·log₂N ajustada. Derecha: medido / predicho.")
-        _figura("parte1/variaB.png", "Tiempo al variar B con N fijo", "El crecimiento en B es lineal, como predice T(N, B).")
-        _figura("parte1/conteo.png", "Comparaciones del montículo contra la cota",
-                "Conteo exacto, independiente de la máquina: heapify ≈ 1.65·N y pasos ≈ 1.1·B·log₂N, por debajo de 2.")
-    with p2:
-        _figura("parte2/cota.png", "Calidad del voraz frente al óptimo",
-                "500 instancias pequeñas: todas quedan por encima de la garantía 1 − 1/e ≈ 0.632.")
-        _figura("parte2/variaN.png", "Tiempo del voraz al variar N (k = 20)", "Crecimiento lineal en N, como O(N·k·d).")
-        _figura("parte2/variak.png", "Tiempo del voraz al variar k (N = 2000)", "Crecimiento lineal en k.")
-        _figura("parte2/voraz_vs_fb.png", "Voraz contra fuerza bruta",
-                "La fuerza bruta crece exponencialmente (recta en escala log); el voraz se queda por debajo de 1 ms.")
-
-
-def _figura(ruta, titulo, texto):
-    completa = os.path.join(RAIZ, "resultados", ruta)
-    st.markdown(f"**{titulo}**")
-    nota(texto)
-    if os.path.exists(completa):
-        st.image(completa, width="stretch")
-    else:
-        nota(f"No existe resultados/{ruta}: corre el experimento correspondiente.")
-    st.write("")
