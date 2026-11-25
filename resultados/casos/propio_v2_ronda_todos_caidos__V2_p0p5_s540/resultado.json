@@ -1,0 +1,1019 @@
+{
+ "entrada": {
+  "nombre": "propio_v2_ronda_todos_caidos",
+  "parametros": {
+   "numero_nodos": 10,
+   "numero_rondas": 4,
+   "cupo_participantes_por_ronda_k": 3,
+   "presupuesto_ruido_por_ronda_B": 8,
+   "presupuesto_costos_participacion_por_ronda": 15
+  },
+  "grafo": [
+   {
+    "u": "N01",
+    "v": "N02",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N01",
+    "v": "N03",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N01",
+    "v": "N05",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N01",
+    "v": "N08",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N01",
+    "v": "N09",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N02",
+    "v": "N03",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N02",
+    "v": "N05",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N06",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N02",
+    "v": "N08",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N02",
+    "v": "N09",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N03",
+    "v": "N04",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N03",
+    "v": "N05",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N03",
+    "v": "N08",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N03",
+    "v": "N10",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N04",
+    "v": "N05",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N04",
+    "v": "N07",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N04",
+    "v": "N08",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N04",
+    "v": "N09",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N04",
+    "v": "N10",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N06",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N05",
+    "v": "N07",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N05",
+    "v": "N09",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N05",
+    "v": "N10",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N06",
+    "v": "N07",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N06",
+    "v": "N08",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N06",
+    "v": "N09",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N06",
+    "v": "N10",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N07",
+    "v": "N08",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N07",
+    "v": "N10",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N08",
+    "v": "N10",
+    "peso_influencia": 0.8
+   }
+  ],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 9.6,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 8.9,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 6.6,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 11.6,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 11.5,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 9.2,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N07",
+    "coeficiente_utilidad": 5.6,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N08",
+    "coeficiente_utilidad": 13.0,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N09",
+    "coeficiente_utilidad": 8.4,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N10",
+    "coeficiente_utilidad": 9.8,
+    "presupuesto_total_nodo": 20,
+    "costo_participacion": 5
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "variante": "V2",
+  "caso": "propio_v2_ronda_todos_caidos__V2_p0p5_s540",
+  "N": 10,
+  "T": 4,
+  "k": 3,
+  "B": 8,
+  "P": 15,
+  "probabilidad_falla": 0.5,
+  "semilla_fallas": 540,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N08",
+     "N10"
+    ],
+    "seleccion": [
+     "N08",
+     "N02",
+     "N01"
+    ],
+    "costo_participacion": 9,
+    "utilidad_conjunta": 75.692,
+    "optimo": {
+     "valor": 75.692,
+     "seleccion": [
+      "N01",
+      "N02",
+      "N08"
+     ],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [
+     {
+      "nodo": "N08",
+      "unidades": 4,
+      "utilidad": 20.922692861643302,
+      "ultima_ganancia": 2.9008661670847253,
+      "restante_antes": 20
+     },
+     {
+      "nodo": "N02",
+      "unidades": 2,
+      "utilidad": 9.777649369146177,
+      "ultima_ganancia": 3.608639462162664,
+      "restante_antes": 20
+     },
+     {
+      "nodo": "N01",
+      "unidades": 2,
+      "utilidad": 10.546677971213853,
+      "ultima_ganancia": 3.8924650378383783,
+      "restante_antes": 20
+     }
+    ],
+    "utilidad_reparto": 41.24702020200333,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 3, k = 3"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 9, P = 15"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 8, B = 8"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 75.692000, recalculado = 75.692000"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 41.247020, recalculado = 41.247020"
+     },
+     {
+      "restriccion": "ronda 1: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 1.8667000404093415e-05,
+     "reparto": 1.2250005966052413e-05,
+     "total": 4.2458006646484137e-05,
+     "fallas": 1.1541000276338309e-05
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 47.605,
+      "utilidad_acumulada": 47.605,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 2
+     },
+     {
+      "paso": 2,
+      "nodo": "N02",
+      "ganancia_marginal": 19.629,
+      "utilidad_acumulada": 67.234,
+      "candidatos_evaluados": 3,
+      "costo_acumulado": 4
+     },
+     {
+      "paso": 3,
+      "nodo": "N01",
+      "ganancia_marginal": 8.457999999999998,
+      "utilidad_acumulada": 75.692,
+      "candidatos_evaluados": 2,
+      "costo_acumulado": 9
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 9.010913347279288,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 9.010913347279288
+     },
+     {
+      "unidad": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 6.654212933375475,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 15.665126280654764
+     },
+     {
+      "unidad": 3,
+      "nodo": "N02",
+      "ganancia_marginal": 6.169009906983513,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 21.83413618763828
+     },
+     {
+      "unidad": 4,
+      "nodo": "N08",
+      "ganancia_marginal": 5.271046405406139,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 27.105182593044418
+     },
+     {
+      "unidad": 5,
+      "nodo": "N01",
+      "ganancia_marginal": 3.8924650378383783,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 30.997647630882796
+     },
+     {
+      "unidad": 6,
+      "nodo": "N08",
+      "ganancia_marginal": 3.7398669418731494,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 34.73751457275594
+     },
+     {
+      "unidad": 7,
+      "nodo": "N02",
+      "ganancia_marginal": 3.608639462162664,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 38.346154034918605
+     },
+     {
+      "unidad": 8,
+      "nodo": "N08",
+      "ganancia_marginal": 2.9008661670847253,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 41.24702020200333
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N02",
+     "N08",
+     "N10"
+    ],
+    "caidos": [
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N09"
+    ]
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N01",
+     "N03",
+     "N06",
+     "N08",
+     "N09",
+     "N10"
+    ],
+    "seleccion": [
+     "N08",
+     "N09",
+     "N01"
+    ],
+    "costo_participacion": 10,
+    "utilidad_conjunta": 83.36545,
+    "optimo": {
+     "valor": 83.36545000000001,
+     "seleccion": [
+      "N01",
+      "N08",
+      "N09"
+     ],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [
+     {
+      "nodo": "N08",
+      "unidades": 4,
+      "utilidad": 20.922692861643302,
+      "ultima_ganancia": 2.9008661670847253,
+      "restante_antes": 16
+     },
+     {
+      "nodo": "N09",
+      "unidades": 2,
+      "utilidad": 9.228343224812123,
+      "ultima_ganancia": 3.405906908108583,
+      "restante_antes": 20
+     },
+     {
+      "nodo": "N01",
+      "unidades": 2,
+      "utilidad": 10.546677971213853,
+      "ultima_ganancia": 3.8924650378383783,
+      "restante_antes": 18
+     }
+    ],
+    "utilidad_reparto": 40.69771405766927,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 3, k = 3"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 10, P = 15"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 8, B = 8"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 83.365450, recalculado = 83.365450"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 40.697714, recalculado = 40.697714"
+     },
+     {
+      "restriccion": "ronda 2: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 1.4749995898455381e-05,
+     "reparto": 5.708003300242126e-06,
+     "total": 2.22489979933016e-05,
+     "fallas": 1.7909987946040928e-06
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 47.605,
+      "utilidad_acumulada": 47.605,
+      "candidatos_evaluados": 6,
+      "costo_acumulado": 2
+     },
+     {
+      "paso": 2,
+      "nodo": "N09",
+      "ganancia_marginal": 26.312,
+      "utilidad_acumulada": 73.917,
+      "candidatos_evaluados": 5,
+      "costo_acumulado": 5
+     },
+     {
+      "paso": 3,
+      "nodo": "N01",
+      "ganancia_marginal": 9.44845,
+      "utilidad_acumulada": 83.36545,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 10
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N08",
+      "ganancia_marginal": 9.010913347279288,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 9.010913347279288
+     },
+     {
+      "unidad": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 6.654212933375475,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 15.665126280654764
+     },
+     {
+      "unidad": 3,
+      "nodo": "N09",
+      "ganancia_marginal": 5.8224363167035404,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 21.487562597358306
+     },
+     {
+      "unidad": 4,
+      "nodo": "N08",
+      "ganancia_marginal": 5.271046405406139,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 26.758609002764445
+     },
+     {
+      "unidad": 5,
+      "nodo": "N01",
+      "ganancia_marginal": 3.8924650378383783,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 30.651074040602822
+     },
+     {
+      "unidad": 6,
+      "nodo": "N08",
+      "ganancia_marginal": 3.7398669418731494,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 34.39094098247597
+     },
+     {
+      "unidad": 7,
+      "nodo": "N09",
+      "ganancia_marginal": 3.405906908108583,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 37.79684789058455
+     },
+     {
+      "unidad": 8,
+      "nodo": "N08",
+      "ganancia_marginal": 2.9008661670847253,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 40.69771405766927
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N03",
+     "N06",
+     "N08",
+     "N09",
+     "N10"
+    ],
+    "caidos": [
+     "N02",
+     "N04",
+     "N05",
+     "N07"
+    ]
+   },
+   {
+    "ronda": 3,
+    "candidatos": [],
+    "seleccion": [],
+    "costo_participacion": 0,
+    "utilidad_conjunta": 0.0,
+    "optimo": {
+     "valor": 0.0,
+     "seleccion": [],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [],
+    "utilidad_reparto": 0.0,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 3: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 0, k = 3"
+     },
+     {
+      "restriccion": "ronda 3: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 3: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 3: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 0, P = 15"
+     },
+     {
+      "restriccion": "ronda 3: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 0, B = 8"
+     },
+     {
+      "restriccion": "ronda 3: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 3: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 3: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 3: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 3: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 1.4579927665181458e-06,
+     "reparto": 8.329952834174037e-07,
+     "total": 3.2909883884713054e-06,
+     "fallas": 1.0000003385357559e-06
+    },
+    "traza_seleccion": [],
+    "traza_reparto": [],
+    "disponibles": [],
+    "caidos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10"
+    ]
+   },
+   {
+    "ronda": 4,
+    "candidatos": [
+     "N01",
+     "N04",
+     "N06",
+     "N10"
+    ],
+    "seleccion": [
+     "N10",
+     "N01",
+     "N06"
+    ],
+    "costo_participacion": 14,
+    "utilidad_conjunta": 71.17875,
+    "optimo": {
+     "valor": 71.17875000000001,
+     "seleccion": [
+      "N01",
+      "N06",
+      "N10"
+     ],
+     "metodo": "fuerza bruta"
+    },
+    "reparto": [
+     {
+      "nodo": "N10",
+      "unidades": 3,
+      "utilidad": 13.585684738974928,
+      "ultima_ganancia": 2.8192843100274505,
+      "restante_antes": 20
+     },
+     {
+      "nodo": "N01",
+      "unidades": 3,
+      "utilidad": 13.30842586675095,
+      "ultima_ganancia": 2.7617478955370967,
+      "restante_antes": 16
+     },
+     {
+      "nodo": "N06",
+      "unidades": 2,
+      "utilidad": 10.10723305574661,
+      "ultima_ganancia": 3.730278994595114,
+      "restante_antes": 20
+     }
+    ],
+    "utilidad_reparto": 37.00134366147249,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 4: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 3, k = 3"
+     },
+     {
+      "restriccion": "ronda 4: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 4: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 10"
+     },
+     {
+      "restriccion": "ronda 4: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 14, P = 15"
+     },
+     {
+      "restriccion": "ronda 4: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 8, B = 8"
+     },
+     {
+      "restriccion": "ronda 4: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 4: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 4: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 71.178750, recalculado = 71.178750"
+     },
+     {
+      "restriccion": "ronda 4: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 37.001344, recalculado = 37.001344"
+     },
+     {
+      "restriccion": "ronda 4: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 8.208000508602709e-06,
+     "reparto": 5.000001692678779e-06,
+     "total": 1.4125005691312253e-05,
+     "fallas": 9.170034900307655e-07
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N10",
+      "ganancia_marginal": 35.96,
+      "utilidad_acumulada": 35.96,
+      "candidatos_evaluados": 4,
+      "costo_acumulado": 5
+     },
+     {
+      "paso": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 22.075,
+      "utilidad_acumulada": 58.035,
+      "candidatos_evaluados": 3,
+      "costo_acumulado": 10
+     },
+     {
+      "paso": 3,
+      "nodo": "N06",
+      "ganancia_marginal": 13.143749999999999,
+      "utilidad_acumulada": 71.17875,
+      "candidatos_evaluados": 1,
+      "costo_acumulado": 14
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N10",
+      "ganancia_marginal": 6.792842369487464,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 6.792842369487464
+     },
+     {
+      "unidad": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 6.654212933375475,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 13.447055302862939
+     },
+     {
+      "unidad": 3,
+      "nodo": "N06",
+      "ganancia_marginal": 6.376954061151496,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 19.824009364014437
+     },
+     {
+      "unidad": 4,
+      "nodo": "N10",
+      "ganancia_marginal": 3.9735580594600135,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 23.79756742347445
+     },
+     {
+      "unidad": 5,
+      "nodo": "N01",
+      "ganancia_marginal": 3.8924650378383783,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 27.69003246131283
+     },
+     {
+      "unidad": 6,
+      "nodo": "N06",
+      "ganancia_marginal": 3.730278994595114,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 31.420311455907942
+     },
+     {
+      "unidad": 7,
+      "nodo": "N10",
+      "ganancia_marginal": 2.8192843100274505,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 34.23959576593539
+     },
+     {
+      "unidad": 8,
+      "nodo": "N01",
+      "ganancia_marginal": 2.7617478955370967,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 37.00134366147249
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N04",
+     "N06",
+     "N10"
+    ],
+    "caidos": [
+     "N02",
+     "N03",
+     "N05",
+     "N07",
+     "N08",
+     "N09"
+    ]
+   }
+  ],
+  "utilidad_conjunta_total": 230.2362,
+  "utilidad_reparto_total": 118.94607792114509,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 7,
+    "tope": 20
+   },
+   {
+    "nodo": "N02",
+    "usado": 2,
+    "tope": 20
+   },
+   {
+    "nodo": "N03",
+    "usado": 0,
+    "tope": 20
+   },
+   {
+    "nodo": "N04",
+    "usado": 0,
+    "tope": 20
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 20
+   },
+   {
+    "nodo": "N06",
+    "usado": 2,
+    "tope": 20
+   },
+   {
+    "nodo": "N07",
+    "usado": 0,
+    "tope": 20
+   },
+   {
+    "nodo": "N08",
+    "usado": 8,
+    "tope": 20
+   },
+   {
+    "nodo": "N09",
+    "usado": 2,
+    "tope": 20
+   },
+   {
+    "nodo": "N10",
+    "usado": 3,
+    "tope": 20
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "ningún nodo supera su presupuesto total"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 8.21229987195693e-05
+  },
+  "supuestos": [
+   "fallas Bernoulli independientes entre nodos y rondas, con probabilidad común p",
+   "fallas temporales conocidas al inicio de la ronda; el nodo vuelve en la siguiente",
+   "una falla no consume el presupuesto acumulado de ruido del nodo",
+   "uᵢ(x) = aᵢ·ln(1 + x) y utilidad de influencia según el modelo base"
+  ]
+ }
+}

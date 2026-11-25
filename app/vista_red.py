@@ -132,7 +132,8 @@ def mostrar_red(entrada, res, clave):
             "costo_acumulado": "Costo acumulado"}), hide_index=True, width="stretch")
         st.markdown(f"**Traza del reparto, ronda {t}**")
         st.dataframe(pd.DataFrame(r["traza_reparto"]).rename(columns={
-            "unidad": "Unidad", "nodo": "Nodo", "ganancia_marginal": "Ganancia marginal"}),
+            "unidad": "Unidad", "nodo": "Nodo", "ganancia_marginal": "Ganancia marginal",
+            "unidades_acumuladas": "Unidades acumuladas", "utilidad_acumulada": "Utilidad acumulada"}),
             hide_index=True, width="stretch", height=280)
         st.download_button("Descargar resultado.json", json.dumps({"entrada": entrada, "resultado": res},
                            ensure_ascii=False, indent=1), file_name=f"{res['caso']}_resultado.json",

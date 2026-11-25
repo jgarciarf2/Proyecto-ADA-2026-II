@@ -1,0 +1,13 @@
+ronda,nodo,disponible,fallo,candidato_con_saldo,elegido
+1,N01,True,False,True,False
+1,N02,False,True,False,False
+1,N03,True,False,True,False
+1,N04,False,True,False,False
+1,N05,True,False,True,False
+1,N06,True,False,True,False
+2,N01,False,True,False,False
+2,N02,True,False,True,False
+2,N03,False,True,False,False
+2,N04,True,False,True,False
+2,N05,False,True,False,False
+2,N06,False,True,False,False

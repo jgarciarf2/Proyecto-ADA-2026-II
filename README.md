@@ -191,7 +191,9 @@ Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/`, `r
 
 Para resolver los casos con los algoritmos de la variante V1: `python -m experimentos.casos casos/profesora/ --seleccion A` (o `B`). Esa evidencia va a `resultados/casos/<nombre>__A/` y no pisa la de la solución base.
 
-Para resolver casos con V2 y guardar fallas/ disponibilidad: `python -m experimentos.casos casos/profesora/ --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7`. La evidencia queda en `resultados/casos/<nombre>__V2/` e incluye `disponibilidad.csv`.
+Para resolver casos con V2 y guardar fallas/disponibilidad: `python -m experimentos.casos casos/profesora/ --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7`. La evidencia queda en `resultados/casos/<nombre>__V2_p0p2_s7/` e incluye `disponibilidad.csv`; el nombre conserva p y la semilla para no sobrescribir otros escenarios.
+
+La evidencia de V2 incluye el caso de la profesora con p = 0 y p = 0.2, los 10 casos propios con p = 0.2, un caso propio con p = 0.8 y otro con una ronda intermedia donde todos los nodos caen. Los CSV guardan el orden y la ganancia marginal de selección, el estado por nodo y ronda, y cada unidad de reparto con su ganancia y acumulados. Los tiempos en `resultado.json` están en segundos; el resumen los presenta en milisegundos.
 
 ### Ejecutar casos (evidencia de la entrega)
 

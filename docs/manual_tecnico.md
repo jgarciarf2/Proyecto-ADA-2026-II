@@ -257,7 +257,7 @@ Las fallas son Bernoulli independientes por nodo y ronda, con una probabilidad c
 
 El resultado incluye `probabilidad_falla`, `semilla_fallas`, nodos disponibles/caídos, traza de selección y reparto, verificaciones y tiempo por ronda. El algoritmo conserva una cota 1/k frente al óptimo factible del estado ya observado cuando el presupuesto de participación puede restringir; no afirma una cota para el plan óptimo global de todas las rondas.
 
-Costo con matriz de influencia densa: `O(T · (N²·k + B·log(k + 1)))`. El tiempo medido incluye generar fallas, seleccionar y repartir; excluye la escritura de archivos y las verificaciones, igual que la medición de la solución base.
+Costo con matriz de influencia densa: `O(T · (N²·k + B·log(k + 1)))`. El tiempo medido usa `time.perf_counter` e incluye generar fallas, seleccionar y repartir. Excluye el óptimo exacto opcional, las verificaciones y la escritura de archivos; el resultado lo expresa en segundos y el resumen de casos lo convierte a milisegundos.
 
 ### 6.10 Correspondencia con los documentos
 
@@ -406,6 +406,8 @@ Por cada caso se crea la carpeta resultados/casos/<nombre del caso>/:
 
 Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en la carpeta, no solo por los de la última ejecución.
 
+Para V2, la carpeta termina en `__V2_p<probabilidad>_s<semilla>`; por ejemplo, `__V2_p0p2_s7`. Así pueden conservarse evidencias de distintas fallas y semillas del mismo caso. La evidencia versionada incluye el caso de la profesora con p = 0 y p = 0.2, los 10 casos propios con p = 0.2, un caso propio con p = 0.8 y otro que produce una ronda intermedia con todos caídos.
+
 ### 9.2 Estructura de resultado.json
 
 | Clave | Tipo | Contenido |
@@ -418,7 +420,7 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | presupuesto_usado | Lista | Por nodo: {nodo, usado, tope} |
 | verificacion_global | Lista | La restricción de presupuesto total por nodo |
 | cumple_todo | Booleano | True si se cumplen todas las restricciones de todas las rondas |
-| tiempo_s | Objeto | {total} en segundos |
+| tiempo_s | Objeto | {total} en segundos; V2 cronometra fallas, selección y reparto |
 | supuestos | Lista de texto | Las fórmulas supuestas (sección 3.4 del documento de formulación) |
 
 | Clave de cada ronda | Contenido |
@@ -437,13 +439,13 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | Archivo | Columnas |
 |---|---|
 | traza_seleccion.csv | ronda, paso, nodo, ganancia_marginal, utilidad_acumulada, candidatos_evaluados, costo_acumulado |
-| traza_reparto.csv | ronda, unidad, nodo, ganancia_marginal |
+| traza_reparto.csv | ronda, unidad, nodo, ganancia_marginal, unidades_acumuladas, utilidad_acumulada |
 | reparto.csv | ronda, nodo, unidades, utilidad, ultima_ganancia, restante_antes |
 | verificacion.csv | restriccion, cumple, detalle |
 | disponibilidad.csv (solo V2) | ronda, nodo, disponible, fallo, candidato_con_saldo, elegido |
 | resumen.csv | caso, variante, probabilidad_falla, rondas, N, k, B, f(S), optimo_f, U(x), tiempos y cumplimiento |
 
-Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el formato de la profesora; los casos del formato provisional (casos/ejemplos/) no tienen costos ni presupuesto por nodo, y en ellos la columna ronda siempre vale 1. Si una ronda no tiene participantes (por ejemplo, porque ningún costo cabe en P), sus archivos quedan con el encabezado y sin filas para esa ronda. En resumen.csv, optimo_f queda vacío cuando el caso es demasiado grande para la fuerza bruta.
+Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el formato de la profesora; los casos del formato provisional (casos/ejemplos/) no tienen costos ni presupuesto por nodo, y en ellos la columna ronda siempre vale 1. Si una ronda no tiene participantes (por ejemplo, porque ningún costo cabe en P), sus archivos quedan con el encabezado y sin filas para esa ronda. En resumen.csv, optimo_f queda vacío cuando el caso es demasiado grande para la fuerza bruta. En V2, tiempo_s excluye el óptimo exacto opcional, las verificaciones y la escritura de archivos; el resumen expresa ese tiempo en milisegundos.
 
 ## 10. Ejecución paso a paso
 
@@ -462,7 +464,7 @@ Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el 
 | python -m experimentos.influencia | Tiempos del voraz de influencia y verificación de la cota | 1 min |
 | python -m experimentos.variantes | V1: tiempos y calidad de A y B | 15 s |
 | python -m experimentos.rondas | V2: tiempos al variar N/T y calidad al variar p | — |
-| python -m experimentos.casos casos/profesora --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7 | Evidencia V2 con fallas reproducibles | 1 s |
+| python -m experimentos.casos casos/profesora --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7 | Evidencia V2 en `nombre__V2_p0p2_s7/`, sin sobrescribir otros escenarios | 1 s |
 | python -m experimentos.figuras_informe (o figuras_variantes) | Figuras del documento de formulación (o de las variantes) | 10 s |
 | python -m experimentos.figuras_manual | Diagramas UML de este manual | 5 s |
 | streamlit run app/principal.py | Abre la interfaz visual en el navegador | — |

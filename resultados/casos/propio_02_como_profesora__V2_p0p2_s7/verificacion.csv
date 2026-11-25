@@ -1,0 +1,32 @@
+restriccion,cumple,detalle
+ronda 1: |S| <= k,True,"|S| = 5, k = 5"
+ronda 1: sin nodos repetidos,True,0 repetidos
+ronda 1: nodos validos (0..N-1),True,N = 15
+ronda 1: costo de participacion <= P,True,"costo = 23, P = 24"
+ronda 1: sum x_i <= B,True,"sum x_i = 30, B = 30"
+ronda 1: x_i entero >= 0,True,todos validos
+ronda 1: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 1: f(S) coincide al recalcular,True,"reportado = 152.506024, recalculado = 152.506024"
+ronda 1: U(x) coincide al recalcular,True,"reportado = 107.248137, recalculado = 107.248137"
+ronda 1: nodos caidos no seleccionados,True,ningún nodo caído fue seleccionado
+ronda 2: |S| <= k,True,"|S| = 5, k = 5"
+ronda 2: sin nodos repetidos,True,0 repetidos
+ronda 2: nodos validos (0..N-1),True,N = 15
+ronda 2: costo de participacion <= P,True,"costo = 21, P = 24"
+ronda 2: sum x_i <= B,True,"sum x_i = 30, B = 30"
+ronda 2: x_i entero >= 0,True,todos validos
+ronda 2: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 2: f(S) coincide al recalcular,True,"reportado = 153.944601, recalculado = 153.944601"
+ronda 2: U(x) coincide al recalcular,True,"reportado = 93.313497, recalculado = 93.313497"
+ronda 2: nodos caidos no seleccionados,True,ningún nodo caído fue seleccionado
+ronda 3: |S| <= k,True,"|S| = 5, k = 5"
+ronda 3: sin nodos repetidos,True,0 repetidos
+ronda 3: nodos validos (0..N-1),True,N = 15
+ronda 3: costo de participacion <= P,True,"costo = 23, P = 24"
+ronda 3: sum x_i <= B,True,"sum x_i = 30, B = 30"
+ronda 3: x_i entero >= 0,True,todos validos
+ronda 3: x_i <= presupuesto restante,True,ningún nodo pasa su presupuesto restante
+ronda 3: f(S) coincide al recalcular,True,"reportado = 153.817682, recalculado = 153.817682"
+ronda 3: U(x) coincide al recalcular,True,"reportado = 93.311645, recalculado = 93.311645"
+ronda 3: nodos caidos no seleccionados,True,ningún nodo caído fue seleccionado
+presupuesto total por nodo,True,ningún nodo supera su presupuesto total

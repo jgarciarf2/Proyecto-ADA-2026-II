@@ -12,7 +12,7 @@ Uso:
     python -m experimentos.casos casos/profesora/ --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7
 
 Salida en resultados/casos/<nombre>/:
-    resultado.json, traza_seleccion.csv, traza_reparto.csv (si B no es muy grande), reparto.csv
+    resultado.json, traza_seleccion.csv, traza_reparto.csv, reparto.csv
     y, en los casos de la profesora, verificacion.csv. Los CSV llevan una columna "ronda".
 Además, un resumen de todos los casos en resultados/casos/resumen.csv. Con --seleccion A o B la
 evidencia va a resultados/casos/<nombre>__A/ (o __B/), para no pisar la de la solución base.
@@ -119,8 +119,9 @@ def guardar_evidencia(datos, res, salida):
     guardar_csv(os.path.join(salida, "traza_seleccion.csv"), con_ronda("traza_seleccion"),
                 ["ronda", "paso", "nodo", "ganancia_marginal", "utilidad_acumulada", "candidatos_evaluados",
                  "costo_acumulado"])
-    if any(r["traza_reparto"] for r in rondas):
-        guardar_csv(os.path.join(salida, "traza_reparto.csv"), con_ronda("traza_reparto"))
+    guardar_csv(os.path.join(salida, "traza_reparto.csv"), con_ronda("traza_reparto"),
+                ["ronda", "unidad", "nodo", "ganancia_marginal", "unidades_acumuladas",
+                 "utilidad_acumulada"])
     guardar_csv(os.path.join(salida, "reparto.csv"), con_ronda("reparto"),
                 ["ronda", "nodo", "unidades", "utilidad", "ultima_ganancia", "restante_antes"])
     if res.get("formato") == "red":
@@ -213,7 +214,8 @@ if __name__ == "__main__":
             if a.variante == "base" and a.seleccion != "ganancia" and res.get("formato") == "red":
                 res["caso"] = f"{res['caso']}__{a.seleccion}"
             if a.variante == "V2" and res.get("formato") == "red":
-                res["caso"] = f"{res['caso']}__V2"
+                p_etiqueta = f"{a.probabilidad_falla:g}".replace(".", "p")
+                res["caso"] = f"{res['caso']}__V2_p{p_etiqueta}_s{a.semilla_fallas}"
             guardar_evidencia(datos, res, os.path.join(base, res["caso"]))
             filas.append(fila_resumen(res))
             f = filas[-1]

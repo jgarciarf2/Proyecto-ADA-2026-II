@@ -1,0 +1,322 @@
+{
+ "entrada": {
+  "nombre": "propio_09_nadie_cabe",
+  "parametros": {
+   "numero_nodos": 6,
+   "numero_rondas": 2,
+   "cupo_participantes_por_ronda_k": 3,
+   "presupuesto_ruido_por_ronda_B": 10,
+   "presupuesto_costos_participacion_por_ronda": 1
+  },
+  "grafo": [
+   {
+    "u": "N01",
+    "v": "N04",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N01",
+    "v": "N06",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N03",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N02",
+    "v": "N04",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N02",
+    "v": "N06",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N03",
+    "v": "N05",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N04",
+    "v": "N05",
+    "peso_influencia": 0.15
+   }
+  ],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 8.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 7.1,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 11.9,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 7.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 12.2,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 7.7,
+    "presupuesto_total_nodo": 10,
+    "costo_participacion": 6
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "variante": "V2",
+  "caso": "propio_09_nadie_cabe__V2_p0p2_s7",
+  "N": 6,
+  "T": 2,
+  "k": 3,
+  "B": 10,
+  "P": 1,
+  "probabilidad_falla": 0.2,
+  "semilla_fallas": 7,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N03",
+     "N05",
+     "N06"
+    ],
+    "seleccion": [],
+    "costo_participacion": 0,
+    "utilidad_conjunta": 0.0,
+    "optimo": null,
+    "reparto": [],
+    "utilidad_reparto": 0.0,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 0, k = 3"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 6"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 0, P = 1"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 0, B = 10"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 1: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 1.624997821636498e-06,
+     "reparto": 7.499984349124134e-07,
+     "total": 8.915994840208441e-06,
+     "fallas": 6.54099858365953e-06
+    },
+    "traza_seleccion": [],
+    "traza_reparto": [],
+    "disponibles": [
+     "N01",
+     "N03",
+     "N05",
+     "N06"
+    ],
+    "caidos": [
+     "N02",
+     "N04"
+    ]
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N02",
+     "N04"
+    ],
+    "seleccion": [],
+    "costo_participacion": 0,
+    "utilidad_conjunta": 0.0,
+    "optimo": null,
+    "reparto": [],
+    "utilidad_reparto": 0.0,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 0, k = 3"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 6"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 0, P = 1"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 0, B = 10"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 0.000000, recalculado = 0.000000"
+     },
+     {
+      "restriccion": "ronda 2: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 1.0840012691915035e-06,
+     "reparto": 4.169996827840805e-07,
+     "total": 2.291999408043921e-06,
+     "fallas": 7.90998456068337e-07
+    },
+    "traza_seleccion": [],
+    "traza_reparto": [],
+    "disponibles": [
+     "N02",
+     "N04"
+    ],
+    "caidos": [
+     "N01",
+     "N03",
+     "N05",
+     "N06"
+    ]
+   }
+  ],
+  "utilidad_conjunta_total": 0.0,
+  "utilidad_reparto_total": 0.0,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N02",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N03",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N04",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 10
+   },
+   {
+    "nodo": "N06",
+    "usado": 0,
+    "tope": 10
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "ningún nodo supera su presupuesto total"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 1.1207994248252362e-05
+  },
+  "supuestos": [
+   "fallas Bernoulli independientes entre nodos y rondas, con probabilidad común p",
+   "fallas temporales conocidas al inicio de la ronda; el nodo vuelve en la siguiente",
+   "una falla no consume el presupuesto acumulado de ruido del nodo",
+   "uᵢ(x) = aᵢ·ln(1 + x) y utilidad de influencia según el modelo base"
+  ]
+ }
+}

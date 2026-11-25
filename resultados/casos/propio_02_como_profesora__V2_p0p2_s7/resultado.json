@@ -1,0 +1,1928 @@
+{
+ "entrada": {
+  "nombre": "propio_02_como_profesora",
+  "parametros": {
+   "numero_nodos": 15,
+   "numero_rondas": 3,
+   "cupo_participantes_por_ronda_k": 5,
+   "presupuesto_ruido_por_ronda_B": 30,
+   "presupuesto_costos_participacion_por_ronda": 24
+  },
+  "grafo": [
+   {
+    "u": "N01",
+    "v": "N02",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N01",
+    "v": "N03",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N01",
+    "v": "N04",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N01",
+    "v": "N05",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N01",
+    "v": "N06",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N01",
+    "v": "N07",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N01",
+    "v": "N08",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N01",
+    "v": "N09",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N01",
+    "v": "N10",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N01",
+    "v": "N11",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N01",
+    "v": "N12",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N01",
+    "v": "N13",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N01",
+    "v": "N14",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N01",
+    "v": "N15",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N03",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N02",
+    "v": "N04",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N02",
+    "v": "N05",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N02",
+    "v": "N06",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N07",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N08",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N02",
+    "v": "N09",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N02",
+    "v": "N10",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N02",
+    "v": "N11",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N02",
+    "v": "N12",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N02",
+    "v": "N13",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N02",
+    "v": "N14",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N02",
+    "v": "N15",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N03",
+    "v": "N04",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N03",
+    "v": "N05",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N03",
+    "v": "N06",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N03",
+    "v": "N07",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N03",
+    "v": "N08",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N03",
+    "v": "N09",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N03",
+    "v": "N10",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N03",
+    "v": "N11",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N03",
+    "v": "N12",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N03",
+    "v": "N13",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N03",
+    "v": "N14",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N03",
+    "v": "N15",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N04",
+    "v": "N05",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N04",
+    "v": "N06",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N04",
+    "v": "N07",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N04",
+    "v": "N08",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N04",
+    "v": "N09",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N04",
+    "v": "N10",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N04",
+    "v": "N11",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N04",
+    "v": "N12",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N04",
+    "v": "N13",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N04",
+    "v": "N14",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N04",
+    "v": "N15",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N05",
+    "v": "N06",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N05",
+    "v": "N07",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N05",
+    "v": "N08",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N05",
+    "v": "N09",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N05",
+    "v": "N10",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N05",
+    "v": "N11",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N05",
+    "v": "N12",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N05",
+    "v": "N13",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N05",
+    "v": "N14",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N05",
+    "v": "N15",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N06",
+    "v": "N07",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N06",
+    "v": "N08",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N06",
+    "v": "N09",
+    "peso_influencia": 0.55
+   },
+   {
+    "u": "N06",
+    "v": "N10",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N06",
+    "v": "N11",
+    "peso_influencia": 0.25
+   },
+   {
+    "u": "N06",
+    "v": "N12",
+    "peso_influencia": 0.45
+   },
+   {
+    "u": "N06",
+    "v": "N13",
+    "peso_influencia": 0.3
+   },
+   {
+    "u": "N06",
+    "v": "N14",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N06",
+    "v": "N15",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N07",
+    "v": "N08",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N07",
+    "v": "N09",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N07",
+    "v": "N10",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N07",
+    "v": "N11",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N07",
+    "v": "N12",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N07",
+    "v": "N13",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N07",
+    "v": "N14",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N07",
+    "v": "N15",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N08",
+    "v": "N09",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N08",
+    "v": "N10",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N08",
+    "v": "N11",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N08",
+    "v": "N12",
+    "peso_influencia": 0.4
+   },
+   {
+    "u": "N08",
+    "v": "N13",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N08",
+    "v": "N14",
+    "peso_influencia": 0.75
+   },
+   {
+    "u": "N08",
+    "v": "N15",
+    "peso_influencia": 0.65
+   },
+   {
+    "u": "N09",
+    "v": "N10",
+    "peso_influencia": 0.35
+   },
+   {
+    "u": "N09",
+    "v": "N11",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N09",
+    "v": "N12",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N09",
+    "v": "N13",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N09",
+    "v": "N14",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N09",
+    "v": "N15",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N10",
+    "v": "N11",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N10",
+    "v": "N12",
+    "peso_influencia": 0.85
+   },
+   {
+    "u": "N10",
+    "v": "N13",
+    "peso_influencia": 0.2
+   },
+   {
+    "u": "N10",
+    "v": "N14",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N10",
+    "v": "N15",
+    "peso_influencia": 0.6
+   },
+   {
+    "u": "N11",
+    "v": "N12",
+    "peso_influencia": 0.7
+   },
+   {
+    "u": "N11",
+    "v": "N13",
+    "peso_influencia": 0.5
+   },
+   {
+    "u": "N11",
+    "v": "N14",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N11",
+    "v": "N15",
+    "peso_influencia": 0.1
+   },
+   {
+    "u": "N12",
+    "v": "N13",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N12",
+    "v": "N14",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N12",
+    "v": "N15",
+    "peso_influencia": 0.05
+   },
+   {
+    "u": "N13",
+    "v": "N14",
+    "peso_influencia": 0.15
+   },
+   {
+    "u": "N13",
+    "v": "N15",
+    "peso_influencia": 0.8
+   },
+   {
+    "u": "N14",
+    "v": "N15",
+    "peso_influencia": 0.6
+   }
+  ],
+  "nodos": [
+   {
+    "id": "N01",
+    "coeficiente_utilidad": 12.6,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N02",
+    "coeficiente_utilidad": 5.7,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N03",
+    "coeficiente_utilidad": 11.7,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N04",
+    "coeficiente_utilidad": 11.5,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N05",
+    "coeficiente_utilidad": 7.0,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 3
+   },
+   {
+    "id": "N06",
+    "coeficiente_utilidad": 9.9,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N07",
+    "coeficiente_utilidad": 10.4,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 5
+   },
+   {
+    "id": "N08",
+    "coeficiente_utilidad": 10.1,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 7
+   },
+   {
+    "id": "N09",
+    "coeficiente_utilidad": 11.9,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N10",
+    "coeficiente_utilidad": 12.6,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N11",
+    "coeficiente_utilidad": 12.5,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 6
+   },
+   {
+    "id": "N12",
+    "coeficiente_utilidad": 7.1,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 2
+   },
+   {
+    "id": "N13",
+    "coeficiente_utilidad": 12.0,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N14",
+    "coeficiente_utilidad": 8.7,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 4
+   },
+   {
+    "id": "N15",
+    "coeficiente_utilidad": 12.3,
+    "presupuesto_total_nodo": 18,
+    "costo_participacion": 5
+   }
+  ]
+ },
+ "resultado": {
+  "formato": "red",
+  "variante": "V2",
+  "caso": "propio_02_como_profesora__V2_p0p2_s7",
+  "N": 15,
+  "T": 3,
+  "k": 5,
+  "B": 30,
+  "P": 24,
+  "probabilidad_falla": 0.2,
+  "semilla_fallas": 7,
+  "rondas": [
+   {
+    "ronda": 1,
+    "candidatos": [
+     "N01",
+     "N03",
+     "N05",
+     "N06",
+     "N08",
+     "N10",
+     "N13",
+     "N14"
+    ],
+    "seleccion": [
+     "N01",
+     "N06",
+     "N03",
+     "N13",
+     "N14"
+    ],
+    "costo_participacion": 23,
+    "utilidad_conjunta": 152.50602381250002,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N01",
+      "unidades": 7,
+      "utilidad": 26.20096342516593,
+      "ultima_ganancia": 1.682495547068985,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N06",
+      "unidades": 5,
+      "utilidad": 17.738418745357745,
+      "ultima_ganancia": 1.8049834122601514,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N03",
+      "unidades": 6,
+      "utilidad": 22.767148743947164,
+      "ultima_ganancia": 1.803562953978922,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N13",
+      "unidades": 7,
+      "utilidad": 24.953298500158027,
+      "ultima_ganancia": 1.6023767114942693,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N14",
+      "unidades": 5,
+      "utilidad": 15.588307382284077,
+      "ultima_ganancia": 1.5861975441074048,
+      "restante_antes": 18
+     }
+    ],
+    "utilidad_reparto": 107.24813679691296,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 1: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 5, k = 5"
+     },
+     {
+      "restriccion": "ronda 1: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 1: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 15"
+     },
+     {
+      "restriccion": "ronda 1: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 23, P = 24"
+     },
+     {
+      "restriccion": "ronda 1: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 30, B = 30"
+     },
+     {
+      "restriccion": "ronda 1: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 1: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 1: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 152.506024, recalculado = 152.506024"
+     },
+     {
+      "restriccion": "ronda 1: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 107.248137, recalculado = 107.248137"
+     },
+     {
+      "restriccion": "ronda 1: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 2.7332993340678513e-05,
+     "reparto": 1.4666002243757248e-05,
+     "total": 4.999899829272181e-05,
+     "fallas": 8.000002708286047e-06
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N01",
+      "ganancia_marginal": 99.19,
+      "utilidad_acumulada": 99.19,
+      "candidatos_evaluados": 8,
+      "costo_acumulado": 2
+     },
+     {
+      "paso": 2,
+      "nodo": "N06",
+      "ganancia_marginal": 27.076999999999998,
+      "utilidad_acumulada": 126.267,
+      "candidatos_evaluados": 7,
+      "costo_acumulado": 8
+     },
+     {
+      "paso": 3,
+      "nodo": "N03",
+      "ganancia_marginal": 15.3548,
+      "utilidad_acumulada": 141.6218,
+      "candidatos_evaluados": 6,
+      "costo_acumulado": 15
+     },
+     {
+      "paso": 4,
+      "nodo": "N13",
+      "ganancia_marginal": 7.402578750000001,
+      "utilidad_acumulada": 149.02437875,
+      "candidatos_evaluados": 5,
+      "costo_acumulado": 19
+     },
+     {
+      "paso": 5,
+      "nodo": "N14",
+      "ganancia_marginal": 3.4816450624999997,
+      "utilidad_acumulada": 152.50602381250002,
+      "candidatos_evaluados": 2,
+      "costo_acumulado": 23
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N01",
+      "ganancia_marginal": 8.73365447505531,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 8.73365447505531
+     },
+     {
+      "unidad": 2,
+      "nodo": "N13",
+      "ganancia_marginal": 8.317766166719343,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 17.051420641774655
+     },
+     {
+      "unidad": 3,
+      "nodo": "N03",
+      "ganancia_marginal": 8.109822012551358,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 25.161242654326013
+     },
+     {
+      "unidad": 4,
+      "nodo": "N06",
+      "ganancia_marginal": 6.8621570875434585,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 32.02339974186947
+     },
+     {
+      "unidad": 5,
+      "nodo": "N14",
+      "ganancia_marginal": 6.030380470871523,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 38.05378021274099
+     },
+     {
+      "unidad": 6,
+      "nodo": "N01",
+      "ganancia_marginal": 5.108860362162872,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 43.16264057490386
+     },
+     {
+      "unidad": 7,
+      "nodo": "N13",
+      "ganancia_marginal": 4.8655812972979735,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 48.02822187220183
+     },
+     {
+      "unidad": 8,
+      "nodo": "N03",
+      "ganancia_marginal": 4.743941764865525,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 52.77216363706736
+     },
+     {
+      "unidad": 9,
+      "nodo": "N06",
+      "ganancia_marginal": 4.014104570270829,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 56.78626820733819
+     },
+     {
+      "unidad": 10,
+      "nodo": "N01",
+      "ganancia_marginal": 3.624794112892438,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 60.41106232023063
+     },
+     {
+      "unidad": 11,
+      "nodo": "N14",
+      "ganancia_marginal": 3.5275464405410313,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 63.93860876077166
+     },
+     {
+      "unidad": 12,
+      "nodo": "N13",
+      "ganancia_marginal": 3.4521848694213695,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 67.39079363019303
+     },
+     {
+      "unidad": 13,
+      "nodo": "N03",
+      "ganancia_marginal": 3.3658802476858334,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 70.75667387787887
+     },
+     {
+      "unidad": 14,
+      "nodo": "N06",
+      "ganancia_marginal": 2.848052517272629,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 73.6047263951515
+     },
+     {
+      "unidad": 15,
+      "nodo": "N01",
+      "ganancia_marginal": 2.811608746559042,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 76.41633514171055
+     },
+     {
+      "unidad": 16,
+      "nodo": "N13",
+      "ganancia_marginal": 2.6777226157705165,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 79.09405775748107
+     },
+     {
+      "unidad": 17,
+      "nodo": "N03",
+      "ganancia_marginal": 2.610779550376254,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 81.70483730785732
+     },
+     {
+      "unidad": 18,
+      "nodo": "N14",
+      "ganancia_marginal": 2.502834030330492,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 84.20767133818781
+     },
+     {
+      "unidad": 19,
+      "nodo": "N01",
+      "ganancia_marginal": 2.2972516156038303,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 86.50492295379163
+     },
+     {
+      "unidad": 20,
+      "nodo": "N06",
+      "ganancia_marginal": 2.209121158010676,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 88.71404411180231
+     },
+     {
+      "unidad": 21,
+      "nodo": "N13",
+      "ganancia_marginal": 2.1878586815274588,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 90.90190279332977
+     },
+     {
+      "unidad": 22,
+      "nodo": "N03",
+      "ganancia_marginal": 2.1331622144892712,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 93.03506500781904
+     },
+     {
+      "unidad": 23,
+      "nodo": "N01",
+      "ganancia_marginal": 1.942298565823453,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 94.97736357364249
+     },
+     {
+      "unidad": 24,
+      "nodo": "N14",
+      "ganancia_marginal": 1.9413488964336256,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 96.91871247007612
+     },
+     {
+      "unidad": 25,
+      "nodo": "N13",
+      "ganancia_marginal": 1.8498081579270966,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 98.76852062800322
+     },
+     {
+      "unidad": 26,
+      "nodo": "N06",
+      "ganancia_marginal": 1.8049834122601514,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 100.57350404026337
+     },
+     {
+      "unidad": 27,
+      "nodo": "N03",
+      "ganancia_marginal": 1.803562953978922,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 102.3770669942423
+     },
+     {
+      "unidad": 28,
+      "nodo": "N01",
+      "ganancia_marginal": 1.682495547068985,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 104.05956254131128
+     },
+     {
+      "unidad": 29,
+      "nodo": "N13",
+      "ganancia_marginal": 1.6023767114942693,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 105.66193925280555
+     },
+     {
+      "unidad": 30,
+      "nodo": "N14",
+      "ganancia_marginal": 1.5861975441074048,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 107.24813679691296
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N03",
+     "N05",
+     "N06",
+     "N08",
+     "N10",
+     "N13",
+     "N14"
+    ],
+    "caidos": [
+     "N02",
+     "N04",
+     "N07",
+     "N09",
+     "N11",
+     "N12",
+     "N15"
+    ]
+   },
+   {
+    "ronda": 2,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N08",
+     "N09",
+     "N12",
+     "N13",
+     "N15"
+    ],
+    "seleccion": [
+     "N02",
+     "N01",
+     "N03",
+     "N06",
+     "N12"
+    ],
+    "costo_participacion": 21,
+    "utilidad_conjunta": 153.944601,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N02",
+      "unidades": 3,
+      "utilidad": 7.901877858383377,
+      "ultima_ganancia": 1.6397878129751504,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N01",
+      "unidades": 9,
+      "utilidad": 29.012572171724976,
+      "ultima_ganancia": 1.3275424972886114,
+      "restante_antes": 11
+     },
+     {
+      "nodo": "N03",
+      "unidades": 8,
+      "utilidad": 25.707527554833767,
+      "ultima_ganancia": 1.3780615171796917,
+      "restante_antes": 12
+     },
+     {
+      "nodo": "N06",
+      "unidades": 6,
+      "utilidad": 19.2645104756476,
+      "ultima_ganancia": 1.5260917302898562,
+      "restante_antes": 13
+     },
+     {
+      "nodo": "N12",
+      "unidades": 4,
+      "utilidad": 11.42700917828211,
+      "ultima_ganancia": 1.584319214330888,
+      "restante_antes": 18
+     }
+    ],
+    "utilidad_reparto": 93.31349723887183,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 2: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 5, k = 5"
+     },
+     {
+      "restriccion": "ronda 2: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 2: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 15"
+     },
+     {
+      "restriccion": "ronda 2: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 21, P = 24"
+     },
+     {
+      "restriccion": "ronda 2: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 30, B = 30"
+     },
+     {
+      "restriccion": "ronda 2: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 2: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 2: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 153.944601, recalculado = 153.944601"
+     },
+     {
+      "restriccion": "ronda 2: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 93.313497, recalculado = 93.313497"
+     },
+     {
+      "restriccion": "ronda 2: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 3.420899884076789e-05,
+     "reparto": 1.3124998076818883e-05,
+     "total": 4.866699600825086e-05,
+     "fallas": 1.3329990906640887e-06
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N02",
+      "ganancia_marginal": 103.34,
+      "utilidad_acumulada": 103.34,
+      "candidatos_evaluados": 11,
+      "costo_acumulado": 4
+     },
+     {
+      "paso": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 32.817,
+      "utilidad_acumulada": 136.157,
+      "candidatos_evaluados": 10,
+      "costo_acumulado": 6
+     },
+     {
+      "paso": 3,
+      "nodo": "N03",
+      "ganancia_marginal": 9.8339125,
+      "utilidad_acumulada": 145.9909125,
+      "candidatos_evaluados": 9,
+      "costo_acumulado": 13
+     },
+     {
+      "paso": 4,
+      "nodo": "N06",
+      "ganancia_marginal": 5.31883875,
+      "utilidad_acumulada": 151.30975125,
+      "candidatos_evaluados": 8,
+      "costo_acumulado": 19
+     },
+     {
+      "paso": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 2.63484975,
+      "utilidad_acumulada": 153.944601,
+      "candidatos_evaluados": 5,
+      "costo_acumulado": 21
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N01",
+      "ganancia_marginal": 8.73365447505531,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 8.73365447505531
+     },
+     {
+      "unidad": 2,
+      "nodo": "N03",
+      "ganancia_marginal": 8.109822012551358,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 16.84347648760667
+     },
+     {
+      "unidad": 3,
+      "nodo": "N06",
+      "ganancia_marginal": 6.8621570875434585,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 23.705633575150127
+     },
+     {
+      "unidad": 4,
+      "nodo": "N01",
+      "ganancia_marginal": 5.108860362162872,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 28.814493937313
+     },
+     {
+      "unidad": 5,
+      "nodo": "N12",
+      "ganancia_marginal": 4.921344981975611,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 33.73583891928861
+     },
+     {
+      "unidad": 6,
+      "nodo": "N03",
+      "ganancia_marginal": 4.743941764865525,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 38.479780684154136
+     },
+     {
+      "unidad": 7,
+      "nodo": "N06",
+      "ganancia_marginal": 4.014104570270829,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 42.49388525442497
+     },
+     {
+      "unidad": 8,
+      "nodo": "N02",
+      "ganancia_marginal": 3.9509389291916883,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 46.44482418361665
+     },
+     {
+      "unidad": 9,
+      "nodo": "N01",
+      "ganancia_marginal": 3.624794112892438,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 50.06961829650909
+     },
+     {
+      "unidad": 10,
+      "nodo": "N03",
+      "ganancia_marginal": 3.3658802476858334,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 53.43549854419493
+     },
+     {
+      "unidad": 11,
+      "nodo": "N12",
+      "ganancia_marginal": 2.878802267567967,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 56.3143008117629
+     },
+     {
+      "unidad": 12,
+      "nodo": "N06",
+      "ganancia_marginal": 2.848052517272629,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 59.162353329035525
+     },
+     {
+      "unidad": 13,
+      "nodo": "N01",
+      "ganancia_marginal": 2.811608746559042,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 61.97396207559457
+     },
+     {
+      "unidad": 14,
+      "nodo": "N03",
+      "ganancia_marginal": 2.610779550376254,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 64.58474162597082
+     },
+     {
+      "unidad": 15,
+      "nodo": "N02",
+      "ganancia_marginal": 2.311151116216538,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 66.89589274218736
+     },
+     {
+      "unidad": 16,
+      "nodo": "N01",
+      "ganancia_marginal": 2.2972516156038303,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 69.19314435779118
+     },
+     {
+      "unidad": 17,
+      "nodo": "N06",
+      "ganancia_marginal": 2.209121158010676,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 71.40226551580186
+     },
+     {
+      "unidad": 18,
+      "nodo": "N03",
+      "ganancia_marginal": 2.1331622144892712,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 73.53542773029113
+     },
+     {
+      "unidad": 19,
+      "nodo": "N12",
+      "ganancia_marginal": 2.0425427144076442,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 75.57797044469878
+     },
+     {
+      "unidad": 20,
+      "nodo": "N01",
+      "ganancia_marginal": 1.942298565823453,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 77.52026901052223
+     },
+     {
+      "unidad": 21,
+      "nodo": "N06",
+      "ganancia_marginal": 1.8049834122601514,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 79.32525242278238
+     },
+     {
+      "unidad": 22,
+      "nodo": "N03",
+      "ganancia_marginal": 1.803562953978922,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 81.12881537676131
+     },
+     {
+      "unidad": 23,
+      "nodo": "N01",
+      "ganancia_marginal": 1.682495547068985,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 82.81131092383029
+     },
+     {
+      "unidad": 24,
+      "nodo": "N02",
+      "ganancia_marginal": 1.6397878129751504,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 84.45109873680545
+     },
+     {
+      "unidad": 25,
+      "nodo": "N12",
+      "ganancia_marginal": 1.584319214330888,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 86.03541795113634
+     },
+     {
+      "unidad": 26,
+      "nodo": "N03",
+      "ganancia_marginal": 1.5623172937069114,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 87.59773524484325
+     },
+     {
+      "unidad": 27,
+      "nodo": "N06",
+      "ganancia_marginal": 1.5260917302898562,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 89.12382697513311
+     },
+     {
+      "unidad": 28,
+      "nodo": "N01",
+      "ganancia_marginal": 1.484066249270434,
+      "unidades_acumuladas": 8,
+      "utilidad_acumulada": 90.60789322440354
+     },
+     {
+      "unidad": 29,
+      "nodo": "N03",
+      "ganancia_marginal": 1.3780615171796917,
+      "unidades_acumuladas": 8,
+      "utilidad_acumulada": 91.98595474158323
+     },
+     {
+      "unidad": 30,
+      "nodo": "N01",
+      "ganancia_marginal": 1.3275424972886114,
+      "unidades_acumuladas": 9,
+      "utilidad_acumulada": 93.31349723887183
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N02",
+     "N03",
+     "N04",
+     "N05",
+     "N06",
+     "N08",
+     "N09",
+     "N12",
+     "N13",
+     "N15"
+    ],
+    "caidos": [
+     "N07",
+     "N10",
+     "N11",
+     "N14"
+    ]
+   },
+   {
+    "ronda": 3,
+    "candidatos": [
+     "N01",
+     "N02",
+     "N03",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10",
+     "N11",
+     "N12",
+     "N13",
+     "N14",
+     "N15"
+    ],
+    "seleccion": [
+     "N02",
+     "N01",
+     "N03",
+     "N10",
+     "N14"
+    ],
+    "costo_participacion": 23,
+    "utilidad_conjunta": 153.817682125,
+    "optimo": null,
+    "reparto": [
+     {
+      "nodo": "N02",
+      "unidades": 5,
+      "utilidad": 10.213028974599913,
+      "ultima_ganancia": 1.0392328737255419,
+      "restante_antes": 15
+     },
+     {
+      "nodo": "N01",
+      "unidades": 2,
+      "utilidad": 13.842514837218182,
+      "ultima_ganancia": 5.108860362162872,
+      "restante_antes": 2
+     },
+     {
+      "nodo": "N03",
+      "unidades": 4,
+      "utilidad": 18.83042357547897,
+      "ultima_ganancia": 2.610779550376254,
+      "restante_antes": 4
+     },
+     {
+      "nodo": "N10",
+      "unidades": 11,
+      "utilidad": 31.309823787328803,
+      "ultima_ganancia": 1.0963433500693327,
+      "restante_antes": 18
+     },
+     {
+      "nodo": "N14",
+      "unidades": 8,
+      "utilidad": 19.11585382282511,
+      "ultima_ganancia": 1.0247124102105403,
+      "restante_antes": 13
+     }
+    ],
+    "utilidad_reparto": 93.31164499745095,
+    "verificaciones": [
+     {
+      "restriccion": "ronda 3: |S| <= k",
+      "cumple": true,
+      "detalle": "|S| = 5, k = 5"
+     },
+     {
+      "restriccion": "ronda 3: sin nodos repetidos",
+      "cumple": true,
+      "detalle": "0 repetidos"
+     },
+     {
+      "restriccion": "ronda 3: nodos validos (0..N-1)",
+      "cumple": true,
+      "detalle": "N = 15"
+     },
+     {
+      "restriccion": "ronda 3: costo de participacion <= P",
+      "cumple": true,
+      "detalle": "costo = 23, P = 24"
+     },
+     {
+      "restriccion": "ronda 3: sum x_i <= B",
+      "cumple": true,
+      "detalle": "sum x_i = 30, B = 30"
+     },
+     {
+      "restriccion": "ronda 3: x_i entero >= 0",
+      "cumple": true,
+      "detalle": "todos validos"
+     },
+     {
+      "restriccion": "ronda 3: x_i <= presupuesto restante",
+      "cumple": true,
+      "detalle": "ningún nodo pasa su presupuesto restante"
+     },
+     {
+      "restriccion": "ronda 3: f(S) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 153.817682, recalculado = 153.817682"
+     },
+     {
+      "restriccion": "ronda 3: U(x) coincide al recalcular",
+      "cumple": true,
+      "detalle": "reportado = 93.311645, recalculado = 93.311645"
+     },
+     {
+      "restriccion": "ronda 3: nodos caidos no seleccionados",
+      "cumple": true,
+      "detalle": "ningún nodo caído fue seleccionado"
+     }
+    ],
+    "cumple_todo": true,
+    "tiempo_s": {
+     "seleccion": 3.933400148525834e-05,
+     "reparto": 1.3541997759602964e-05,
+     "total": 5.4084994189906865e-05,
+     "fallas": 1.2089949450455606e-06
+    },
+    "traza_seleccion": [
+     {
+      "paso": 1,
+      "nodo": "N02",
+      "ganancia_marginal": 103.34,
+      "utilidad_acumulada": 103.34,
+      "candidatos_evaluados": 13,
+      "costo_acumulado": 4
+     },
+     {
+      "paso": 2,
+      "nodo": "N01",
+      "ganancia_marginal": 32.817,
+      "utilidad_acumulada": 136.157,
+      "candidatos_evaluados": 12,
+      "costo_acumulado": 6
+     },
+     {
+      "paso": 3,
+      "nodo": "N03",
+      "ganancia_marginal": 9.8339125,
+      "utilidad_acumulada": 145.9909125,
+      "candidatos_evaluados": 11,
+      "costo_acumulado": 13
+     },
+     {
+      "paso": 4,
+      "nodo": "N10",
+      "ganancia_marginal": 5.3836275,
+      "utilidad_acumulada": 151.37454,
+      "candidatos_evaluados": 10,
+      "costo_acumulado": 19
+     },
+     {
+      "paso": 5,
+      "nodo": "N14",
+      "ganancia_marginal": 2.443142125,
+      "utilidad_acumulada": 153.817682125,
+      "candidatos_evaluados": 5,
+      "costo_acumulado": 23
+     }
+    ],
+    "traza_reparto": [
+     {
+      "unidad": 1,
+      "nodo": "N01",
+      "ganancia_marginal": 8.73365447505531,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 8.73365447505531
+     },
+     {
+      "unidad": 2,
+      "nodo": "N10",
+      "ganancia_marginal": 8.73365447505531,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 17.46730895011062
+     },
+     {
+      "unidad": 3,
+      "nodo": "N03",
+      "ganancia_marginal": 8.109822012551358,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 25.57713096266198
+     },
+     {
+      "unidad": 4,
+      "nodo": "N14",
+      "ganancia_marginal": 6.030380470871523,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 31.607511433533503
+     },
+     {
+      "unidad": 5,
+      "nodo": "N01",
+      "ganancia_marginal": 5.108860362162872,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 36.716371795696375
+     },
+     {
+      "unidad": 6,
+      "nodo": "N10",
+      "ganancia_marginal": 5.108860362162872,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 41.82523215785925
+     },
+     {
+      "unidad": 7,
+      "nodo": "N03",
+      "ganancia_marginal": 4.743941764865525,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 46.56917392272477
+     },
+     {
+      "unidad": 8,
+      "nodo": "N02",
+      "ganancia_marginal": 3.9509389291916883,
+      "unidades_acumuladas": 1,
+      "utilidad_acumulada": 50.52011285191646
+     },
+     {
+      "unidad": 9,
+      "nodo": "N10",
+      "ganancia_marginal": 3.624794112892438,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 54.1449069648089
+     },
+     {
+      "unidad": 10,
+      "nodo": "N14",
+      "ganancia_marginal": 3.5275464405410313,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 57.67245340534993
+     },
+     {
+      "unidad": 11,
+      "nodo": "N03",
+      "ganancia_marginal": 3.3658802476858334,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 61.038333653035764
+     },
+     {
+      "unidad": 12,
+      "nodo": "N10",
+      "ganancia_marginal": 2.811608746559042,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 63.84994239959481
+     },
+     {
+      "unidad": 13,
+      "nodo": "N03",
+      "ganancia_marginal": 2.610779550376254,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 66.46072194997106
+     },
+     {
+      "unidad": 14,
+      "nodo": "N14",
+      "ganancia_marginal": 2.502834030330492,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 68.96355598030155
+     },
+     {
+      "unidad": 15,
+      "nodo": "N02",
+      "ganancia_marginal": 2.311151116216538,
+      "unidades_acumuladas": 2,
+      "utilidad_acumulada": 71.27470709651809
+     },
+     {
+      "unidad": 16,
+      "nodo": "N10",
+      "ganancia_marginal": 2.2972516156038303,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 73.57195871212191
+     },
+     {
+      "unidad": 17,
+      "nodo": "N10",
+      "ganancia_marginal": 1.942298565823453,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 75.51425727794536
+     },
+     {
+      "unidad": 18,
+      "nodo": "N14",
+      "ganancia_marginal": 1.9413488964336256,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 77.45560617437899
+     },
+     {
+      "unidad": 19,
+      "nodo": "N10",
+      "ganancia_marginal": 1.682495547068985,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 79.13810172144797
+     },
+     {
+      "unidad": 20,
+      "nodo": "N02",
+      "ganancia_marginal": 1.6397878129751504,
+      "unidades_acumuladas": 3,
+      "utilidad_acumulada": 80.77788953442311
+     },
+     {
+      "unidad": 21,
+      "nodo": "N14",
+      "ganancia_marginal": 1.5861975441074048,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 82.36408707853052
+     },
+     {
+      "unidad": 22,
+      "nodo": "N10",
+      "ganancia_marginal": 1.484066249270434,
+      "unidades_acumuladas": 8,
+      "utilidad_acumulada": 83.84815332780096
+     },
+     {
+      "unidad": 23,
+      "nodo": "N14",
+      "ganancia_marginal": 1.3411109144971487,
+      "unidades_acumuladas": 6,
+      "utilidad_acumulada": 85.18926424229811
+     },
+     {
+      "unidad": 24,
+      "nodo": "N10",
+      "ganancia_marginal": 1.3275424972886114,
+      "unidades_acumuladas": 9,
+      "utilidad_acumulada": 86.51680673958671
+     },
+     {
+      "unidad": 25,
+      "nodo": "N02",
+      "ganancia_marginal": 1.2719182424909947,
+      "unidades_acumuladas": 4,
+      "utilidad_acumulada": 87.78872498207771
+     },
+     {
+      "unidad": 26,
+      "nodo": "N10",
+      "ganancia_marginal": 1.200908265534494,
+      "unidades_acumuladas": 10,
+      "utilidad_acumulada": 88.9896332476122
+     },
+     {
+      "unidad": 27,
+      "nodo": "N14",
+      "ganancia_marginal": 1.1617231158333432,
+      "unidades_acumuladas": 7,
+      "utilidad_acumulada": 90.15135636344554
+     },
+     {
+      "unidad": 28,
+      "nodo": "N10",
+      "ganancia_marginal": 1.0963433500693327,
+      "unidades_acumuladas": 11,
+      "utilidad_acumulada": 91.24769971351488
+     },
+     {
+      "unidad": 29,
+      "nodo": "N02",
+      "ganancia_marginal": 1.0392328737255419,
+      "unidades_acumuladas": 5,
+      "utilidad_acumulada": 92.28693258724041
+     },
+     {
+      "unidad": 30,
+      "nodo": "N14",
+      "ganancia_marginal": 1.0247124102105403,
+      "unidades_acumuladas": 8,
+      "utilidad_acumulada": 93.31164499745095
+     }
+    ],
+    "disponibles": [
+     "N01",
+     "N02",
+     "N03",
+     "N06",
+     "N07",
+     "N08",
+     "N09",
+     "N10",
+     "N11",
+     "N12",
+     "N13",
+     "N14",
+     "N15"
+    ],
+    "caidos": [
+     "N04",
+     "N05"
+    ]
+   }
+  ],
+  "utilidad_conjunta_total": 460.26830693750003,
+  "utilidad_reparto_total": 293.87327903323575,
+  "presupuesto_usado": [
+   {
+    "nodo": "N01",
+    "usado": 18,
+    "tope": 18
+   },
+   {
+    "nodo": "N02",
+    "usado": 8,
+    "tope": 18
+   },
+   {
+    "nodo": "N03",
+    "usado": 18,
+    "tope": 18
+   },
+   {
+    "nodo": "N04",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N05",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N06",
+    "usado": 11,
+    "tope": 18
+   },
+   {
+    "nodo": "N07",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N08",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N09",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N10",
+    "usado": 11,
+    "tope": 18
+   },
+   {
+    "nodo": "N11",
+    "usado": 0,
+    "tope": 18
+   },
+   {
+    "nodo": "N12",
+    "usado": 4,
+    "tope": 18
+   },
+   {
+    "nodo": "N13",
+    "usado": 7,
+    "tope": 18
+   },
+   {
+    "nodo": "N14",
+    "usado": 13,
+    "tope": 18
+   },
+   {
+    "nodo": "N15",
+    "usado": 0,
+    "tope": 18
+   }
+  ],
+  "verificacion_global": [
+   {
+    "restriccion": "presupuesto total por nodo",
+    "cumple": true,
+    "detalle": "ningún nodo supera su presupuesto total"
+   }
+  ],
+  "cumple_todo": true,
+  "tiempo_s": {
+   "total": 0.00015275098849087954
+  },
+  "supuestos": [
+   "fallas Bernoulli independientes entre nodos y rondas, con probabilidad común p",
+   "fallas temporales conocidas al inicio de la ronda; el nodo vuelve en la siguiente",
+   "una falla no consume el presupuesto acumulado de ruido del nodo",
+   "uᵢ(x) = aᵢ·ln(1 + x) y utilidad de influencia según el modelo base"
+  ]
+ }
+}
