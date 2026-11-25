@@ -6,7 +6,7 @@ Proyecto semestral de Análisis y Diseño de Algoritmos. Una red de N nodos entr
 |---|---|---|---|
 | 1. Reparto del presupuesto | Repartir B unidades entre N nodos con utilidades cóncavas | Voraz con montículo, óptimo por intercambio | Polinomial: `O(N + B log N)` |
 | 2. Selección de participantes | Elegir k de N nodos que maximicen una utilidad submodular | Voraz submodular, cota `(1 − 1/e)` | NP-difícil (reducción desde Cobertura Máxima) |
-| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1: voraz por razón + mejor nodo y enumeración parcial (`docs/03_variantes.md`) · V2 y V3 por definir | V1: cota ½(1 − 1/e) y (1 − 1/e) con solo presupuesto |
+| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 implementada; V2 formalizada, pendiente de implementación/evidencia; V3 pendiente (`docs/03_variantes.md`) | V1: garantías por régimen; V2: cota local 1/k con costos |
 
 ---
 
@@ -29,14 +29,14 @@ En la sustentación grupal cada uno debe poder explicar **sin notas** la reducci
 
 | Semanas | Hito | Estado |
 |---|---|---|
-| 1-2 | Equipo, variante y formalización escrita (sin código) | ✅ Primera entrega: `docs/formulacion.md` y `docs/manual_tecnico.md` (Word/PDF en `entregables/`) · ⬜ formalizar V2 con fallas y V3 |
+| 1-2 | Equipo, variante y formalización escrita (sin código) | ✅ Formulación base y V2: `docs/formulacion.md`, `docs/03_variantes.md` · ⬜ formalizar V3 |
 | 3-4 | Prueba de NP-dureza (revisa la profesora) | ✅ Hecha: `docs/formulacion.md` §7 (desde Cobertura Máxima y desde Conjunto Dominante) |
 | 5-6 | Algoritmo exacto y su T(n) | ✅ Parte 1 (voraz + verificador DP); ✅ Parte 2 (fuerza bruta) |
 | 7-8 | Aproximado, su T(n) y su cota | ✅ Voraz submodular con `(1 − 1/e)` |
-| 9-10 | Experimentos | ✅ Parte 1 y Parte 2 · ⬜ variantes |
+| 9-10 | Experimentos | ✅ Partes 1 y 2 y V1 · ⬜ experimentos de V2 y V3 |
 | 11 | Entrega final y sustentación | ⬜ |
 
-**Resumen:** la primera entrega está completa: formulación con las dos reducciones, solución base para los casos de la profesora (T rondas, k y costos ≤ P, tope por nodo), 10 casos propios, 35 pruebas y manual técnico. Para la entrega final faltan **las variantes** (fallas en V2, vecinos en V3 y un voraz con garantía para V1) y el **informe final**.
+**Estado del repositorio:** la solución base y V1 (costos) están implementadas. V2 (fallas) ya tiene formalización en `docs/03_variantes.md`, pero falta implementar el algoritmo y generar evidencia; V3 (efecto de vecinos) también está pendiente. La evidencia y los experimentos de V1 están en `resultados/variantes/`. La auditoría final requiere integrar los resultados al informe y al manual técnico.
 
 ---
 
@@ -141,7 +141,7 @@ Proyecto-ADA-2026-II/
 |---|---|---|---|
 | 1 | ~~Documento de la primera entrega~~ ✅ `docs/formulacion.md` + manual técnico | Primera entrega | |
 | 2 | Variante 1 (costos): formalizar, implementar y citar la cota de Khuller, Moss y Naor (1999) | | |
-| 3 | Variante 2 (T rondas con fallas): formalizar el modelo de fallas y el presupuesto acumulado | | |
+| 3 | Variante 2 (T rondas con fallas): formalizar el modelo de fallas y el presupuesto acumulado | ✅ Formalización en `docs/03_variantes.md` · implementación/evidencia pendientes (issues #13 y #32) |
 | 4 | Variante 3 (vecinos): formalizar el efecto de los vecinos y ver si se conserva la concavidad | | |
 | 5 | ~~Reorganizar carpetas según la §3~~ ✅ hecho | — | |
 | 6 | Experimentos de las variantes (mínimo 5 tamaños de n) | Semanas 9-10 | |
