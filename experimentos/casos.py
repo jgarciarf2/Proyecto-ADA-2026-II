@@ -9,6 +9,7 @@ Uso:
     python -m experimentos.casos casos/propios/       # los casos propios en el formato de la profesora
     python -m experimentos.casos --generar-ejemplos   # vuelve a crear casos/ejemplos/ y casos/propios/
     python -m experimentos.casos casos/profesora/ --seleccion A   # selección con el algoritmo A o B de la V1
+    python -m experimentos.casos casos/profesora/ --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7
 
 Salida en resultados/casos/<nombre>/:
     resultado.json, traza_seleccion.csv, traza_reparto.csv (si B no es muy grande), reparto.csv
@@ -25,6 +26,7 @@ from ada.casos import caso_sintetico, leer_caso, optimo_si_es_factible, resultad
 from ada.casos_red import caso_red_sintetico, es_formato_red, leer_caso_red
 from ada.ronda import resolver_ronda
 from ada.solucion_red import resolver_caso_red
+from ada.variantes.rondas import resolver_caso_red_v2
 from experimentos.comun import RAIZ, carpeta_salida, guardar_csv
 
 CARPETA_EJEMPLOS = os.path.join(RAIZ, "casos", "ejemplos")
@@ -85,14 +87,22 @@ def generar_propios():
     print(f"Casos propios creados en {CARPETA_PROPIOS}")
 
 
-def ejecutar_caso(datos, con_optimo=True, seleccion="ganancia"):
+def ejecutar_caso(datos, con_optimo=True, seleccion="ganancia", variante="base",
+                  probabilidad_falla=0.0, semilla_fallas=0):
     """
     Resuelve un caso (diccionario) y devuelve el resultado serializable.
     Reconoce los dos formatos: el de la profesora (con "parametros" y "grafo") y el provisional.
     seleccion ("ganancia", "A" o "B") solo aplica al formato de la profesora (variante V1).
     """
     if es_formato_red(datos):
+        if variante == "V2":
+            return resolver_caso_red_v2(leer_caso_red(datos, datos.get("nombre", "caso")),
+                                        probabilidad_falla, semilla_fallas, con_optimo)
+        if variante != "base":
+            raise ValueError("variante debe ser 'base' o 'V2'")
         return resolver_caso_red(leer_caso_red(datos, datos.get("nombre", "caso")), con_optimo, seleccion)
+    if variante != "base":
+        raise ValueError("V2 requiere un caso en el formato de la profesora")
     caso = leer_caso(datos)
     r = resolver_ronda(caso.conjuntos, caso.pesos, caso.k, caso.utilidades, caso.B)
     optimo = optimo_si_es_factible(caso) if con_optimo else None
@@ -116,6 +126,20 @@ def guardar_evidencia(datos, res, salida):
     if res.get("formato") == "red":
         guardar_csv(os.path.join(salida, "verificacion.csv"),
                     [*[v for r in rondas for v in r["verificaciones"]], *res["verificacion_global"]])
+        if res.get("variante") == "V2":
+            nodos = [n["id"] for n in datos["nodos"]]
+            filas = []
+            for r in rondas:
+                disponibles = set(r["disponibles"])
+                caidos = set(r["caidos"])
+                candidatos = set(r["candidatos"])
+                elegidos = set(r["seleccion"])
+                for nodo in nodos:
+                    filas.append({"ronda": r["ronda"], "nodo": nodo,
+                                  "disponible": nodo in disponibles, "fallo": nodo in caidos,
+                                  "candidato_con_saldo": nodo in candidatos, "elegido": nodo in elegidos})
+            guardar_csv(os.path.join(salida, "disponibilidad.csv"), filas,
+                        ["ronda", "nodo", "disponible", "fallo", "candidato_con_saldo", "elegido"])
 
 
 def fila_resumen(res):
@@ -123,7 +147,9 @@ def fila_resumen(res):
     rondas = res["rondas"] if res.get("formato") == "red" else [res]
     optimos = [r["optimo"]["valor"] for r in rondas if r["optimo"]]
     suma = lambda clave: sum(r["tiempo_s"][clave] for r in rondas) * 1e3
-    return {"caso": res["caso"], "rondas": len(rondas), "N": res["N"], "k": res["k"], "B": res["B"],
+    return {"caso": res["caso"], "variante": res.get("variante", "base"),
+            "probabilidad_falla": res.get("probabilidad_falla", ""),
+            "rondas": len(rondas), "N": res["N"], "k": res["k"], "B": res["B"],
             "f(S)": round(sum(r["utilidad_conjunta"] for r in rondas), 4),
             "optimo_f": round(sum(optimos), 4) if len(optimos) == len(rondas) else "",
             "U(x)": round(sum(r["utilidad_reparto"] for r in rondas), 4),
@@ -164,6 +190,12 @@ if __name__ == "__main__":
     p.add_argument("--sin-optimo", action="store_true", help="no calcular el óptimo por fuerza bruta")
     p.add_argument("--seleccion", choices=["ganancia", "A", "B"], default="ganancia",
                    help="algoritmo de selección en los casos de la profesora (A y B son de la variante V1)")
+    p.add_argument("--variante", choices=["base", "V2"], default="base",
+                   help="resolver con la solución base o con V2 (fallas temporales)")
+    p.add_argument("--probabilidad-falla", type=float, default=0.0,
+                   help="probabilidad independiente de falla por nodo y ronda para V2")
+    p.add_argument("--semilla-fallas", type=int, default=0,
+                   help="semilla reproducible para generar las fallas de V2")
     p.add_argument("--generar-ejemplos", action="store_true", help="crear casos/ejemplos/ (formato provisional) y casos/propios/ (formato de la profesora)")
     a = p.parse_args()
     if a.generar_ejemplos:
@@ -175,9 +207,13 @@ if __name__ == "__main__":
             with open(archivo, encoding="utf-8") as fh:
                 datos = json.load(fh)
             datos.setdefault("nombre", os.path.splitext(os.path.basename(archivo))[0])
-            res = ejecutar_caso(datos, con_optimo=not a.sin_optimo, seleccion=a.seleccion)
-            if a.seleccion != "ganancia" and res.get("formato") == "red":
+            res = ejecutar_caso(datos, con_optimo=not a.sin_optimo, seleccion=a.seleccion,
+                                variante=a.variante, probabilidad_falla=a.probabilidad_falla,
+                                semilla_fallas=a.semilla_fallas)
+            if a.variante == "base" and a.seleccion != "ganancia" and res.get("formato") == "red":
                 res["caso"] = f"{res['caso']}__{a.seleccion}"
+            if a.variante == "V2" and res.get("formato") == "red":
+                res["caso"] = f"{res['caso']}__V2"
             guardar_evidencia(datos, res, os.path.join(base, res["caso"]))
             filas.append(fila_resumen(res))
             f = filas[-1]

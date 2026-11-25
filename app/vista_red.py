@@ -30,7 +30,12 @@ def mostrar_red(entrada, res, clave):
     nota(f"N = {res['N']} nodos · {res['T']} rondas · k = {res['k']} por ronda · B = {res['B']} por ronda · "
          f"presupuesto de participación P = {res['P']} por ronda · selección: "
          f"{res.get('seleccion', 'voraz por ganancia')}")
-    aviso("<b>Supuestos provisionales</b> (falta confirmarlos con la profesora): " + "; ".join(res["supuestos"]) + ".")
+    if res.get("variante") == "V2":
+        aviso(f"<b>V2 · probabilidad de falla p = {res['probabilidad_falla']:.2f}</b>. "
+              + "; ".join(res["supuestos"]) + ".")
+    else:
+        aviso("<b>Supuestos del modelo base</b> (falta confirmarlos con la profesora): "
+              + "; ".join(res["supuestos"]) + ".")
 
     metricas([
         ("objetivo", f"Utilidad conjunta ({res['T']} rondas)", _f(res["utilidad_conjunta_total"]),
@@ -38,7 +43,8 @@ def mostrar_red(entrada, res, clave):
         ("capas", f"Utilidad del reparto ({res['T']} rondas)", _f(res["utilidad_reparto_total"]),
          f"B = {res['B']} por ronda<br>reparto óptimo (voraz exacto)", AZUL),
         ("reloj", "Tiempo de la solución", f"{_f(res['tiempo_s']['total'] * 1e3)} ms",
-         f"{res['T']} rondas<br>selección + reparto + verificación", "#0f172a"),
+         (f"{res['T']} rondas<br>fallas + selección + reparto" if res.get("variante") == "V2"
+          else f"{res['T']} rondas<br>selección + reparto"), "#0f172a"),
         ("escudo", "Restricciones", f"{n_ok} / {len(todas)}",
          ("todas se cumplen" if res["cumple_todo"] else "hay restricciones que NO se cumplen")
          + "<br>detalle al final de la página", VERDE if res["cumple_todo"] else ROJO),
@@ -52,6 +58,8 @@ def mostrar_red(entrada, res, clave):
         "Óptimo f(S)": round(r["optimo"]["valor"], 3) if r["optimo"] else "—",
         "U(x)": round(r["utilidad_reparto"], 3),
         "Presupuesto repartido": f"{sum(f['unidades'] for f in r['reparto'])} / {res['B']}",
+        **({"Nodos caídos": ", ".join(map(str, r.get("caidos", []))) or "ninguno"}
+           if res.get("variante") == "V2" else {}),
         "Tiempo (ms)": round(r["tiempo_s"]["total"] * 1e3, 3)} for r in rondas]),
         hide_index=True, width="stretch")
 
@@ -71,9 +79,15 @@ def mostrar_red(entrada, res, clave):
         izq, der = st.columns([1, 1.15], gap="large")
         with izq:
             st.markdown("**¿Cómo eligió el voraz?**")
-            nota("Barras: lo que aportó cada nodo al entrar. Naranja: utilidad acumulada. Verde: el óptimo de la "
-                 f"ronda. Con el límite de costo P = {res['P']} la cota (1 − 1/e) no está garantizada (variante V1), "
-                 "por eso no se dibuja.")
+            if res.get("variante") == "V2":
+                nota("Barras: lo que aportó cada nodo al entrar. Naranja: utilidad acumulada. Verde: óptimo de "
+                     f"esta ronda. Con fallas observadas, la cota es local al estado de cada ronda: 1/k = "
+                     f"1/{res['k']} si el límite de costo P = {res['P']} puede restringir; no se afirma una "
+                     "garantía contra una política dinámica global.")
+            else:
+                nota("Barras: lo que aportó cada nodo al entrar. Naranja: utilidad acumulada. Verde: el óptimo de la "
+                     f"ronda. Con el límite de costo P = {res['P']} la cota (1 − 1/e) no está garantizada (variante V1), "
+                     "por eso no se dibuja.")
             st.plotly_chart(graficas.seleccion(r, con_garantia=False), width="stretch", key=f"{clave}-sel")
         with der:
             st.markdown("**¿A quién influye cada participante?**")
@@ -101,6 +115,16 @@ def mostrar_red(entrada, res, clave):
             "ultima_ganancia": "Última ganancia", "restante_antes": "Le quedaban"}), hide_index=True, width="stretch")
 
     with tab_traza:
+        if res.get("variante") == "V2":
+            st.markdown(f"**Disponibilidad antes de la selección, ronda {t}**")
+            nota(f"Disponibles: {', '.join(map(str, r['disponibles'])) or 'ninguno'}. "
+                 f"Caídos: {', '.join(map(str, r['caidos'])) or 'ninguno'}. "
+                 "Los nodos caídos no participan ni gastan presupuesto de ruido.")
+            st.dataframe(pd.DataFrame([{
+                "Nodo": i, "Estado": "caído" if i in set(r["caidos"]) else "disponible",
+                "Candidato con saldo": "sí" if i in set(r["candidatos"]) else "",
+                "Seleccionado": "sí" if i in set(r["seleccion"]) else ""}
+                for i in caso.ids]), hide_index=True, width="stretch")
         st.markdown(f"**Traza de la selección, ronda {t}**")
         st.dataframe(pd.DataFrame(r["traza_seleccion"]).rename(columns={
             "paso": "Paso", "nodo": "Nodo elegido", "ganancia_marginal": "Ganancia marginal",

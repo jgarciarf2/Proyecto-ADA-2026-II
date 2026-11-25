@@ -1,6 +1,6 @@
 # Manual técnico — Proyecto Red (Grupo 2)
 
-Análisis y Diseño de Algoritmos · Universidad de Caldas · Primera entrega
+Análisis y Diseño de Algoritmos · Universidad de Caldas · Entrega final
 
 Las figuras se generan con `python -m experimentos.figuras_informe` y `python -m experimentos.figuras_manual`.
 
@@ -46,7 +46,7 @@ El entorno virtual .venv queda dentro del proyecto y está ignorado por git, as�
 python -m pytest
 ```
 
-Debe terminar con el mensaje "50 passed" en alrededor de un segundo. Si alguna prueba falla, la instalación o el código no están en buen estado (ver la sección 16).
+Debe terminar con todas las pruebas aprobadas. Si alguna falla, la instalación o el código no están en buen estado (ver la sección 16).
 
 ## 3. Arquitectura
 
@@ -76,6 +76,7 @@ Las pruebas (tests/) verifican el núcleo, y los datos (casos/) y la salida (res
 | ada/parte2/fuerza_bruta.py | Óptimo exacto de la selección para casos pequeños |
 | ada/parte2/reduccion.py | La reducción desde Cobertura Máxima, en código |
 | ada/variantes/costos.py | Variante V1: algoritmos A y B con costos de participación y k_max |
+| ada/variantes/rondas.py | Variante V2: generación reproducible de fallas y ejecución por rondas |
 | ada/casos_red.py | Lector, validador y generador del formato de la profesora |
 | ada/solucion_red.py | Solución base por rondas |
 | ada/verificacion.py | Verificación de restricciones |
@@ -87,7 +88,7 @@ Las pruebas (tests/) verifican el núcleo, y los datos (casos/) y la salida (res
 | experimentos/figuras_informe.py, figuras_manual.py, figuras_variantes.py | Figuras de los documentos |
 | experimentos/comun.py | Medición con mediana, escritura de CSV y gráfica medido contra teórico |
 | app/ | Interfaz en Streamlit |
-| tests/ | 50 pruebas automáticas |
+| tests/ | Pruebas automáticas de las partes base y las variantes implementadas |
 | casos/profesora/, casos/propios/, casos/ejemplos/ | Casos de prueba |
 | resultados/ | Evidencia, tiempos y gráficas generadas |
 | docs/ | Documentación en Markdown y figuras |
@@ -248,7 +249,17 @@ Para arrancar desde un grupo G de tres nodos, B le pasa a voraz_influencia un Es
 
 En el caso de 15 nodos de la profesora el cupo restringe (k_max(24) = 7 > k = 5). Ahí el voraz por ganancia obtiene el óptimo, 436,74, y los algoritmos A y B quedan apenas por debajo, con 435,32 y 435,75. Con el cupo restrictivo A y B no tienen ventaja garantizada; su ventaja aparece cuando manda el presupuesto.
 
-### 6.9 Correspondencia con el documento de formulación
+### 6.9 Variante V2: rondas con fallas
+
+Archivo `ada/variantes/rondas.py`. `generar_fallas(N, T, probabilidad, semilla)` produce un flujo reproducible de estados de disponibilidad. `resolver_caso_red_v2(caso, probabilidad_falla, semilla_fallas=0, con_optimo=True)` procesa cada estado antes de elegir: excluye los nodos caídos y los nodos sin saldo de ruido, llama a la misma selección voraz y al reparto con montículo que usa la solución base, verifica que ningún nodo caído haya sido elegido y descuenta el reparto del presupuesto acumulado.
+
+Las fallas son Bernoulli independientes por nodo y ronda, con una probabilidad común p. Se conocen al comienzo de la ronda, duran una ronda y no consumen presupuesto; el nodo vuelve a ser candidato en una ronda posterior si conserva saldo. Los supuestos completos y el análisis de garantía están en `docs/03_variantes.md`, sección V2.
+
+El resultado incluye `probabilidad_falla`, `semilla_fallas`, nodos disponibles/caídos, traza de selección y reparto, verificaciones y tiempo por ronda. El algoritmo conserva una cota 1/k frente al óptimo factible del estado ya observado cuando el presupuesto de participación puede restringir; no afirma una cota para el plan óptimo global de todas las rondas.
+
+Costo con matriz de influencia densa: `O(T · (N²·k + B·log(k + 1)))`. El tiempo medido incluye generar fallas, seleccionar y repartir; excluye la escritura de archivos y las verificaciones, igual que la medición de la solución base.
+
+### 6.10 Correspondencia con los documentos
 
 | Documento | Código | Prueba que lo comprueba |
 |---|---|---|
@@ -261,6 +272,7 @@ En el caso de 15 nodos de la profesora el cupo restringe (k_max(24) = 7 > k = 5)
 | Reducción desde Cobertura Máxima | reducir_desde_cobertura_maxima | test_ejemplo_de_la_reduccion |
 | Algoritmo RESOLVER-CASO | resolver_caso_red | test_caso_de_la_profesora_cumple_todo, test_casos_limite |
 | V1: contraejemplos y Teoremas V1.1, V1.2 y V1.4 (docs/03_variantes.md) | algoritmo_a, algoritmo_b | las 15 pruebas de tests/test_variantes.py |
+| V2: algoritmo y garantía por estado observado (docs/03_variantes.md) | resolver_caso_red_v2, generar_fallas | tests/test_rondas.py |
 
 ## 7. Referencia de funciones públicas
 
@@ -398,8 +410,9 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 
 | Clave | Tipo | Contenido |
 |---|---|---|
-| formato | Texto | "red" para el formato de la profesora |
+| formato, variante | Texto | "red" para el formato de la profesora; "V2" cuando se simulan fallas |
 | caso, N, T, k, B, P | Texto y enteros | Nombre y parámetros del caso |
+| probabilidad_falla, semilla_fallas | Número y entero | Parámetros reproducibles de V2 |
 | rondas | Lista | Una entrada por ronda (tabla siguiente) |
 | utilidad_conjunta_total, utilidad_reparto_total | Número | Suma de f(Sₜ) y de U(xₜ) en las T rondas |
 | presupuesto_usado | Lista | Por nodo: {nodo, usado, tope} |
@@ -411,11 +424,12 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | Clave de cada ronda | Contenido |
 |---|---|
 | ronda, candidatos | Número de ronda y nodos que tenían saldo |
+| disponibles, caidos | Listas | Nodos operativos y nodos temporalmente fallidos (solo V2) |
 | seleccion, costo_participacion | Participantes elegidos y su costo total |
 | utilidad_conjunta, optimo | f(Sₜ) y, si se calculó, {valor, seleccion, metodo} del óptimo |
 | reparto, utilidad_reparto | Por participante {nodo, unidades, utilidad, ultima_ganancia, restante_antes} y U(xₜ) |
 | verificaciones, cumple_todo | Las 9 restricciones de la ronda y si todas se cumplen |
-| tiempo_s | {seleccion, reparto, total} en segundos |
+| tiempo_s | {seleccion, reparto, fallas, total} en segundos (V2 incluye fallas) |
 | traza_seleccion, traza_reparto | Los pasos de los dos voraces |
 
 ### 9.3 Columnas de los CSV
@@ -426,7 +440,8 @@ Además, resultados/casos/resumen.csv tiene una fila por cada caso guardado en l
 | traza_reparto.csv | ronda, unidad, nodo, ganancia_marginal |
 | reparto.csv | ronda, nodo, unidades, utilidad, ultima_ganancia, restante_antes |
 | verificacion.csv | restriccion, cumple, detalle |
-| resumen.csv | caso, rondas, N, k, B, f(S), optimo_f, U(x), t_seleccion_ms, t_reparto_ms, t_total_ms, cumple_restricciones |
+| disponibilidad.csv (solo V2) | ronda, nodo, disponible, fallo, candidato_con_saldo, elegido |
+| resumen.csv | caso, variante, probabilidad_falla, rondas, N, k, B, f(S), optimo_f, U(x), tiempos y cumplimiento |
 
 Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el formato de la profesora; los casos del formato provisional (casos/ejemplos/) no tienen costos ni presupuesto por nodo, y en ellos la columna ronda siempre vale 1. Si una ronda no tiene participantes (por ejemplo, porque ningún costo cabe en P), sus archivos quedan con el encabezado y sin filas para esa ronda. En resumen.csv, optimo_f queda vacío cuando el caso es demasiado grande para la fuerza bruta.
 
@@ -436,7 +451,7 @@ Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el 
 
 | Comando | Qué hace | Tiempo aproximado |
 |---|---|---|
-| python -m pytest | Corre las 50 pruebas de correctitud | 2 s |
+| python -m pytest | Corre las pruebas de correctitud | — |
 | python -m experimentos.casos casos/profesora | Resuelve los casos de la profesora y guarda la evidencia | 1 s |
 | python -m experimentos.casos casos/propios | Resuelve los 10 casos propios | 1 s |
 | python -m experimentos.casos ruta/al/caso.json [--sin-optimo] | Resuelve un caso puntual (sin el óptimo de referencia, si se pide) | 1 s |
@@ -446,6 +461,8 @@ Las columnas costo_acumulado y restante_antes solo aparecen en los casos con el 
 | python -m experimentos.parte2 | Tiempos de la selección con utilidad de cobertura | 20 s |
 | python -m experimentos.influencia | Tiempos del voraz de influencia y verificación de la cota | 1 min |
 | python -m experimentos.variantes | V1: tiempos y calidad de A y B | 15 s |
+| python -m experimentos.rondas | V2: tiempos al variar N/T y calidad al variar p | — |
+| python -m experimentos.casos casos/profesora --variante V2 --probabilidad-falla 0.2 --semilla-fallas 7 | Evidencia V2 con fallas reproducibles | 1 s |
 | python -m experimentos.figuras_informe (o figuras_variantes) | Figuras del documento de formulación (o de las variantes) | 10 s |
 | python -m experimentos.figuras_manual | Diagramas UML de este manual | 5 s |
 | streamlit run app/principal.py | Abre la interfaz visual en el navegador | — |
@@ -467,8 +484,8 @@ Se abre con streamlit run app/principal.py y queda disponible en http://localhos
 
 - **Cargar caso:** se sube un JSON o se elige uno guardado (primero los de la profesora y luego los de ejemplo), y se elige el algoritmo de selección: el voraz por ganancia de la solución base o los algoritmos A y B de la variante V1. El caso se resuelve en el momento y se puede guardar como evidencia con el mismo resultado que da la línea de comandos.
 - **Evidencias:** tabla con todos los casos de resultados/casos; al seleccionar una fila se ve su detalle.
-- **Modo demo:** casos sintéticos con el modelo de la profesora y controles para N, T, k, P, B, la densidad del grafo y la semilla. Indica si el cupo restringe (k frente a k_max(P)), compara los tres algoritmos de selección contra el óptimo y debajo muestra la solución completa con el algoritmo elegido.
-- **Experimentos:** las gráficas de tiempo medido contra la teoría y de calidad contra el óptimo, en cuatro pestañas: Parte 1, Parte 2 con cobertura, Parte 2 con influencia y variante V1.
+- **Modo demo:** casos sintéticos con el modelo de la profesora y controles para N, T, k, P, B, densidad y semilla. Indica si el cupo restringe, compara los algoritmos base/V1 contra el óptimo y permite simular V2 con probabilidad de falla y semilla reproducible.
+- **Experimentos:** las gráficas de tiempo medido contra la teoría y de calidad, en cinco pestañas: Parte 1, Parte 2 con cobertura, Parte 2 con influencia y variantes V1/V2.
 
 Para un caso de la profesora la vista muestra los supuestos, las métricas totales, el resumen por ronda y el presupuesto usado por cada nodo contra su tope. Para la ronda elegida muestra además la selección paso a paso, el mapa de influencia de los participantes, el reparto como nivel de agua, las trazas en tablas y la verificación de cada restricción. La Figura 5 muestra esa vista con el caso de 15 nodos y la Figura 6 la tabla de evidencias.
 
@@ -484,7 +501,7 @@ Para un caso de la profesora la vista muestra los supuestos, las métricas total
 
 ### 12.1 Pruebas automáticas
 
-Las 50 pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
+Las pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
 
 | Archivo | Pruebas | Qué comprueban |
 |---|---|---|
@@ -494,6 +511,7 @@ Las 50 pruebas se ejecutan con python -m pytest. Están agrupadas por archivo:
 | tests/test_casos.py | 9 | Lectura del formato provisional, rechazo de 6 tipos de caso inválido y ejecución completa de un caso |
 | tests/test_red.py | 13 | Submodularidad de la influencia (1 500 pruebas), cota sin costos, presupuesto con costos, el caso de la profesora, rechazo de 4 tipos de caso inválido, el generador, los 10 casos propios, los casos límite y el reparto sin participantes |
 | tests/test_variantes.py | 15 | V1: contraejemplos, ejemplo de 1/k, las cuatro cotas de A y B contra la fuerza bruta (300 instancias), k_max, costo 0 y el caso de la profesora con A y B |
+| tests/test_rondas.py | 7 | V2: reproducción de fallas, casos p = 0 y p = 1, ronda intermedia con todos caídos, selección solo de nodos disponibles y presupuestos dentro de sus topes |
 
 ### 12.2 Casos propios
 

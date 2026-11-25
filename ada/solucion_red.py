@@ -64,10 +64,11 @@ def resolver_caso_red(caso, con_optimo=True, seleccion="ganancia"):
     }
 
 
-def _ronda(caso, t, usado, con_optimo, seleccion="ganancia"):
+def _ronda(caso, t, usado, con_optimo, seleccion="ganancia", disponibles=None):
     ids = caso.ids
     restante = [p - u for p, u in zip(caso.presupuesto_nodo, usado)]
-    candidatos = [i for i in range(caso.N) if restante[i] > 0]
+    candidatos = [i for i in range(caso.N) if restante[i] > 0
+                  and (disponibles is None or i in disponibles)]
 
     traza_sel = []
     t0 = time.perf_counter()
