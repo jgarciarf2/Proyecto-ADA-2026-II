@@ -80,6 +80,7 @@ Proyecto-ADA-2026-II/
 │   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
 │   ├── variantes.py              ← V1: tiempos de A y B contra la teoría y calidad contra el óptimo en 600 instancias
 │   ├── rondas.py                 ← V2: tiempos al variar N y T; calidad al variar p
+│   ├── exploracion_v3.py         ← V3: prototipo de referencia (voraz, búsqueda local y exacto) para docs/03_variantes.md §V3.10
 │   ├── figuras_informe.py        ← figuras del documento de formulación
 │   ├── figuras_manual.py         ← diagramas UML del manual técnico
 │   └── figuras_variantes.py      ← figuras de docs/03_variantes.md (contraejemplos de V1)
@@ -187,6 +188,7 @@ python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, vo
 python -m experimentos.influencia # ~1 min: voraz de influencia contra c·N²·k y cota con y sin costos
 python -m experimentos.variantes  # ~15 s: V1, tiempos de A y B y calidad contra el óptimo
 python -m experimentos.rondas     # V2: tiempos al variar N/T y utilidad al variar p
+python -m experimentos.exploracion_v3  # ~35 s: V3, prototipo que reproduce las tablas exploratorias de docs/03_variantes.md
 ```
 
 Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/`, `resultados/influencia/` y `resultados/variantes/`.

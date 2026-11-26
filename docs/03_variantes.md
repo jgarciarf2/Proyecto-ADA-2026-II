@@ -663,7 +663,7 @@ No sabemos si el reparto de la V3 es NP-difícil, y no lo afirmamos. Para lo que
 
 ### V3.10 Evidencia exploratoria
 
-Antes de implementar, comparamos las alternativas con un prototipo. **Estos números son exploratorios**; la implementación y los experimentos reproducibles en el repositorio son parte del issue #15.
+Antes de implementar, comparamos las alternativas con un prototipo, `experimentos/exploracion_v3.py`, que reproduce todas las tablas de esta sección y el ejemplo de la sección V3.4 con `python -m experimentos.exploracion_v3` (unos 35 s). **Estos números son exploratorios**: el prototipo escribe los algoritmos de la forma más directa posible, sin el voraz perezoso. La implementación oficial y sus experimentos son parte del issue #15.
 
 **Instancias aleatorias.** 600 instancias por valor de α: 200 para cada k′ ∈ {3, 4, 5}. Coeficientes aᵢ ∈ [5, 13] como en el generador de casos de la profesora, pesos wᵢⱼ ∈ {0,05; 0,10; …; 0,85}, densidad del grafo 0,3, 0,6 o 1, B ∈ [4, 14] y saldos rᵢ ∈ [2, 10]. La razón es U_α del algoritmo dividida por el óptimo de la enumeración exacta.
 
