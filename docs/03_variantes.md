@@ -4,8 +4,8 @@ Análisis y Diseño de Algoritmos · Universidad de Caldas · Entrega final
 
 El enunciado (§4.4) pide tres variantes obligatorias. Este documento usa la misma notación del documento de formulación ([formulacion.md](formulacion.md)) y cita sus secciones por número: la utilidad de influencia f (Definición 2), la ganancia marginal Δᵢ(S) y su cálculo en O(N) (secciones 5.5 y 5.6), el Lema 4 (f es monótona, submodular y f(∅) = 0) y el Teorema 3 (cota 1 − 1/e del voraz con solo cupo k).
 
-- **V1: costos de participación** (esta versión).
-- V2: rondas con fallas (pendiente, issue #12).
+- **V1: costos de participación** (implementada; issue #11).
+- **V2: rondas con fallas** (formalizada en esta sección; implementación y evidencia en issues #13 y #32).
 - V3: nodos vecinos (pendiente, issue #14).
 
 Las figuras se generan con `python -m experimentos.figuras_variantes`.
@@ -330,3 +330,65 @@ Tres conclusiones:
 - Kulik, A., Shachnai, H. y Tamir, T. (2009). Maximizing submodular set functions subject to multiple linear constraints. En *Proceedings of the 20th ACM-SIAM Symposium on Discrete Algorithms (SODA)*, 545–554.
 - Sviridenko, M. (2004). A note on maximizing a submodular set function subject to a knapsack constraint. *Operations Research Letters*, 32(1), 41–43.
 - Tang, J., Tang, X., Lim, A., Han, K., Li, C. y Yuan, J. (2021). Revisiting modified greedy algorithm for monotone submodular maximization with a knapsack constraint. *Proceedings of the ACM on Measurement and Analysis of Computing Systems*, 5(1), 1–22.
+
+---
+
+## V2. Rondas con fallas
+
+### V2.1 Modelo y supuestos
+
+La variante repite la selección y el reparto durante T rondas. Al comienzo de cada ronda algunos nodos pueden estar temporalmente fuera de servicio. Para que el modelo sea reproducible y verificable, fijamos estos supuestos:
+
+- Cada nodo falla en cada ronda con la misma probabilidad p ∈ [0, 1]. Los eventos de falla son independientes entre nodos y entre rondas.
+- Las fallas se generan y se conocen **antes** de elegir participantes en esa ronda. Un nodo caído no puede participar en esa ronda, pero se recupera al comienzo de la siguiente; no hay fallas permanentes.
+- La realización de fallas es exógena: las decisiones del algoritmo no cambian las probabilidades ni los resultados de falla. Se usa una semilla fija para repetir una ejecución.
+- El presupuesto de ruido Rᵢ pertenece al nodo y se acumula durante todas las rondas. Solo se descuenta la asignación xᵢᵗ cuando el nodo participa y recibe ruido; una falla no consume presupuesto.
+- En cada ronda se mantienen las restricciones del caso base: a lo sumo k participantes, costo de participación total a lo sumo P, presupuesto de ruido repartido a lo sumo B y asignación de cada nodo no mayor que su saldo Rᵢ restante.
+
+Estos son supuestos del modelo de esta variante, no propiedades dadas por el formato original del caso. Si se cambia, por ejemplo, a fallas permanentes o probabilidades distintas por nodo, deben cambiar también el generador, la entrada y los experimentos.
+
+### V2.2 Formalización
+
+**Tamaño de entrada.** N es el número de nodos; T es el número de rondas; k es el cupo por ronda. La matriz W de influencia tiene N² entradas en la representación usada por el código. B, P y los presupuestos Rᵢ son valores de entrada; el reparto con montículo depende además del valor entero B.
+
+**Entrada.** El grafo de influencia W, las utilidades aᵢ, los costos cᵢ, los saldos iniciales Rᵢ, los parámetros T, k, B, P, la probabilidad de falla p y una semilla s.
+
+**Proceso aleatorio.** Para cada ronda t y nodo i se obtiene una variable Xᵢᵗ ∈ {0,1}, donde Xᵢᵗ = 1 significa que i está disponible y Pr[Xᵢᵗ = 1] = 1 − p. Las variables son mutuamente independientes. La disponibilidad es Aₜ = {i : Xᵢᵗ = 1}. Con el saldo rᵢᵗ = Rᵢ − Σₛ<t xᵢˢ, los candidatos de la ronda son Cₜ = Aₜ ∩ {i : rᵢᵗ > 0}.
+
+**Salida.** Para cada ronda t, un conjunto Sₜ ⊆ Cₜ y una asignación entera xᵗ = (xᵢᵗ)ᵢ∈Sₜ. También se reportan las fallas observadas, trazas, utilidades, tiempos y verificaciones por ronda.
+
+**Objetivo.** Maximizar la utilidad conjunta total esperada, E[Σₜ₌₁ᵀ f(Sₜ)], bajo la política de decisiones descrita abajo. La expectativa es sobre las fallas. f es la utilidad de influencia definida en la formulación base. La utilidad de reparto Σᵢ∈Sₜ uᵢ(xᵢᵗ) se reporta como métrica adicional, igual que en la solución base; no se suma al objetivo de selección.
+
+**Restricciones por ronda y globales.** Para cada t: |Sₜ| ≤ k, Σᵢ∈Sₜ cᵢ ≤ P, Σᵢ∈Sₜ xᵢᵗ ≤ B, xᵢᵗ ∈ ℤ≥0, xᵢᵗ ≤ rᵢᵗ, y Sₜ ⊆ Aₜ. Globalmente, Σₜ:i∈Sₜ xᵢᵗ ≤ Rᵢ para cada nodo i.
+
+### V2.3 Política y algoritmo
+
+La política es miope y causal: solo usa la historia observada hasta la ronda actual y la disponibilidad de esta ronda; no conoce fallas futuras ni reserva presupuesto para ellas. En cada ronda:
+
+1. Generar Aₜ con el generador Bernoulli y la semilla configurada; registrar los nodos caídos y disponibles.
+2. Formar Cₜ descartando nodos caídos y nodos sin saldo de ruido.
+3. Ejecutar el voraz de selección por ganancia marginal sobre Cₜ, respetando k y P. Cada evaluación usa la utilidad de influencia f.
+4. Para los seleccionados, ejecutar el voraz óptimo con montículo del reparto sobre las utilidades cóncavas con tope en el saldo rᵢᵗ.
+5. Verificar las restricciones de la ronda y actualizar rᵢᵗ₊₁ = rᵢᵗ − xᵢᵗ. Los nodos caídos no gastan ruido y pueden volver a participar en rondas posteriores.
+
+Si todos fallan o no queda ningún candidato factible, Sₜ = ∅ y xᵗ = 0; se registra una ronda vacía sin consumir presupuesto.
+
+### V2.4 Complejidad
+
+En una ronda, el generador de fallas y el filtrado de candidatos cuestan O(N). Hay a lo sumo k pasos del voraz; cada paso examina a lo sumo N candidatos y una ganancia de influencia cuesta O(N), por lo que la selección cuesta O(N²k). El reparto con montículo entre a lo sumo k participantes cuesta O(k + B log(k + 1)). La verificación y actualización cuestan O(Nk + N), que no domina la selección. Por tanto:
+
+$$
+T_{V2}(N,T,k,B) = O\!\left(T(N^2k + B\log(k+1))\right).
+$$
+
+La matriz W ocupa O(N²) memoria. La traza almacena O(TN + Tk + TB) registros si se guardan todos los eventos de disponibilidad, selección y reparto unidad por unidad; sin conservar la traza completa, el espacio de trabajo adicional es O(N).
+
+### V2.5 Garantías y límites
+
+Condicionado a la historia y a la disponibilidad de la ronda t, el voraz por ganancia elige como primer nodo el de mayor utilidad individual entre los que caben en el saldo de costos y ruido. Si Oₜ es una solución óptima factible para **ese estado de una ronda**, cada o ∈ Oₜ cabe individualmente, y por submodularidad y monotonía f(Oₜ) ≤ Σₒ∈Oₜ f({o}) ≤ k·maxₒ∈Oₜ f({o}). El voraz conserva ese mejor primer nodo, así que f(Sₜ) ≥ f(Oₜ)/k (caso trivial si f(Oₜ)=0). Al tomar esperanza, la misma desigualdad vale respecto de la suma de los óptimos por estado realizado.
+
+Esta garantía es de **una ronda, con el estado ya observado**. Si en una ronda el presupuesto de costos no restringe, se conserva la cota estándar (1 − 1/e) del voraz bajo cupo. Cuando el presupuesto de costos también puede restringir, no se transfiere esa cota y usamos la cota 1/k demostrada arriba. Tampoco afirmamos una cota frente al óptimo de una política dinámica que planifique conjuntamente todas las rondas; la política miope no optimiza ese problema estocástico global. La falla puede dejar una ronda vacía, pero no invalida la factibilidad ni la garantía condicionada de las rondas con disponibilidad observada.
+
+### V2.6 Reproducibilidad y evidencia
+
+El parámetro p y la semilla deben formar parte de la configuración registrada en `resultado.json`. La evidencia por ronda debe incluir los nodos caídos, los disponibles, los candidatos con saldo, el orden elegido y su ganancia marginal, el reparto acumulado, las verificaciones y el tiempo medido con `time.perf_counter`. Los casos de borde son p = 0 (nadie falla), p = 1 (todos fallan en cada ronda), y una secuencia sembrada que produzca una ronda con todos caídos para comprobar que no se elige ni se gasta presupuesto. La ejecución de estos casos y la generación de tablas/CSV se describen en la issue #32 y quedan pendientes de la implementación de la issue #13.
