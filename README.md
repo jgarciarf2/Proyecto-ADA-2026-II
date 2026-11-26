@@ -135,6 +135,7 @@ Proyecto-ADA-2026-II/
 3. `tests/test_variantes.py`: comparar contra fuerza bruta en instancias pequeñas.
 4. `experimentos/variantes.py`: tiempos con al menos 5 tamaños de n, usando `experimentos/comun.py`.
 5. `docs/03_variantes.md`: formalización, cota y resultados.
+6. `docs/sustentacion/guia_estudio.md`: demostraciones clave, complejidades, preguntas de práctica y mapa del código.
 
 ---
 
