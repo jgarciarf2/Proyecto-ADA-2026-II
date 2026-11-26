@@ -136,6 +136,7 @@ Proyecto-ADA-2026-II/
 4. `experimentos/variantes.py`: tiempos con al menos 5 tamaños de n, usando `experimentos/comun.py`.
 5. `docs/03_variantes.md`: formalización, cota y resultados.
 6. `docs/sustentacion/guia_estudio.md`: demostraciones clave, complejidades, preguntas de práctica y mapa del código.
+7. `docs/sustentacion/guion_exposicion.md`: plan de 18 minutos, reparto editable, demostración V2 y respuestas breves para preguntas.
 
 ---
 
