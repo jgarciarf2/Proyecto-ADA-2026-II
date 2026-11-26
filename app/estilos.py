@@ -32,6 +32,8 @@ _TRAZOS = {
     "equis": '<path d="M6 6l12 12M18 6L6 18"/>',
     "info": '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
     "terminal": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/>',
+    "fallas": '<circle cx="6" cy="7" r="2"/><circle cx="18" cy="17" r="2"/>'
+              '<path d="M8 7h4l2 4-2 2 2 4h2M6 9v4l4 2"/>',
 }
 
 

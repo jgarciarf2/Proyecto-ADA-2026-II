@@ -1,6 +1,6 @@
 """
 Modo demo: casos sintéticos con el modelo de la profesora (grafo de influencia, T rondas,
-cupo k y presupuesto de participación P), para explicar en vivo la solución y la variante V1.
+cupo k y presupuesto de participación P), para explicar en vivo las soluciones base, V1 y V2.
 """
 import json
 from math import comb
@@ -10,6 +10,7 @@ import streamlit as st
 
 from ada.casos_red import caso_red_sintetico, leer_caso_red
 from ada.variantes.costos import k_max
+from ada.variantes.rondas import resolver_caso_red_v2
 from app.estilos import aviso, encabezado, nota
 from app.paginas import SELECCION_UI, _resolver
 from app.vista_resultado import mostrar
@@ -31,7 +32,11 @@ def modo_demo():
         B = st.slider("Presupuesto de ruido (B)", 0, 60, 20)
     with c3:
         semilla = st.number_input("Semilla", 0, 10_000, 7, step=1)
-        etiqueta = st.selectbox("Algoritmo que se muestra abajo", list(SELECCION_UI))
+        etiqueta = st.selectbox("Algoritmo", ["Voraz", "A · V1", "B · V1"])
+        simular_fallas = st.checkbox("V2: incluir fallas", value=False,
+                                     help="Simula fallas temporales independientes antes de cada ronda.")
+        p_falla = st.slider("Probabilidad de falla (p)", 0.0, 1.0, 0.2, step=0.05,
+                            disabled=not simular_fallas)
 
     datos = caso_red_sintetico(f"demo_N{N}_T{T}_k{k}_P{P}", N, T, k, B, P, R=max(1, B), densidad=densidad,
                                semilla=int(semilla))
@@ -61,9 +66,19 @@ def modo_demo():
     nota("Tiempo: solo la selección, sumando las rondas. El óptimo se calcula por fuerza bruta en cada ronda.")
     st.dataframe(pd.DataFrame(filas), hide_index=True, width="stretch")
 
-    clave = SELECCION_UI[etiqueta]
+    clave = {"Voraz": "ganancia", "A · V1": "A", "B · V1": "B"}[etiqueta]
     st.divider()
     if clave in resultados:
         mostrar(datos, resultados[clave], clave="demo")
     else:
         aviso("El algoritmo B no se calcula con tantos nodos en el modo demo. Baja N o elige otro algoritmo.")
+
+    if simular_fallas:
+        st.divider()
+        encabezado("V2 · rondas con fallas", "Simulación reproducible con nodos temporalmente fuera de servicio.",
+                   "fallas")
+        nota(f"Cada nodo falla independientemente con p = {p_falla:.2f} al inicio de cada ronda. "
+             "Las fallas se conocen antes de seleccionar y los nodos se recuperan en la siguiente ronda. "
+             "La semilla fija hace reproducible esta simulación.")
+        res_v2 = resolver_caso_red_v2(caso, float(p_falla), semilla_fallas=int(semilla), con_optimo=True)
+        mostrar(datos, res_v2, clave=f"demo-v2-{int(p_falla * 100)}-{int(semilla)}")

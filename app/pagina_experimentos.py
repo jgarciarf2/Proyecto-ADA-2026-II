@@ -12,8 +12,9 @@ from experimentos.comun import RAIZ
 
 def experimentos():
     encabezado("Experimentos", "Tiempo medido contra la función de eficiencia teórica y calidad contra el óptimo. "
-                               "Se generan con los scripts de experimentos/ (parte1, parte2, influencia y variantes).", "grafica")
-    p1, p2, p3, p4 = st.tabs(["Parte 1: reparto", "Parte 2: selección", "Parte 2: influencia", "Variante V1: costos"])
+                               "Se generan con los scripts de experimentos/.", "grafica")
+    p1, p2, p3, p4, p5 = st.tabs(["Parte 1: reparto", "Parte 2: selección", "Parte 2: influencia",
+                                 "Variante V1: costos", "Variante V2: fallas"])
     with p1:
         _figura("parte1/variaN.png", "Tiempo al variar N con B fijo",
                 "Izquierda: tiempo medido y la curva c₁·N + c₂·B·log₂N ajustada. Derecha: medido / predicho.")
@@ -40,6 +41,15 @@ def experimentos():
                 "restringe; solo valen 1/k y 1/⌈k/3⌉.")
         _figura("variantes/tiempo_A.png", "Tiempo del algoritmo A (k = 10)", "Crece como N²·k, igual que el voraz base.")
         _figura("variantes/tiempo_B.png", "Tiempo del algoritmo B (k = 5)", "Crece como C(N, 3)·N²·k = O(N⁵·k).")
+    with p5:
+        nota("Simulación V2 con fallas Bernoulli temporales e independientes. Genera los archivos con "
+             "<code>python -m experimentos.rondas</code>.")
+        _figura("variantes/v2/variaN.png", "Tiempo al variar N (T = 4)",
+                "Compara el tiempo medido con c·T·(N²k + B log₂(k+1)).")
+        _figura("variantes/v2/variaT.png", "Tiempo al variar T (N = 60)",
+                "El costo crece linealmente con las rondas, con N, k y B fijos.")
+        _figura("variantes/v2/calidad_falla.png", "Utilidad al variar la probabilidad p",
+                "Media y desviación estándar de ejecuciones con semillas reproducibles.")
 
 
 def _figura(ruta, titulo, texto):

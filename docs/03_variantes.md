@@ -5,7 +5,7 @@ Análisis y Diseño de Algoritmos · Universidad de Caldas · Entrega final
 El enunciado (§4.4) pide tres variantes obligatorias. Este documento usa la misma notación del documento de formulación ([formulacion.md](formulacion.md)) y cita sus secciones por número: la utilidad de influencia f (Definición 2), la ganancia marginal Δᵢ(S) y su cálculo en O(N) (secciones 5.5 y 5.6), el Lema 4 (f es monótona, submodular y f(∅) = 0) y el Teorema 3 (cota 1 − 1/e del voraz con solo cupo k).
 
 - **V1: costos de participación** (implementada; issue #11).
-- **V2: rondas con fallas** (formalizada en esta sección; implementación y evidencia en issues #13 y #32).
+- **V2: rondas con fallas** (formalizada e implementada; evidencia experimental en esta sección y en `resultados/variantes/v2/`).
 - V3: nodos vecinos (pendiente, issue #14).
 
 Las figuras se generan con `python -m experimentos.figuras_variantes`.
@@ -391,4 +391,37 @@ Esta garantía es de **una ronda, con el estado ya observado**. Si en una ronda 
 
 ### V2.6 Reproducibilidad y evidencia
 
-El parámetro p y la semilla deben formar parte de la configuración registrada en `resultado.json`. La evidencia por ronda debe incluir los nodos caídos, los disponibles, los candidatos con saldo, el orden elegido y su ganancia marginal, el reparto acumulado, las verificaciones y el tiempo medido con `time.perf_counter`. Los casos de borde son p = 0 (nadie falla), p = 1 (todos fallan en cada ronda), y una secuencia sembrada que produzca una ronda con todos caídos para comprobar que no se elige ni se gasta presupuesto. La ejecución de estos casos y la generación de tablas/CSV se describen en la issue #32 y quedan pendientes de la implementación de la issue #13.
+El parámetro p y la semilla forman parte de `resultado.json`. Por ronda se guardan nodos caídos, disponibles, candidatos con saldo, orden elegido, ganancia marginal, reparto, verificaciones y tiempo con `time.perf_counter`. `experimentos.casos` genera además `disponibilidad.csv`, con estado, saldo, selección y falla por nodo y ronda. Las pruebas cubren p = 0 (equivalencia con la solución base), p = 1 (todas las rondas vacías), y la ausencia de nodos caídos en la selección y el respeto de presupuestos.
+
+Los experimentos de tiempo usan la mediana de cinco ejecuciones, sin óptimo por fuerza bruta. Se varía N en seis tamaños con T = 4, y T en seis tamaños con N = 60; k = min(6, N), B = 20 y p = 0.2. La curva teórica se escala por la mediana de t/T(N²k + B log₂(k+1)). Cada barrido tiene al menos cinco tamaños, según el criterio de la entrega.
+
+| N, T=4 | Tiempo mediano (ms) |
+|---:|---:|
+| 20 | 0,43 |
+| 30 | 0,76 |
+| 40 | 1,24 |
+| 50 | 1,78 |
+| 60 | 2,49 |
+| 80 | 3,43 |
+
+| T, N=60 | Tiempo mediano (ms) |
+|---:|---:|
+| 1 | 0,66 |
+| 2 | 1,20 |
+| 4 | 2,49 |
+| 8 | 5,02 |
+| 12 | 7,31 |
+| 16 | 9,89 |
+
+La utilidad se estima sobre 30 semillas pareadas, con el mismo caso (N = 15, T = 5) para cada p. La desviación es poblacional. Al variar p, las mismas semillas permiten comparar escenarios.
+
+| p | Utilidad conjunta media | Desviación estándar |
+|---:|---:|---:|
+| 0,0 | 654,763 | 0,000 |
+| 0,2 | 637,813 | 9,063 |
+| 0,4 | 604,744 | 19,350 |
+| 0,6 | 505,308 | 38,986 |
+| 0,8 | 327,735 | 58,566 |
+| 1,0 | 0,000 | 0,000 |
+
+Los datos y gráficas se regeneran con `python -m experimentos.rondas` y quedan en `resultados/variantes/v2/` (`variaN.csv/.png`, `variaT.csv/.png`, `calidad_falla.csv/.png`).
