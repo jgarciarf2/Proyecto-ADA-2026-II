@@ -29,6 +29,9 @@ def test_traza_de_reparto_coincide_con_el_resultado():
     assert len(traza) == sum(x) == 60
     assert all(sum(r["nodo"] == i for r in traza) == x[i] for i in range(10))
     assert math.isclose(sum(r["ganancia_marginal"] for r in traza), total)
+    assert math.isclose(traza[-1]["utilidad_acumulada"], total)
+    por_nodo = [r for r in traza if r["nodo"] == traza[-1]["nodo"]]
+    assert por_nodo[-1]["unidades_acumuladas"] == x[traza[-1]["nodo"]]
 
 
 def test_la_traza_no_cambia_el_resultado():

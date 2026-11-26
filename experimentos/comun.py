@@ -35,7 +35,7 @@ def guardar_csv(ruta, filas, columnas=None):
     """Si no hay filas (por ejemplo, una ronda sin participantes) escribe solo el encabezado."""
     columnas = list(filas[0].keys()) if filas else (columnas or [])
     with open(ruta, "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=columnas)
+        w = csv.DictWriter(fh, fieldnames=columnas, lineterminator="\n")
         w.writeheader()
         w.writerows(filas)
 

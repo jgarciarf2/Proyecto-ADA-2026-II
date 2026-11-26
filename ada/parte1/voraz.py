@@ -40,7 +40,8 @@ def voraz_heap(utilidades, B, contador=None, traza=None):
         x[i] += 1
         total += -neg_g
         if traza is not None:
-            traza.append({"unidad": unidad, "nodo": i, "ganancia_marginal": -neg_g})
+            traza.append({"unidad": unidad, "nodo": i, "ganancia_marginal": -neg_g,
+                          "unidades_acumuladas": x[i], "utilidad_acumulada": total})
         heapq.heapreplace(heap, par((-utilidades[i].marginal(x[i]), i)))
     return x, total
 
