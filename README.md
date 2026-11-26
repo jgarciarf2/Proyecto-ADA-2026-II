@@ -6,7 +6,7 @@ Proyecto semestral de Análisis y Diseño de Algoritmos. Una red de N nodos entr
 |---|---|---|---|
 | 1. Reparto del presupuesto | Repartir B unidades entre N nodos con utilidades cóncavas | Voraz con montículo, óptimo por intercambio | Polinomial: `O(N + B log N)` |
 | 2. Selección de participantes | Elegir k de N nodos que maximicen una utilidad submodular | Voraz submodular, cota `(1 − 1/e)` | NP-difícil (reducción desde Cobertura Máxima) |
-| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 y V2 implementadas con experimentos; V3 pendiente (`docs/03_variantes.md`) | V1: garantías por régimen; V2: cota local 1/k con costos |
+| Variantes (todas obligatorias) | Costos de participación · T rondas con fallas · nodos vecinos | V1 y V2 implementadas con experimentos; V3 formalizada, implementación pendiente (`docs/03_variantes.md`) | V1: garantías por régimen; V2: cota local 1/k con costos; V3: voraz por unidades con cota (1 − 1/e) |
 
 ---
 
@@ -29,14 +29,14 @@ En la sustentación grupal cada uno debe poder explicar **sin notas** la reducci
 
 | Semanas | Hito | Estado |
 |---|---|---|
-| 1-2 | Equipo, variante y formalización escrita (sin código) | ✅ Formulación base y V2: `docs/formulacion.md`, `docs/03_variantes.md` · ⬜ formalizar V3 |
+| 1-2 | Equipo, variante y formalización escrita (sin código) | ✅ Formulación base, V2 y V3: `docs/formulacion.md`, `docs/03_variantes.md` |
 | 3-4 | Prueba de NP-dureza (revisa la profesora) | ✅ Hecha: `docs/formulacion.md` §7 (desde Cobertura Máxima y desde Conjunto Dominante) |
 | 5-6 | Algoritmo exacto y su T(n) | ✅ Parte 1 (voraz + verificador DP); ✅ Parte 2 (fuerza bruta) |
 | 7-8 | Aproximado, su T(n) y su cota | ✅ Voraz submodular con `(1 − 1/e)` |
 | 9-10 | Experimentos | ✅ Partes 1 y 2, V1 y V2 · ⬜ experimentos de V3 |
 | 11 | Entrega final y sustentación | ⬜ |
 
-**Estado del repositorio:** la solución base, V1 (costos) y V2 (fallas) están implementadas. V2 incluye experimentos de tiempo al variar N y T, y calidad al variar p, en `resultados/variantes/v2/`. V3 (efecto de vecinos) está pendiente. La auditoría final requiere integrar los resultados al informe.
+**Estado del repositorio:** la solución base, V1 (costos) y V2 (fallas) están implementadas. V2 incluye experimentos de tiempo al variar N y T, y calidad al variar p, en `resultados/variantes/v2/`. V3 (efecto de vecinos) está formalizada y analizada en `docs/03_variantes.md` (modelo, contraejemplo al voraz de la Parte 1, cota (1 − 1/e) y T(n)); falta implementarla (issue #15). La auditoría final requiere integrar los resultados al informe.
 
 ---
 
@@ -80,6 +80,7 @@ Proyecto-ADA-2026-II/
 │   ├── influencia.py             ← voraz de influencia: tiempo contra c·N²·k y cota (1 − 1/e) en 300 instancias
 │   ├── variantes.py              ← V1: tiempos de A y B contra la teoría y calidad contra el óptimo en 600 instancias
 │   ├── rondas.py                 ← V2: tiempos al variar N y T; calidad al variar p
+│   ├── exploracion_v3.py         ← V3: prototipo de referencia (voraz, búsqueda local y exacto) para docs/03_variantes.md §V3.10
 │   ├── figuras_informe.py        ← figuras del documento de formulación
 │   ├── figuras_manual.py         ← diagramas UML del manual técnico
 │   └── figuras_variantes.py      ← figuras de docs/03_variantes.md (contraejemplos de V1)
@@ -112,7 +113,7 @@ Proyecto-ADA-2026-II/
 │   ├── 01_formalizacion_y_parte1.md, 02_parte2.md  ← notas teóricas iniciales de las Partes 1 y 2
 │   ├── formulacion.md            ← formulación completa de la primera entrega (modelo, demostraciones, reducciones, T(n))
 │   ├── manual_tecnico.md         ← manual técnico: arquitectura, UML, formatos, ejecución, pruebas, limitaciones
-│   ├── 03_variantes.md           ← teoría y evidencia de V1 (costos) y V2 (fallas); V3 pendiente
+│   ├── 03_variantes.md           ← teoría y evidencia de V1 (costos) y V2 (fallas); teoría de V3 (vecinos)
 │   ├── figuras/                  ← diagramas del documento (python -m experimentos.figuras_informe)
 │   └── entrega-1/                ← PDF entregados: informe (formulación) y manual técnico
 └── entregables/                  ← informe, manual y evidencias en PDF/Word (NO se sube al repo)
@@ -187,6 +188,7 @@ python -m experimentos.parte2     # ~20 s: cota (1−1/e), tiempos del voraz, vo
 python -m experimentos.influencia # ~1 min: voraz de influencia contra c·N²·k y cota con y sin costos
 python -m experimentos.variantes  # ~15 s: V1, tiempos de A y B y calidad contra el óptimo
 python -m experimentos.rondas     # V2: tiempos al variar N/T y utilidad al variar p
+python -m experimentos.exploracion_v3  # ~35 s: V3, prototipo que reproduce las tablas exploratorias de docs/03_variantes.md
 ```
 
 Los CSV y las gráficas quedan en `resultados/parte1/`, `resultados/parte2/`, `resultados/influencia/` y `resultados/variantes/`.
